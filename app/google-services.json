@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "16475780214",
+    "firebase_url": "https://sc-app-1ce6f.firebaseio.com",
+    "project_id": "sc-app-1ce6f",
+    "storage_bucket": "sc-app-1ce6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16475780214:android:7415877b4f945fdfe89b57",
+        "android_client_info": {
+          "package_name": "shop.carate.shopper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16475780214-3s5hq5s9o2nogk7tfs9168hpsnmeflkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIW3qDoni_iqONUNS82OJvR2WI00cRqiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16475780214-3s5hq5s9o2nogk7tfs9168hpsnmeflkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
