@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("new");
         Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
-        myRef.setValue("test@test.com");
+//        myRef.setValue("test@test.com");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
