@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -40,6 +42,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import shop.carate.shopper.MainActivity;
 import shop.carate.shopper.R;
@@ -60,6 +64,8 @@ public class register extends AppCompatActivity {
 
     private String userEmail;
     private String userPass;
+
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     private static final int PICK_IMAGE_REQUEST = 234;
 
@@ -189,7 +195,7 @@ public class register extends AppCompatActivity {
             }
         });
         singUp();
-        uploadFile();
+      //  uploadFile();
 //        upload_image();
 
 
@@ -219,6 +225,9 @@ public class register extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            ImageUpload(bitmap);
+
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -278,7 +287,68 @@ public class register extends AppCompatActivity {
 
     }
 
+    private void ImageUpload( final Bitmap bitmap) {
 
+       Bitmap bitmapImage = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+        ByteArrayOutputStream baosImage = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 75, baosImage);
+        byte[] byteImage = baosImage.toByteArray();
+
+        final StorageReference storageImage = storageReference.child("images/test.jpg");
+
+        storageImage.putBytes(byteImage)
+                .addOnCanceledListener(new OnCanceledListener() {
+                    @Override
+                    public void onCanceled() {
+                        Log.e("error", "calc");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("error", e.toString());
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> taskImage) {
+                        if (taskImage.isSuccessful()) {
+
+                            storageImage.getDownloadUrl()
+                                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                            Uri uriImage = task.getResult();
+                                            String stringImage = uriImage.toString();
+                                                Log.e("error", stringImage);
+//                                            Map<String, Object> mapImage = new HashMap<>();
+//                                            mapImage.put("user_image", stringImage);
+//
+//                                            firebaseFirestore.collection("users")
+//                                                    .document(currentUser)
+//                                                    .update(mapImage)
+//                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                        @Override
+//                                                        public void onComplete(@NonNull Task<Void> task) {
+//                                                            if (task.isSuccessful()) {
+//                                                               // CoverUpload(currentUser, bitmap, currentCover, carouselNumber);
+//                                                            } else {
+//                                                                Toast.makeText(register.this,
+//                                                                        "Something went wrong. Please try again!",
+//                                                                        Toast.LENGTH_SHORT).show();
+//                                                            }
+//                                                        }
+//                                                    });
+                                        }
+                                    });
+                        }
+                        else{
+                            Log.e("error", "incomplte");
+                        }
+                    }
+                });
+
+    }
 
     private void uploadFile() {
         //if there is a file to upload

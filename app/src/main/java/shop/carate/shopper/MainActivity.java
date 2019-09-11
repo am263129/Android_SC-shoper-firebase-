@@ -23,7 +23,7 @@ import shop.carate.shopper.ui.register.register;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public String TAG = "Main";
-    private Button Login, Register;
+    private Button Login, Register,newTask;
     public static MainActivity myself;
     private Intent intent;
     @Override
@@ -33,8 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myself = this;
         Login = (Button)findViewById(R.id.btn_login);
         Register = (Button)findViewById(R.id.btn_register);
+        newTask = (Button)findViewById(R.id.btn_make_newtask);
         Login.setOnClickListener(this);
         Register.setOnClickListener(this);
+        newTask.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("new");
@@ -65,7 +67,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, register.class);
                 startActivity(intent);
                 break;
-
+            case R.id.btn_make_newtask:
+                intent = new Intent(this, make_task.class);
+                startActivity(intent);
+                break;
         }
 
     }
