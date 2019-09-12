@@ -1,7 +1,9 @@
 package shop.carate.shopper;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button Login, Register,newTask;
     public static MainActivity myself;
     private Intent intent;
+
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
             }
         });
+
     }
 
     @Override

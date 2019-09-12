@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/acrionbar_primary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,4 +12,7 @@
         <item name="colorAccent">@android:color/holo_green_dark</item>
     </style>
 
+    <style name="AppBarOverlay" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/acrionbar_primary</item>
+    </style>
 </resources>
