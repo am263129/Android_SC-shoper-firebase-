@@ -140,9 +140,11 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         myRef.setValue(Global.task_description);
         myRef = database.getReference(id+"/Task_deadline");
         myRef.setValue(Global.task_deadline);
-//        myRef = database.getReference(id+"/Task_deadline");
-//        myRef.setValue(gender);
-//        myRef = database.getReference(id+"/Hird_members");
+        for(int i  = 0;i < Global.array_hired_members.size();i ++){
+            myRef = database.getReference(id+"/Hird_members/Hired" + i+1 );
+            myRef.setValue(Global.array_hired_members.get(i).getName());
+        }
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

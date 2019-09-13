@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Filterable;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import shop.carate.shopper.R;
 import shop.carate.shopper.util.Global;
 
 
-public class memberAdapter_list extends ArrayAdapter <Member>{
+public class memberAdapter_list extends ArrayAdapter <Member> implements Filterable {
 
 
     ArrayList<Member> array_all_members = new ArrayList<>();
