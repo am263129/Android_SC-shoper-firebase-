@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
         <item android:id="@+id/nav_item_one"
-            android:icon="@drawable/ico_team"
-            android:title="Item 1" />
+            android:icon="@drawable/nav_ico_team"
+            android:title="All Members" />
         <item android:id="@+id/nav_item_two"
-            android:icon="@drawable/ico_task_manage"
-            android:title="Item 2" />
+            android:icon="@drawable/nav_ico_task_manage"
+            android:title="Make New Task" />
         <item android:id="@+id/nav_item_three"
+            android:icon="@drawable/nav_ico_mytask"
+            android:title="My Tasks" />
+        <item android:id="@+id/nav_item_six"
             android:icon="@drawable/ico_profile_setting"
-            android:title="Item 3" />
+            android:title="Setting" />
+        <item android:id="@+id/nav_item_seven"
+            android:icon="@drawable/nav_ico_exit"
+            android:title="Exit" />
     </group>
-
-    <group android:id="@+id/group_menu">
-        <item android:id="@+id/nav_item_four"
-            android:title="Item 4" />
-        <item android:id="@+id/nav_item_five"
-            android:title="Item 5" />
-    </group>
-
-    <item android:title="Title 1">
+    <item
+        android:id="@+id/connect_us"
+        android:title="Connect with us">
         <menu>
-            <item android:id="@+id/nav_item_six"
-                android:icon="@drawable/ico_home"
-                android:title="Item 6" />
-            <item android:id="@+id/nav_item_seven"
-                android:icon="@drawable/ico_exit"
-                android:title="Item 7" />
+            <item
+                android:id="@+id/social_items"
+                android:checkable="true"
+                app:showAsAction="always"
+                android:title=""
+                app:actionLayout="@layout/contact_us"/>
         </menu>
     </item>
 </menu>

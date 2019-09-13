@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="horizontal"
+android:gravity="start">
+
+<ImageView
+    android:id="@+id/connect_youtube"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/ico_email"
+    android:layout_marginLeft="20dp"
+    android:layout_marginStart="20dp"
+    android:padding="5dp" />
+<ImageView
+    android:id="@+id/connect_facebook"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/ico_facebook"
+    android:padding="5dp"/>
+<ImageView
+    android:id="@+id/connect_twitter"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/ico_twitter"
+    android:padding="5dp"/>
+
+</LinearLayout>

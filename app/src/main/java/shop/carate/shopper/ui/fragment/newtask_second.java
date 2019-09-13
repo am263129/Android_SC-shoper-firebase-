@@ -1,7 +1,6 @@
 package shop.carate.shopper.ui.fragment;
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,10 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import shop.carate.shopper.MainActivity;
 import shop.carate.shopper.R;
-import shop.carate.shopper.make_task;
-import shop.carate.shopper.util.DateClass;
+import shop.carate.shopper.make_new_task;
 import shop.carate.shopper.util.Global;
 
 public class newtask_second extends Fragment implements View.OnClickListener{
@@ -74,7 +71,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
                     start_month = month;
                     start_day = day;
                 }
-                picker = new DatePickerDialog(make_task.getInstance(),
+                picker = new DatePickerDialog(make_new_task.getInstance(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -96,7 +93,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
                     end_month = month;
                     end_day = day;
                 }
-                picker = new DatePickerDialog(make_task.getInstance(),
+                picker = new DatePickerDialog(make_new_task.getInstance(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

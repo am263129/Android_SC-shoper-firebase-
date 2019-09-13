@@ -38,12 +38,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:text="Name:"
+                    android:text="Name :"
                     android:textSize="18sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -59,16 +59,41 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/label_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:text="Email:"
+                    android:text="Email :"
                     android:textSize="18sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/label_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:text="Gender :"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/user_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"

@@ -1,15 +1,18 @@
 package shop.carate.shopper;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -20,41 +23,111 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import shop.carate.shopper.ui.login.LoginActivity;
-import shop.carate.shopper.ui.register.register;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import shop.carate.shopper.member.Member;
+import shop.carate.shopper.ui.ViewPagerAdapter;
+import shop.carate.shopper.util.Global;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public String TAG = "Main";
-    private Button Login, Register,newTask;
+    private LinearLayout all_members, new_task, my_task, about_us;
     public static MainActivity myself;
     private Intent intent;
-
-    private DrawerLayout dl;
-    private ActionBarDrawerToggle t;
-    private NavigationView nv;
+    private TextView current_user_name, current_user_email;
+    private NavigationView navigationView;
+    ViewPager viewPager;
+    private ArrayList<Member> array_all_members = new ArrayList<Member>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myself = this;
-        Login = (Button)findViewById(R.id.btn_login);
-        Register = (Button)findViewById(R.id.btn_register);
-        newTask = (Button)findViewById(R.id.btn_make_newtask);
-        Login.setOnClickListener(this);
-        Register.setOnClickListener(this);
-        newTask.setOnClickListener(this);
+        all_members = (LinearLayout)findViewById(R.id.btn_all_members);
+        new_task = (LinearLayout)findViewById(R.id.btn_newtask);
+        my_task = (LinearLayout)findViewById(R.id.btn_mytask);
+        about_us = (LinearLayout)findViewById(R.id.btn_about_us);
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+        current_user_name = (TextView)headerView.findViewById(R.id.current_user_name);
+        current_user_email = (TextView)headerView.findViewById(R.id.current_user_email);
+
+        all_members.setOnClickListener(this);
+        new_task.setOnClickListener(this);
+        my_task.setOnClickListener(this);
+        about_us.setOnClickListener(this);
+//        Login = (Button)findViewById(R.id.btn_login);
+//        Register = (Button)findViewById(R.id.btn_register);
+//        newTask = (Button)findViewById(R.id.btn_make_newtask);
+//        Login.setOnClickListener(this);
+//        Register.setOnClickListener(this);
+//        newTask.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.logo);
+        toolbar.setTitle(R.string.project_id);
+        toolbar.setTitleTextColor(Color.BLACK);
+
+        current_user_name.setText(Global.current_user_name);
+        current_user_email.setText(Global.current_user_email);
+
+        viewPager = (ViewPager) findViewById(R.id.slider);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPager.setAdapter(viewPagerAdapter);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("new");
+        DatabaseReference myRef = database.getReference("DG");
         Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
 //        myRef.setValue("test@test.com");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is:" + value);
+//                String value = dataSnapshot.getValue(String.class);
+//                Log.d(TAG, "Value is:" + value);
+                if (dataSnapshot.exists()){
+                    HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
+//                    Member Member = dataSnapshot.getValue(Member.class);
+//                    Log.d(TAG, "User name: " + Member.getName() + ", email " + Member.getEmail());
+                    for (String key : dataMap.keySet()){
+
+                        Object data = dataMap.get(key);
+
+                        try{
+                            HashMap<String, Object> userData = (HashMap<String, Object>) data;
+                            String userName = userData.get("Name").toString();
+                            String userEmail = userData.get("Email").toString();
+                            String userGender = userData.get("Gender").toString();
+                            array_all_members.add(new Member(userName, userEmail, userGender));
+
+                            Log.e("OKOKOK",userName);
+                            Log.e("email: ",userEmail);
+                            Log.e("gender", userGender);
+
+
+                        }catch (ClassCastException cce){
+
+// If the object can’t be casted into HashMap, it means that it is of type String.
+
+                            try{
+
+                                String mString = String.valueOf(dataMap.get(key));
+                                Log.e(TAG, mString);
+
+                            }catch (ClassCastException cce2){
+
+                            }
+                        }
+
+                    }
+                    Global.array_all_members = array_all_members;
+                }
             }
 
             @Override
@@ -68,21 +141,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_login:
-                intent = new Intent(this, LoginActivity.class);
+            case R.id.btn_all_members:
+                intent = new Intent(this, members.class);
                 startActivity(intent);
                 break;
-            case R.id.btn_register:
-                intent = new Intent(this, register.class);
-                startActivity(intent);
+            case R.id.btn_mytask:
                 break;
-            case R.id.btn_make_newtask:
-                intent = new Intent(this, make_task.class);
+            case R.id.btn_newtask:
+                intent = new Intent(this, make_new_task.class);
                 startActivity(intent);
                 break;
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
+        return true;
+    }
+
     public static MainActivity getInstance(){
         return myself;
     }

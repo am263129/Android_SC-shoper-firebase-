@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.register.register">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/splash"
         android:orientation="vertical">
 
         <LinearLayout
@@ -15,19 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical"
             android:padding="10dp">
 
             <LinearLayout
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:background="@drawable/rounded_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@drawable/back_flow"
+                android:orientation="vertical"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp">
 
 
                 <LinearLayout
@@ -46,13 +48,15 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/username" />
+                            android:text="@string/username"
+                            android:textColor="@color/flatui_silver" />
 
                         <EditText
                             android:id="@+id/username_edt"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -63,12 +67,6 @@
 
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/add_photo" />
-
                         <ImageView
                             android:id="@+id/profile_pic"
                             android:layout_width="80dp"
@@ -76,6 +74,13 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/dummy_user" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/add_photo"
+                            android:textColor="@color/flatui_silver" />
 
 
                     </LinearLayout>
@@ -92,13 +97,15 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/email" />
+                        android:text="@string/email"
+                        android:textColor="@color/flatui_silver" />
 
                     <EditText
                         android:id="@+id/email_edt"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -110,13 +117,15 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/password" />
+                        android:text="@string/password"
+                        android:textColor="@color/flatui_silver" />
 
                     <EditText
                         android:id="@+id/password_edt"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -128,7 +137,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/gender" />
+                        android:text="@string/gender"
+                        android:textColor="@color/flatui_silver" />
 
                     <RadioGroup
                         android:id="@+id/genderrb"
@@ -142,7 +152,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="@string/male" />
+                            android:text="@string/male"
+                            android:textColor="@color/common_google_signin_btn_text_light_pressed" />
 
                         <RadioButton
                             android:id="@+id/femalerb"
@@ -150,7 +161,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:checked="false"
-                            android:text="@string/female" />
+                            android:text="@string/female"
+                            android:textColor="@color/common_google_signin_btn_text_light_pressed" />
 
 
                     </RadioGroup>
@@ -158,23 +170,24 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginBottom="15dp"
                     android:id="@+id/register_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/button_rounded"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/selector_btn_next"
                     android:text="@string/register"
                     android:textColor="@color/white" />
-
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"></LinearLayout>
+                android:layout_height="200dp">
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

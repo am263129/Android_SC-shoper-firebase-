@@ -1,20 +1,22 @@
 package shop.carate.shopper.ui.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import shop.carate.shopper.R;
 
-public class newtask_preview extends Fragment {
+public class make_task extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-// Inflate the layout for this fragment
-        return inflater.inflate(R.layout.newtask_preview, container, false);
+        View view =  inflater.inflate(R.layout.activity_make_task, container, false);
+
+
+        return view;
     }
 }
-

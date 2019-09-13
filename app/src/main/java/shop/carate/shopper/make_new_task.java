@@ -18,7 +18,7 @@ import shop.carate.shopper.ui.fragment.newtask_second;
 import shop.carate.shopper.ui.fragment.newtask_third;
 import shop.carate.shopper.util.Global;
 
-public class make_task extends AppCompatActivity implements View.OnClickListener{
+public class make_new_task extends AppCompatActivity implements View.OnClickListener{
 
     private FrameLayout task_area;
     private Button btn_pre, btn_next, btn_preview, btn_finish;
@@ -27,7 +27,7 @@ public class make_task extends AppCompatActivity implements View.OnClickListener
     private Fragment newtask_third;
     private Fragment newtask_preview;
     private TextView header;
-    public static make_task make_task;
+    public static make_new_task make_task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class make_task extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(make_task.this,String.valueOf(Global.mk_task_progress),Toast.LENGTH_LONG).show();
+        Toast.makeText(make_new_task.this,String.valueOf(Global.mk_task_progress),Toast.LENGTH_LONG).show();
         switch (view.getId()){
             case R.id.btn_next:
                 Global.mk_task_progress = Global.mk_task_progress+1;
@@ -142,7 +142,7 @@ public class make_task extends AppCompatActivity implements View.OnClickListener
         fragmentTransaction.replace(R.id.frame_make_task, fragment);
         fragmentTransaction.commit();
     }
-    public static make_task getInstance(){
+    public static make_new_task getInstance(){
         return make_task;
     }
 

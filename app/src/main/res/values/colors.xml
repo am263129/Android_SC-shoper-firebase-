@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#FAFDDC</color>
+    <color name="white">#FFFFFF</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
@@ -10,8 +10,8 @@
     <color name="orange2">#ff5d69</color>
     <color name="orange3">#ff554d</color>
     <color name="textcolor">#1a2025</color>
-    <color name="dark">#1a2025</color>
-    <color name="bg">#f3f5f7</color>
+    <color name="dark">#1A2025</color>
+    <color name="bg">#F3F5F7</color>
     <color name="grey_40">#999999</color>
     <color name="flatui_turquoise">#1abc9c</color>
     <color name="flatui_green_sea">#16a085</color>
@@ -29,7 +29,7 @@
     <color name="flatui_pumpkin">#d35400</color>
     <color name="flatui_alizarin">#e74c3c</color>
     <color name="flatui_pomegranate">#c0392b</color>
-    <color name="flatui_silver">#bdc3c7</color>
+    <color name="flatui_silver">#BDC3C7</color>
     <color name="flatui_concrete">#95a5a6</color>
     <color name="flatui_asbestos">#7f8c8d</color>
 
@@ -51,7 +51,7 @@
     <color name="orange">#f39c12</color>
     <color name="pumpkin">#d35400</color>
     <color name="pomegranate">#c0392b</color>
-    <color name="silver">#bdc3c7</color>
+    <color name="silver">#BDC3C7</color>
     <color name="asbestos">#7f8c8d</color>
 
     <color name="grey_5">#f2f2f2</color>
@@ -59,12 +59,12 @@
     <color name="grey_90">#263238</color>
     <color name="color3">#ff5e52</color>
 
-    <color name="gray_dark_transparent">#ae858585</color>
-    <color name="gray_light">#e8e8e8</color>
+    <color name="gray_dark_transparent">#AE858585</color>
+    <color name="gray_light">#E8E8E8</color>
     <color name="green">#38be55</color>
     <color name="green_dark">#2da346</color>
     <color name="badge_background_color">#2da346</color>
 
-    <color name="acrionbar_primary">#eb7066</color>
+    <color name="acrionbar_primary">#EB7066</color>
 
 </resources>

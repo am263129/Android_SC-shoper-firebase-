@@ -7,14 +7,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.text.NumberFormat;
 
 import shop.carate.shopper.R;
-import shop.carate.shopper.make_task;
 import shop.carate.shopper.util.Global;
 
 public class newtask_first extends Fragment {
