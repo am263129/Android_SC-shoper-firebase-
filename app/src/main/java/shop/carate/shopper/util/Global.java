@@ -19,6 +19,8 @@ public class Global {
     public static String task_deadline;
     public static String[] task_hired_members;
 
-    public static boolean is_select_member = false;
+    public static boolean is_hiring_member = false;
     public static ArrayList<Member> array_all_members = new ArrayList<Member>();
+    public static ArrayList<Member> array_hired_members = new ArrayList<Member>();
+    public static ArrayList<Boolean> hired_status = new ArrayList<Boolean>();
 }

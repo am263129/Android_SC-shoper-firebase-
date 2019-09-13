@@ -1,16 +1,28 @@
 package shop.carate.shopper;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
+import java.util.Random;
 
 import shop.carate.shopper.ui.fragment.newtask_first;
 import shop.carate.shopper.ui.fragment.newtask_preview;
@@ -29,6 +41,9 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
     private TextView header;
     public static make_new_task make_task;
 
+    private Calendar calendar;
+    int random;
+    private String TAG = "make_new_task";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +57,17 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         btn_pre.setOnClickListener(this);
         btn_next.setOnClickListener(this);
         btn_preview.setOnClickListener(this);
+        btn_finish.setOnClickListener(this);
         newtask_first = new newtask_first();
         newtask_second = new newtask_second();
         newtask_third = new newtask_third();
         newtask_preview = new newtask_preview();
         make_task = this;
+
+        final int min = 1000;
+        final int max = 9999;
+        random = new Random().nextInt((max - min) + 1) + min;
+
         changeTaskArea(0);
     }
     protected void onResume() {
@@ -96,10 +117,48 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 btn_preview.setVisibility(view.GONE);
                 btn_finish.setVisibility(View.VISIBLE);
                 changeTaskArea(Global.mk_task_progress);
+                calendar = Calendar.getInstance();
+                Global.task_id = Global.current_user_name + ":" + random;
+                break;
+            case R.id.btn_finish:
+                uploadNewTask();
+                break;
+
 
             default:
                 break;
         }
+    }
+
+    private void uploadNewTask() {
+        FirebaseApp.initializeApp(this);
+        String id = "TASK/" + Global.task_id;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(id+"/Task_Title");
+        myRef.setValue(Global.task_title);
+        myRef = database.getReference(id+"/Task_Description");
+        myRef.setValue(Global.task_description);
+        myRef = database.getReference(id+"/Task_deadline");
+        myRef.setValue(Global.task_deadline);
+//        myRef = database.getReference(id+"/Task_deadline");
+//        myRef.setValue(gender);
+//        myRef = database.getReference(id+"/Hird_members");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is:" + value);
+                Toast.makeText(make_new_task.this,"Making New Task Finished Successfully",Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG,"Failed to rad value ", databaseError.toException());
+                Toast.makeText(make_new_task.this,"Making New Task Failed. the error code is"+databaseError.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private boolean validateTask() {

@@ -60,12 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_task.setOnClickListener(this);
         my_task.setOnClickListener(this);
         about_us.setOnClickListener(this);
-//        Login = (Button)findViewById(R.id.btn_login);
-//        Register = (Button)findViewById(R.id.btn_register);
-//        newTask = (Button)findViewById(R.id.btn_make_newtask);
-//        Login.setOnClickListener(this);
-//        Register.setOnClickListener(this);
-//        newTask.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitle(R.string.project_id);
         toolbar.setTitleTextColor(Color.BLACK);
 
-        current_user_name.setText(Global.current_user_name);
-        current_user_email.setText(Global.current_user_email);
+
 
         viewPager = (ViewPager) findViewById(R.id.slider);
 
@@ -104,6 +97,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String userName = userData.get("Name").toString();
                             String userEmail = userData.get("Email").toString();
                             String userGender = userData.get("Gender").toString();
+                            if(userEmail.equals(Global.current_user_email)) {
+                                Global.current_user_name = userName;
+                                current_user_name.setText(Global.current_user_name);
+                                current_user_email.setText(Global.current_user_email);
+                                //here user avatar setting
+                            }
                             array_all_members.add(new Member(userName, userEmail, userGender));
 
                             Log.e("OKOKOK",userName);
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         }catch (ClassCastException cce){
 
-// If the object can’t be casted into HashMap, it means that it is of type String.
 
                             try{
 
@@ -157,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
         return true;
     }

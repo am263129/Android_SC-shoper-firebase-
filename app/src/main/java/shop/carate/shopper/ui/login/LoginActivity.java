@@ -97,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Global.current_user_name = user.getUid();
                             Global.current_user_email = user.getEmail();
                             Intent intent = new Intent(LoginActivity.this, shop.carate.shopper.MainActivity.class);
                             startActivity(intent);

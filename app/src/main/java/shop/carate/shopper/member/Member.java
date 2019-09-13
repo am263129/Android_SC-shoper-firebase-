@@ -4,7 +4,7 @@ public class Member {
     public String name;
     public String email;
     public String gender;
-
+    public boolean hired;
     public Member(){
 
     }
@@ -12,6 +12,7 @@ public class Member {
         this.name = name;
         this.email = email;
         this.gender = gender;
+        this.hired = hired;
     }
 
     public String getName(){
@@ -22,5 +23,8 @@ public class Member {
     }
     public String getGender(){
         return this.gender;
+    }
+    public boolean getStatus(){
+        return this.hired;
     }
 }
