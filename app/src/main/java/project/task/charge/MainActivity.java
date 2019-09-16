@@ -1,4 +1,4 @@
-package shop.carate.shopper;
+package project.task.charge;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,9 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import shop.carate.shopper.member.Member;
-import shop.carate.shopper.ui.ViewPagerAdapter;
-import shop.carate.shopper.util.Global;
+import project.task.charge.member.Member;
+import project.task.charge.util.Global;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ViewPager viewPager;
     private ArrayList<Member> array_all_members = new ArrayList<Member>();
 
+    private String USER_NAME = "Name";
+    private String USER_GENDER = "Gender";
+    private String USER_EMAIL = "Email";
+    private String TASK_TITLE = "Title";
+    private String TASK_DATE_START = "Start date";
+    private String TASK_DATE_END = "End date";
+    private String TASK_DURATION = "Duration";
+    private String TASK_HIRED = "Hired members";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +60,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         my_task = (LinearLayout)findViewById(R.id.btn_mytask);
         about_us = (LinearLayout)findViewById(R.id.btn_about_us);
         navigationView = (NavigationView)findViewById(R.id.nav_view);
-
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.menu_all_members:
+                        intent = new Intent(MainActivity.this, members.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.menu_make_task:
+                        intent = new Intent(MainActivity.this, make_new_task.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.menu_mytask:
+                        intent = new Intent(MainActivity.this, my_task.class);
+                        startActivity(intent);
+//                showHelp();
+                        return true;
+                    case R.id.menu_profile_setting:
+//                showHelp();
+                        return true;
+                    case R.id.menu_exit:
+                        finish();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
         View headerView = navigationView.getHeaderView(0);
         current_user_name = (TextView)headerView.findViewById(R.id.current_user_name);
         current_user_email = (TextView)headerView.findViewById(R.id.current_user_email);
@@ -69,14 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitleTextColor(Color.BLACK);
 
 
-
-        viewPager = (ViewPager) findViewById(R.id.slider);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
-        viewPager.setAdapter(viewPagerAdapter);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("DG");
+        DatabaseReference myRef = database.getReference("Member");
         Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
 //        myRef.setValue("test@test.com");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -101,22 +131,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Global.current_user_name = userName;
                                 current_user_name.setText(Global.current_user_name);
                                 current_user_email.setText(Global.current_user_email);
-                                //here user avatar setting
                             }
                             array_all_members.add(new Member(userName, userEmail, userGender));
-
-                            Log.e("OKOKOK",userName);
-                            Log.e("email: ",userEmail);
-                            Log.e("gender", userGender);
-
-
                         }catch (ClassCastException cce){
 
 
                             try{
 
                                 String mString = String.valueOf(dataMap.get(key));
-                                Log.e(TAG, mString);
+//                                Log.e(TAG, mString);
 
                             }catch (ClassCastException cce2){
 
@@ -131,6 +154,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
+            }
+        });
+        DatabaseReference post_Ref = database.getReference("POST");
+        post_Ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    HashMap<String, Object> postData = (HashMap<String, Object>) dataSnapshot.getValue();
+                        try{
+                            String post_title = postData.get("Title").toString();
+                            String post_desc = postData.get("Description").toString();
+                            String post_created = postData.get("Created date").toString();
+                            TextView title = (TextView) findViewById(R.id.post_title);
+                            TextView desc = (TextView)findViewById(R.id.post_desc);
+                            TextView created = (TextView)findViewById(R.id.post_created);
+                            title.setText(post_title.toString());
+                            desc.setText(post_desc.toString());
+                            created.setText(post_created.toString());
+
+
+
+                        }catch (ClassCastException cce){
+                        }
+
+
+                    Global.array_all_members = array_all_members;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG,"Failed to rad value ", databaseError.toException());
+            }
+        });
+
+        DatabaseReference Project_Ref = database.getReference("Project");
+        Project_Ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.e("Count " ,""+snapshot.getChildrenCount());
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    String name = ds.getKey();
+                    Global.list_project.add(name);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("The read failed: " ,databaseError.toString());
             }
         });
 
@@ -158,6 +231,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_all_members:
+                intent = new Intent(this, members.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_make_task:
+                intent = new Intent(this, make_new_task.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_mytask:
+//                showHelp();
+                return true;
+            case R.id.menu_profile_setting:
+//                showHelp();
+                return true;
+            case R.id.menu_exit:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     public static MainActivity getInstance(){
         return myself;

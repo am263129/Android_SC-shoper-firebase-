@@ -1,4 +1,4 @@
-package shop.carate.shopper;
+package project.task.charge;
 
 import org.junit.Test;
 

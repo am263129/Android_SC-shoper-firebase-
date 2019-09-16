@@ -1,8 +1,9 @@
-package shop.carate.shopper.util;
+package project.task.charge.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import shop.carate.shopper.member.Member;
+import project.task.charge.member.Member;
 
 public class Global {
     public static String current_user_name = "";
@@ -23,4 +24,5 @@ public class Global {
     public static ArrayList<Member> array_all_members = new ArrayList<Member>();
     public static ArrayList<Member> array_hired_members = new ArrayList<Member>();
     public static ArrayList<Boolean> hired_status = new ArrayList<Boolean>();
+    public static List<String> list_project = new ArrayList<String>();
 }

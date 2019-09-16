@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private ProgressBar loading;
     public static Integer INVALIDEMAIL = 1;
     private Integer INVLAIDPASS = 2;
     private Integer EMPTYEMAIL = 3;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        loading = (ProgressBar)findViewById(R.id.loading);
         ProgressBar loadingProgressBar = findViewById(R.id.loading);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this,"Please input Password",Toast.LENGTH_LONG).show();
                         break;
                     case 0:
+                        loading.setVisibility(View.VISIBLE);
                         login();
                         break;
                     default:
@@ -95,17 +98,44 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            loading.setVisibility(View.INVISIBLE);
+                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Global.current_user_email = user.getEmail();
                             Intent intent = new Intent(LoginActivity.this, shop.carate.shopper.MainActivity.class);
                             startActivity(intent);
+                            finish();
+
                         } else {
+                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this,"Login Failed, please try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
                         }
+
+                        // ...
                     }
                 });
+
+//        mAuth.signInWithEmailAndPassword(username, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            loading.setVisibility(View.INVISIBLE);
+//                            Log.d(TAG, "signInWithEmail:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            Global.current_user_email = user.getEmail();
+//                            Intent intent = new Intent(LoginActivity.this, shop.carate.shopper.MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        } else {
+//                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+//                            Toast.makeText(LoginActivity.this,"Login Failed, please try again", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
 
 
 

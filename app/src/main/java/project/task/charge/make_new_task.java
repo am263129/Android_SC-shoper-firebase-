@@ -134,14 +134,18 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         FirebaseApp.initializeApp(this);
         String id = "TASK/" + Global.task_id;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(id+"/Task_Title");
+        DatabaseReference myRef = database.getReference(id+"/A_Title");
         myRef.setValue(Global.task_title);
-        myRef = database.getReference(id+"/Task_Description");
+        myRef = database.getReference(id+"/B_Description");
         myRef.setValue(Global.task_description);
-        myRef = database.getReference(id+"/Task_deadline");
+        myRef = database.getReference(id+"/C_Duration");
         myRef.setValue(Global.task_deadline);
+        myRef = database.getReference(id+"/C_Start_date");
+        myRef.setValue(Global.task_start_date);
+        myRef = database.getReference(id+"/C_End_date");
+        myRef.setValue(Global.task_end_date);
         for(int i  = 0;i < Global.array_hired_members.size();i ++){
-            myRef = database.getReference(id+"/Hird_members/Hired" + i+1 );
+            myRef = database.getReference(id+"/Hird_members/Hired" + (i+1) );
             myRef.setValue(Global.array_hired_members.get(i).getName());
         }
 

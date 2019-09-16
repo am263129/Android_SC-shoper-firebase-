@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "16475780214",
-    "firebase_url": "https://sc-app-1ce6f.firebaseio.com",
-    "project_id": "sc-app-1ce6f",
-    "storage_bucket": "sc-app-1ce6f.appspot.com"
+    "project_number": "786330637245",
+    "firebase_url": "https://charge-54eb5.firebaseio.com",
+    "project_id": "charge-54eb5",
+    "storage_bucket": "charge-54eb5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:16475780214:android:7415877b4f945fdfe89b57",
+        "mobilesdk_app_id": "1:786330637245:android:f85b08a5797c43668f78d4",
         "android_client_info": {
-          "package_name": "shop.carate.shopper"
+          "package_name": "project.task.charge"
         }
       },
       "oauth_client": [
         {
-          "client_id": "16475780214-3s5hq5s9o2nogk7tfs9168hpsnmeflkl.apps.googleusercontent.com",
+          "client_id": "786330637245-qpg112qf2mq99hm29k5kqjiuu7qteukb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.task.charge",
+            "certificate_hash": "7de57a3503dbaa3261aa4f034ad9869b61611e2e"
+          }
+        },
+        {
+          "client_id": "786330637245-3h4mcoc28fcd8dio7f0bjimhhmr0lm7i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAIW3qDoni_iqONUNS82OJvR2WI00cRqiA"
+          "current_key": "AIzaSyDgM8-KyhJJchs9InKmuApw9LRTqEK7P5Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "16475780214-3s5hq5s9o2nogk7tfs9168hpsnmeflkl.apps.googleusercontent.com",
+              "client_id": "786330637245-3h4mcoc28fcd8dio7f0bjimhhmr0lm7i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

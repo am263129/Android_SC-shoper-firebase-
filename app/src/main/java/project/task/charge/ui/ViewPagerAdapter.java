@@ -1,8 +1,7 @@
-package shop.carate.shopper.ui;
+package project.task.charge.ui;
 
 
 import android.content.Context;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,7 @@ import android.widget.ImageView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import shop.carate.shopper.R;
-import shop.carate.shopper.util.Global;
+import project.task.charge.R;
 
 public class ViewPagerAdapter extends PagerAdapter {
 

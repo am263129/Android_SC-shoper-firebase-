@@ -1,4 +1,4 @@
-package shop.carate.shopper.util;
+package project.task.charge.util;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -10,7 +10,7 @@ import com.google.firebase.database.annotations.Nullable;
 
 import java.util.Calendar;
 
-import shop.carate.shopper.R;
+import project.task.charge.R;
 
 public class DateClass extends DialogFragment {
 

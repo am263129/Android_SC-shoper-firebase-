@@ -20,7 +20,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="179dp"
-        android:background="@color/white"
         android:padding="10dp"
         android:saveEnabled="true">
 
@@ -30,4 +29,19 @@
             android:layout_height="wrap_content"
             android:hint="Projcet Description" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/label_involving"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Project" />
+
+    <Spinner
+        android:id="@+id/project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="20dp" />
 </LinearLayout>

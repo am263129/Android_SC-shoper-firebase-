@@ -177,6 +177,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
             if(dayCount > 0) {
                 toatldays.setText("" + (int) dayCount);
                 Global.task_deadline = String.valueOf((int)dayCount);
+
             }
             else {
                 Global.validate_newtask = false;

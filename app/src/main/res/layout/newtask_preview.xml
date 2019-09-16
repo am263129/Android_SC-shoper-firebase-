@@ -161,7 +161,9 @@
                                 android:id="@+id/hired_members"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:numColumns="1" />
+                                android:numColumns="auto_fit"
+                                android:orientation="horizontal"
+                                android:rowCount="1" />
 
                             <TextView
                                 android:id="@+id/label_hired_members"
