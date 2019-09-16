@@ -1,4 +1,4 @@
-package shop.carate.shopper.member;
+package project.task.charge.member;
 
 public class Member {
     public String name;

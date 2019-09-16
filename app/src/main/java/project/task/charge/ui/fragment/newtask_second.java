@@ -1,4 +1,4 @@
-package shop.carate.shopper.ui.fragment;
+package project.task.charge.ui.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Fragment;
@@ -18,9 +18,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import shop.carate.shopper.R;
-import shop.carate.shopper.make_new_task;
-import shop.carate.shopper.util.Global;
+import project.task.charge.R;
+import project.task.charge.make_new_task;
+import project.task.charge.util.Global;
 
 public class newtask_second extends Fragment implements View.OnClickListener{
 

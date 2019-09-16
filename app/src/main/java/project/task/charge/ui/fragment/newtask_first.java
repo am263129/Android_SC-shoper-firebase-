@@ -1,4 +1,4 @@
-package shop.carate.shopper.ui.fragment;
+package project.task.charge.ui.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -13,14 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import shop.carate.shopper.R;
-import shop.carate.shopper.make_new_task;
-import shop.carate.shopper.util.Global;
+import project.task.charge.R;
+import project.task.charge.make_new_task;
+import project.task.charge.util.Global;
 
 public class newtask_first extends Fragment {
 
@@ -44,6 +39,7 @@ public class newtask_first extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(make_new_task.getInstance(),Global.list_project.get(i),Toast.LENGTH_LONG).show();
+                Global.project_name = Global.list_project.get(i);
             }
 
             @Override

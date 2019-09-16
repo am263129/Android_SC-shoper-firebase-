@@ -1,4 +1,4 @@
-package shop.carate.shopper;
+package project.task.charge;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +24,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.Random;
 
-import shop.carate.shopper.ui.fragment.newtask_first;
-import shop.carate.shopper.ui.fragment.newtask_preview;
-import shop.carate.shopper.ui.fragment.newtask_second;
-import shop.carate.shopper.ui.fragment.newtask_third;
-import shop.carate.shopper.util.Global;
+import project.task.charge.ui.fragment.newtask_first;
+import project.task.charge.ui.fragment.newtask_preview;
+import project.task.charge.ui.fragment.newtask_second;
+import project.task.charge.ui.fragment.newtask_third;
+import project.task.charge.util.Global;
 
 public class make_new_task extends AppCompatActivity implements View.OnClickListener{
 
@@ -144,6 +144,8 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         myRef.setValue(Global.task_start_date);
         myRef = database.getReference(id+"/C_End_date");
         myRef.setValue(Global.task_end_date);
+        myRef = database.getReference(id+"/D_Involving_Project");
+        myRef.setValue(Global.project_name);
         for(int i  = 0;i < Global.array_hired_members.size();i ++){
             myRef = database.getReference(id+"/Hird_members/Hired" + (i+1) );
             myRef.setValue(Global.array_hired_members.get(i).getName());

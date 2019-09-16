@@ -140,6 +140,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:text="days" />
+
                             </LinearLayout>
 
                             <TextView
@@ -157,19 +158,40 @@
                             android:orientation="vertical"
                             android:padding="15dp">
 
-                            <GridView
-                                android:id="@+id/hired_members"
+                            <TextView
+                                android:id="@+id/involving_project"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Project Name" />
+
+                            <TextView
+                                android:id="@+id/involving_project_name"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:numColumns="auto_fit"
-                                android:orientation="horizontal"
-                                android:rowCount="1" />
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:text="Deadline" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="15dp">
 
                             <TextView
                                 android:id="@+id/label_hired_members"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Hired Members" />
+
+                            <GridView
+                                android:id="@+id/hired_members"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:numColumns="4"
+                                android:orientation="horizontal"
+                                android:rowCount="1" />
 
                         </LinearLayout>
                     </LinearLayout>

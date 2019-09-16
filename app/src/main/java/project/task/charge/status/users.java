@@ -1,4 +1,4 @@
-package shop.carate.shopper.status;
+package project.task.charge.status;
 
 public class users {
 }

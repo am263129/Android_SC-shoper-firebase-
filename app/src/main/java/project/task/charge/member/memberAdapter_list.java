@@ -1,24 +1,20 @@
-package shop.carate.shopper.member;
+package project.task.charge.member;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Filterable;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
-import shop.carate.shopper.R;
-import shop.carate.shopper.util.Global;
+import project.task.charge.R;
+import project.task.charge.util.Global;
 
 
 public class memberAdapter_list extends ArrayAdapter <Member> implements Filterable {

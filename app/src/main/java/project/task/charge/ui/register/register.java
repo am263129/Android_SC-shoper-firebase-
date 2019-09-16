@@ -1,4 +1,4 @@
-package shop.carate.shopper.ui.register;
+package project.task.charge.ui.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,11 +42,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import shop.carate.shopper.MainActivity;
-import shop.carate.shopper.R;
+import project.task.charge.MainActivity;
+import project.task.charge.R;
 
 public class register extends AppCompatActivity {
     EditText username_edt, email_edt, password_edt;
@@ -172,7 +170,7 @@ public class register extends AppCompatActivity {
         userEmail = email;
         userPass = password;
         FirebaseApp.initializeApp(this);
-        String id = "DG/" + username;
+        String id = "Member/" + username;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(id+"/Name");
         myRef.setValue(username);
@@ -187,6 +185,7 @@ public class register extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is:" + value);
+                singUp();
             }
 
             @Override
@@ -194,7 +193,7 @@ public class register extends AppCompatActivity {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
             }
         });
-        singUp();
+
       //  uploadFile();
 //        upload_image();
 
@@ -225,9 +224,8 @@ public class register extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            ImageUpload(bitmap);
-
+//                            ImageUpload(bitmap);
+                            finish();
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -400,13 +398,13 @@ public class register extends AppCompatActivity {
         }
     }
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE) {
             //TODO: action
 
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),data.getData());
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
             } catch (IOException e) {
                 e.printStackTrace();
             }

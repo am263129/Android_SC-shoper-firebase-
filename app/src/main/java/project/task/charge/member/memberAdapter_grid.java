@@ -1,19 +1,17 @@
-package shop.carate.shopper.member;
+package project.task.charge.member;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
-import shop.carate.shopper.R;
-import shop.carate.shopper.util.Global;
+import project.task.charge.R;
 
 
 public class memberAdapter_grid extends ArrayAdapter <Member>{

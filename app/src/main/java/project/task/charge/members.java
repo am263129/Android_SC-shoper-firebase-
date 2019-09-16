@@ -1,4 +1,4 @@
-package shop.carate.shopper;
+package project.task.charge;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,9 +9,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import shop.carate.shopper.member.Member;
-import shop.carate.shopper.member.memberAdapter_list;
-import shop.carate.shopper.util.Global;
+import project.task.charge.member.Member;
+import project.task.charge.member.memberAdapter_list;
+import project.task.charge.util.Global;
 
 public class members extends AppCompatActivity {
 

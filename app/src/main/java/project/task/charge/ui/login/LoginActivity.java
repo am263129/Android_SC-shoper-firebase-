@@ -1,4 +1,4 @@
-package shop.carate.shopper.ui.login;
+package project.task.charge.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import shop.carate.shopper.MainActivity;
-import shop.carate.shopper.R;
-import shop.carate.shopper.ui.register.register;
-import shop.carate.shopper.util.Global;
+import project.task.charge.R;
+import project.task.charge.util.Global;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -79,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, shop.carate.shopper.ui.register.register.class);
+                Intent intent = new Intent(LoginActivity.this, project.task.charge.ui.register.register.class);
                 startActivity(intent);
             }
         });
@@ -103,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Global.current_user_email = user.getEmail();
-                            Intent intent = new Intent(LoginActivity.this, shop.carate.shopper.MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, project.task.charge.MainActivity.class);
                             startActivity(intent);
                             finish();
 

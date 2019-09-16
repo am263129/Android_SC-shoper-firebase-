@@ -1,4 +1,4 @@
-package shop.carate.shopper.ui.fragment;
+package project.task.charge.ui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import shop.carate.shopper.R;
+import project.task.charge.R;
 
 public class make_task extends Fragment {
 

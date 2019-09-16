@@ -17,50 +17,62 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Hired Members" />
+
+                    <GridView
+                        android:id="@+id/hired_members"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="20dp"
+                        android:numColumns="3"
+                        android:padding="10dp">
+
+                    </GridView>
+
+                    <TextView
+                        android:id="@+id/label_nobody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Nobody"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+                <Button
+                    android:id="@+id/hire_users"
+                    android:layout_width="203dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/button_rounded"
                     android:padding="10dp"
-                    android:text="Hired Members" />
+                    android:text="Add Members" />
 
-                <TextView
-                    android:id="@+id/label_nobody"
+                <ListView
+                    android:id="@+id/all_members"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Nobody"
-                    android:textSize="24sp" />
-
-                <GridView
-                    android:id="@+id/hired_members"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginRight="20dp"
-                    android:numColumns="3"
-                    android:padding="10dp">
-
-                </GridView>
+                    android:padding="10dp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/hire_users"
-                android:layout_width="203dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/button_rounded"
-                android:padding="10dp"
-                android:text="Add Members" />
-
-            <ListView
-                android:id="@+id/all_members"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:padding="10dp" />
+                android:layout_height="100dp"
+                android:orientation="vertical"></LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

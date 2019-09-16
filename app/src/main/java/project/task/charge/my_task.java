@@ -1,4 +1,4 @@
-package shop.carate.shopper;
+package project.task.charge;
 
 import androidx.appcompat.app.AppCompatActivity;
 
