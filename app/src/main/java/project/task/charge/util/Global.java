@@ -26,4 +26,6 @@ public class Global {
     public static ArrayList<Member> array_hired_members = new ArrayList<Member>();
     public static ArrayList<Boolean> hired_status = new ArrayList<Boolean>();
     public static List<String> list_project = new ArrayList<String>();
+
+    public static ArrayList<task> array_all_task = new ArrayList<task>();
 }

@@ -207,6 +207,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+        DatabaseReference Task_Ref = database.getReference("TASK");
+        Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
+//        myRef.setValue("test@test.com");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
+                    for (String key : dataMap.keySet()){
+
+                        Object data = dataMap.get(key);
+
+                        try{
+                            HashMap<String, Object> userData = (HashMap<String, Object>) data;
+                            String task_title = userData.get("A_Title").toString();
+                            String task_description = userData.get("B_Description").toString();
+                            String task_duration = userData.get("C_Duration").toString();
+                            String task_start_date = userData.get("C_Start_date").toString();
+                            String task_end_date = userData.get("C_End_date").toString();
+                            String task_involving_project = userData.get("D_Involving_project").toString();
+
+                            HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
+                                for (String sub_key : Hired.keySet()) {
+                                    Object member_data = Hired.get(key);
+                                }
+
+
+//                            if(userEmail.equals(Global.current_user_email)) {
+//                                Global.current_user_name = userName;
+//                                current_user_name.setText(Global.current_user_name);
+//                                current_user_email.setText(Global.current_user_email);
+//                            }
+//                            array_all_members.add(new Member(userName, userEmail, userGender));
+                        }catch (ClassCastException cce){
+
+
+                            try{
+
+                                String mString = String.valueOf(dataMap.get(key));
+//                                Log.e(TAG, mString);
+
+                            }catch (ClassCastException cce2){
+
+                            }
+                        }
+
+                    }
+                    Global.array_all_members = array_all_members;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG,"Failed to rad value ", databaseError.toException());
+            }
+        });
+
     }
 
     @Override

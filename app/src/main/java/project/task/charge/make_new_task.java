@@ -186,7 +186,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         switch (index){
             case 0:
                 fragment = newtask_first;
-                header.setText("Project Name & Description");
+                header.setText("Task Name & Description");
                 break;
             case 1:
                 fragment = newtask_second;

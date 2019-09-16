@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:ems="10"
-        android:hint="Project Title"
+        android:hint="Task Title"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:singleLine="true" />
@@ -27,7 +27,7 @@
             android:id="@+id/task_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Projcet Description" />
+            android:hint="Task Description" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
