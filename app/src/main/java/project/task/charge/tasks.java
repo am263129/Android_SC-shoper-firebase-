@@ -14,15 +14,20 @@ import project.task.charge.util.Global;
 import project.task.charge.util.task;
 
 public class tasks extends AppCompatActivity {
+    public static tasks tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
+        tasks = this;
         ListView task_list = (ListView)findViewById(R.id.task_list);
         ArrayList<task> array_all_task = new ArrayList<task>();
         array_all_task = Global.array_all_task;
         taskAdapter adapter = new taskAdapter(this,R.layout.item_user_list,array_all_task);
         task_list.setAdapter(adapter);
+    }
+    public static tasks getInstance(){
+        return tasks;
     }
 }

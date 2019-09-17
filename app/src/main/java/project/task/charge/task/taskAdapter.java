@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import project.task.charge.R;
 import project.task.charge.member.Member;
+import project.task.charge.tasks;
 import project.task.charge.util.Global;
 import project.task.charge.util.hired_member;
 import project.task.charge.util.task;
@@ -101,7 +102,6 @@ public class taskAdapter extends ArrayAdapter<task> implements Filterable {
             }
         });
 
-        dialog.show();
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override

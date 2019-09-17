@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         try{
                             HashMap<String, Object> userData = (HashMap<String, Object>) data;
-                            String task_title = userData.get("A_Id").toString();
+                            String task_id = userData.get("A_Id").toString();
                             String task_description = userData.get("B_Description").toString();
                             String task_created_date = userData.get("C_Created_date").toString();
                             String task_duration = userData.get("C_Duration").toString();
@@ -249,15 +249,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                             }
-                            task task = new task(task_title, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member);
-                            Global.array_all_task.add(task);
-                        }catch (ClassCastException cce){
-                            try{
-                                String mString = String.valueOf(dataMap.get(key));
-//                                Log.e(TAG, mString);
-                            }catch (ClassCastException cce2){
-
+                            task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member);
+                            if (Global.array_all_task.size()>0){
+                                boolean is_new = true;
+                                for (int i =0 ; i< Global.array_all_task.size(); i ++){
+                                    if(task_id.equals(Global.array_all_task.get(i).getTask_id()))
+                                        is_new = false;
+                                }
+                                if (is_new)
+                                    Global.array_all_task.add(task);
                             }
+                            else
+                                Global.array_all_task.add(task);
+
+                        }catch (Exception cce){
+                            continue;
+//                            try{
+//                                String mString = String.valueOf(dataMap.get(key));
+////                                Log.e(TAG, mString);
+//                            }catch (ClassCastException cce2){
+//
+//                            }
                         }
 
                     }
