@@ -42,7 +42,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
     public static make_new_task make_task;
 
     private Calendar calendar;
-    int random;
+
     private String TAG = "make_new_task";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +64,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         newtask_preview = new newtask_preview();
         make_task = this;
 
-        final int min = 1000;
-        final int max = 9999;
-        random = new Random().nextInt((max - min) + 1) + min;
+
 
         changeTaskArea(0);
     }
@@ -118,7 +116,6 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 btn_finish.setVisibility(View.VISIBLE);
                 changeTaskArea(Global.mk_task_progress);
                 calendar = Calendar.getInstance();
-                Global.task_id = Global.current_user_name + ":" + random;
                 break;
             case R.id.btn_finish:
                 uploadNewTask();
@@ -135,7 +132,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         String id = "TASK/" + Global.task_id;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(id+"/A_Title");
-        myRef.setValue(Global.task_title);
+        myRef.setValue(Global.task_id);
         myRef = database.getReference(id+"/B_Description");
         myRef.setValue(Global.task_description);
         myRef = database.getReference(id+"/C_Duration");
@@ -170,7 +167,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean validateTask() {
-//        if((!Global.task_title.equals(""))&&(!Global.task_description.equals(""))&&(!Global.task_deadline.equals(""))&&(Global.task_hired_members.length>0))
+//        if((!Global.task_id_created_date.equals(""))&&(!Global.task_description.equals(""))&&(!Global.task_deadline.equals(""))&&(Global.task_hired_members.length>0))
 //        {
 //            //Global.task_id =
 //            return true;

@@ -6,13 +6,22 @@
     android:orientation="vertical"
     android:paddingTop="30dp">
 
-    <EditText
-        android:id="@+id/task_title"
+    <TextView
+        android:id="@+id/label_task_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Task Id"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/task_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:ems="10"
-        android:hint="Task Title"
+        android:hint="Task Id"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:singleLine="true" />

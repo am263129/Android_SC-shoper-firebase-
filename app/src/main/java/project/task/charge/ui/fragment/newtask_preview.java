@@ -22,7 +22,7 @@ public class newtask_preview extends Fragment {
         View view = inflater.inflate(R.layout.newtask_preview, container, false);
 
         TextView employser_name = view.findViewById(R.id.employer_name);
-        TextView title = (TextView)view.findViewById(R.id.task_title);
+        TextView title = (TextView)view.findViewById(R.id.task_id);
         TextView description = (TextView)view.findViewById(R.id.task_description);
         TextView deadline = (TextView)view.findViewById(R.id.deadline);
         TextView project_name = (TextView)view.findViewById(R.id.involving_project_name);
@@ -45,7 +45,7 @@ public class newtask_preview extends Fragment {
         hired_members.setLayoutParams(params);
 
         employser_name.setText(Global.current_user_name);
-        title.setText(Global.task_title);
+        title.setText(Global.task_id);
         description.setText(Global.task_description);
         deadline.setText(Global.task_deadline);
         project_name.setText(Global.project_name);

@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
-        <item android:id="@+id/menu_all_members"
+        <item android:id="@+id/menu_all_task"
             android:icon="@drawable/nav_ico_team"
-            android:title="All Members" />
+            android:title="All Task" />
         <item android:id="@+id/menu_make_task"
             android:icon="@drawable/nav_ico_task_manage"
             android:title="Make New Task" />

@@ -29,6 +29,8 @@ import java.util.HashMap;
 
 import project.task.charge.member.Member;
 import project.task.charge.util.Global;
+import project.task.charge.util.hired_member;
+import project.task.charge.util.task;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myself = this;
-        all_members = (LinearLayout)findViewById(R.id.btn_all_members);
+        all_members = (LinearLayout)findViewById(R.id.btn_all_task);
         new_task = (LinearLayout)findViewById(R.id.btn_newtask);
         my_task = (LinearLayout)findViewById(R.id.btn_mytask);
         about_us = (LinearLayout)findViewById(R.id.btn_about_us);
@@ -64,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.menu_all_members:
-                        intent = new Intent(MainActivity.this, members.class);
+                    case R.id.menu_all_task:
+                        intent = new Intent(MainActivity.this, tasks.class);
                         startActivity(intent);
                         return true;
                     case R.id.menu_make_task:
@@ -211,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DatabaseReference Task_Ref = database.getReference("TASK");
         Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
 //        myRef.setValue("test@test.com");
-        myRef.addValueEventListener(new ValueEventListener() {
+        Task_Ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -222,40 +224,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         try{
                             HashMap<String, Object> userData = (HashMap<String, Object>) data;
-                            String task_title = userData.get("A_Title").toString();
+                            String task_title = userData.get("A_Id").toString();
                             String task_description = userData.get("B_Description").toString();
+                            String task_created_date = userData.get("C_Created_date").toString();
                             String task_duration = userData.get("C_Duration").toString();
                             String task_start_date = userData.get("C_Start_date").toString();
                             String task_end_date = userData.get("C_End_date").toString();
-                            String task_involving_project = userData.get("D_Involving_project").toString();
-
+                            String task_creator = userData.get("E_Creator").toString();
+                            String task_involving_project = userData.get("D_Involving_Project").toString();
+                            ArrayList<hired_member> hired_member = null;
                             HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
-                                for (String sub_key : Hired.keySet()) {
-                                    Object member_data = Hired.get(key);
+                            for (String subkey : Hired.keySet()) {
+                                Object sub_data = Hired.get(subkey);
+                                hired_member member = null;
+                                try {
+                                    HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_data;
+                                    String hired_name = hired_Data.get("Name").toString();
+                                    String hired_email = hired_Data.get("Email").toString();
+                                    member = new hired_member(hired_name,hired_email);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+                                hired_member.add(member);
 
-
-//                            if(userEmail.equals(Global.current_user_email)) {
-//                                Global.current_user_name = userName;
-//                                current_user_name.setText(Global.current_user_name);
-//                                current_user_email.setText(Global.current_user_email);
-//                            }
-//                            array_all_members.add(new Member(userName, userEmail, userGender));
+                            }
+                            task task = new task(task_title, task_description,task_created_date, task_duration, task_start_date, task_end_date, task_involving_project, task_creator, hired_member);
+                            Global.array_all_task.add(task);
                         }catch (ClassCastException cce){
-
-
                             try{
-
                                 String mString = String.valueOf(dataMap.get(key));
 //                                Log.e(TAG, mString);
-
                             }catch (ClassCastException cce2){
 
                             }
                         }
 
                     }
-                    Global.array_all_members = array_all_members;
                 }
             }
 
@@ -265,13 +269,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_all_members:
-                intent = new Intent(this, members.class);
+            case R.id.btn_all_task:
+                intent = new Intent(this, tasks.class);
                 startActivity(intent);
                 break;
             case R.id.btn_mytask:
@@ -293,8 +299,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.menu_all_members:
-                intent = new Intent(this, members.class);
+            case R.id.menu_all_task:
+                intent = new Intent(this, tasks.class);
                 startActivity(intent);
                 return true;
             case R.id.menu_make_task:

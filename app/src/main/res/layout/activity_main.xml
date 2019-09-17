@@ -58,7 +58,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/btn_all_members"
+                        android:id="@+id/btn_all_task"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="20dp"
