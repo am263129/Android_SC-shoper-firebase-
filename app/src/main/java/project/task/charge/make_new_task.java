@@ -131,7 +131,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         FirebaseApp.initializeApp(this);
         String id = "TASK/" + Global.task_id;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(id+"/A_Title");
+        DatabaseReference myRef = database.getReference(id+"/A_Id");
         myRef.setValue(Global.task_id);
         myRef = database.getReference(id+"/B_Description");
         myRef.setValue(Global.task_description);
@@ -141,11 +141,17 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         myRef.setValue(Global.task_start_date);
         myRef = database.getReference(id+"/C_End_date");
         myRef.setValue(Global.task_end_date);
+        myRef = database.getReference(id+"/C_Created_date");
+        myRef.setValue(Global.task_end_date);
         myRef = database.getReference(id+"/D_Involving_Project");
         myRef.setValue(Global.project_name);
+        myRef = database.getReference(id+"/E_Creator");
+        myRef.setValue(Global.current_user_name);
         for(int i  = 0;i < Global.array_hired_members.size();i ++){
-            myRef = database.getReference(id+"/Hird_members/Hired" + (i+1) );
+            myRef = database.getReference(id+"/Hird_members/"+Global.array_hired_members.get(i).getName() +"/Name");
             myRef.setValue(Global.array_hired_members.get(i).getName());
+            myRef = database.getReference(id+"/Hird_members/"+Global.array_hired_members.get(i).getName() +"/Email");
+            myRef.setValue(Global.array_hired_members.get(i).getEmail());
         }
 
         myRef.addValueEventListener(new ValueEventListener() {

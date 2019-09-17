@@ -15,8 +15,8 @@ public class task {
     public task(){
 
     }
-    public task(String title, String description, String created_date, String project, String duration, String start_date, String end_date, String creator, ArrayList<hired_member> hired){
-        this.task_id = title;
+    public task(String id, String description, String created_date, String project, String duration, String start_date, String end_date, String creator, ArrayList<hired_member> hired){
+        this.task_id = id;
         this.task_description = description;
         this.task_created_date = created_date;
         this.task_involvoing_project = project;

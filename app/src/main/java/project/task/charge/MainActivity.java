@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String task_end_date = userData.get("C_End_date").toString();
                             String task_creator = userData.get("E_Creator").toString();
                             String task_involving_project = userData.get("D_Involving_Project").toString();
-                            ArrayList<hired_member> hired_member = null;
+                            ArrayList<hired_member> hired_member = new ArrayList<>();
                             HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
                             for (String subkey : Hired.keySet()) {
                                 Object sub_data = Hired.get(subkey);
@@ -242,13 +242,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String hired_name = hired_Data.get("Name").toString();
                                     String hired_email = hired_Data.get("Email").toString();
                                     member = new hired_member(hired_name,hired_email);
+                                    hired_member.add(member);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                hired_member.add(member);
+
 
                             }
-                            task task = new task(task_title, task_description,task_created_date, task_duration, task_start_date, task_end_date, task_involving_project, task_creator, hired_member);
+                            task task = new task(task_title, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member);
                             Global.array_all_task.add(task);
                         }catch (ClassCastException cce){
                             try{
