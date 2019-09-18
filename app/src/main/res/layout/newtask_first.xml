@@ -7,6 +7,7 @@
     android:paddingTop="30dp">
 
     <TextView
+    android:fontFamily="@font/ts"
         android:id="@+id/label_task_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +17,7 @@
         android:textSize="12sp" />
 
     <TextView
+    android:fontFamily="@font/ts"
         android:id="@+id/task_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,6 +42,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+    android:fontFamily="@font/ts"
         android:id="@+id/label_involving"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

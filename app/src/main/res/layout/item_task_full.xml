@@ -30,6 +30,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
                         android:textStyle="bold|italic" />
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -63,6 +65,7 @@
                             app:srcCompat="@drawable/man_dummy" />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/dlg_creator_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -78,6 +81,7 @@
                     android:padding="15dp">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/label_task_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -87,6 +91,7 @@
                         android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/dlg_task_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,6 +107,7 @@
                     android:padding="15dp">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/label_task_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -111,6 +117,7 @@
                         android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/dlg_task_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,6 +133,7 @@
                     android:padding="15dp">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/label_deadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -138,12 +146,14 @@
                         android:orientation="horizontal">
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/dlg_deadline"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/label_days"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -151,6 +161,7 @@
                             android:text="days" />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/dlg_start_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -158,12 +169,14 @@
                             android:text="TextView" />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/textView14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" - " />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/dlg_end_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -178,12 +191,14 @@
                         android:orientation="horizontal">
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/textView16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Created Date" />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:id="@+id/dlg_created_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -201,6 +216,7 @@
                     android:padding="15dp">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/involving_project"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -208,6 +224,7 @@
                         android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/dlg_involving_project_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -223,6 +240,7 @@
                     android:padding="15dp">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/label_hired_members"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -230,6 +248,7 @@
                         android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/dlg_hired_members"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

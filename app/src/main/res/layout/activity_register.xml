@@ -46,6 +46,7 @@
                         android:orientation="vertical">
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/username"
@@ -76,6 +77,7 @@
                             android:src="@drawable/dummy_user" />
 
                         <TextView
+    android:fontFamily="@font/ts"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -95,6 +97,7 @@
                     android:orientation="vertical">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/email"
@@ -115,6 +118,7 @@
                     android:orientation="vertical">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/password"
@@ -135,6 +139,7 @@
                     android:orientation="vertical">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/gender"

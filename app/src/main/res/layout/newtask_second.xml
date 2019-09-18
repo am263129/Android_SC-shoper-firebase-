@@ -52,6 +52,7 @@
             android:orientation="horizontal">
 
             <TextView
+    android:fontFamily="@font/ts"
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +61,7 @@
                 android:text="Total " />
 
             <TextView
+    android:fontFamily="@font/ts"
                 android:id="@+id/total_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,6 +71,7 @@
                 android:text="0" />
 
             <TextView
+    android:fontFamily="@font/ts"
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

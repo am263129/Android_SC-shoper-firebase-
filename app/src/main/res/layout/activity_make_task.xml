@@ -30,6 +30,7 @@
                 tools:layout_editor_absoluteY="10dp">
 
                 <TextView
+    android:fontFamily="@font/ts"
                     android:id="@+id/header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

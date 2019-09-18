@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tasks">
+    tools:context=".Created_task">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,22 +12,23 @@
         android:orientation="vertical">
 
         <TextView
+            android:fontFamily="@font/ts"
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:fontFamily="@font/ts"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="My Task"
+            android:text="All Tasks You Created"
             android:textSize="24sp" />
 
         <ListView
-            android:id="@+id/task_list"
+            android:id="@+id/list_mytask"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:padding="10dp" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

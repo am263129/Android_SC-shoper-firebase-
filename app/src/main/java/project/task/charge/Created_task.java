@@ -16,7 +16,7 @@ public class Created_task extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_task);
+        setContentView(R.layout.activiry_created_task);
         ListView task_list = (ListView)findViewById(R.id.list_mytask);
         ArrayList<task> array_created_task = new ArrayList<task>();
         array_created_task = Global.array_created_task;

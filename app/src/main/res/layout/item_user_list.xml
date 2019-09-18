@@ -37,6 +37,7 @@
                 android:weightSum="10">
 
                 <TextView
+                    android:fontFamily="@font/ts"
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
+                    android:fontFamily="@font/ts"
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,6 +64,7 @@
                 android:weightSum="10">
 
                 <TextView
+                    android:fontFamily="@font/ts"
                     android:id="@+id/label_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,6 +74,7 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
+                    android:fontFamily="@font/ts"
                     android:id="@+id/user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,6 +91,7 @@
                 android:weightSum="10">
 
                 <TextView
+                    android:fontFamily="@font/ts"
                     android:id="@+id/label_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,6 +101,7 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
+                    android:fontFamily="@font/ts"
                     android:id="@+id/user_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

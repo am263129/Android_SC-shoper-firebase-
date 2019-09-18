@@ -14,6 +14,9 @@
             android:icon="@drawable/nav_ico_task_manage"
             android:title="Make New Task" />
         <item android:id="@+id/menu_mytask"
+            android:icon="@drawable/ico_mytask"
+            android:title="My Tasks" />
+        <item android:id="@+id/task_I_created"
             android:icon="@drawable/nav_ico_mytask"
             android:title="My Tasks" />
         <item android:id="@+id/menu_profile_setting"

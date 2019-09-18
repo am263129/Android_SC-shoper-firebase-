@@ -23,6 +23,7 @@
                     android:orientation="vertical">
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -42,6 +43,7 @@
                     </GridView>
 
                     <TextView
+    android:fontFamily="@font/ts"
                         android:id="@+id/label_nobody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

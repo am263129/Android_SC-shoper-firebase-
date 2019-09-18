@@ -23,6 +23,7 @@
         app:riv_oval="false" />
 
     <TextView
+        android:fontFamily="@font/ts"
         android:id="@+id/current_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
     <TextView
+        android:fontFamily="@font/ts"
         android:id="@+id/current_user_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

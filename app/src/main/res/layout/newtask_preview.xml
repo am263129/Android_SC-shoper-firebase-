@@ -30,6 +30,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/textView9"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
                                 android:textStyle="bold|italic" />
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/textView5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -63,6 +65,7 @@
                                     app:srcCompat="@drawable/man_dummy" />
 
                                 <TextView
+    android:fontFamily="@font/ts"
                                     android:id="@+id/employer_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -78,6 +81,7 @@
                             android:padding="15dp">
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/label_task_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -86,6 +90,7 @@
                                 android:text="Task Id" />
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/task_id"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -101,6 +106,7 @@
                             android:padding="15dp">
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/label_task_description"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -109,6 +115,7 @@
                                 android:text="Descrioption" />
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/task_description"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -124,6 +131,7 @@
                             android:padding="15dp">
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/label_deadline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -136,12 +144,14 @@
                                 android:orientation="horizontal">
 
                                 <TextView
+    android:fontFamily="@font/ts"
                                     android:id="@+id/deadline"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="TextView" />
 
                                 <TextView
+    android:fontFamily="@font/ts"
                                     android:id="@+id/label_days"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -159,12 +169,14 @@
                             android:padding="15dp">
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/involving_project"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Project Name" />
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/involving_project_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -180,6 +192,7 @@
                             android:padding="15dp">
 
                             <TextView
+    android:fontFamily="@font/ts"
                                 android:id="@+id/label_hired_members"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

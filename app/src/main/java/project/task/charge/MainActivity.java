@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -36,6 +37,7 @@ import java.util.HashMap;
 import project.task.charge.member.Member;
 import project.task.charge.ui.register.register;
 import project.task.charge.util.Global;
+import project.task.charge.util.feed;
 import project.task.charge.util.feedback;
 import project.task.charge.util.hired_member;
 import project.task.charge.util.task;
@@ -63,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TASK_DURATION = "Duration";
     private String TASK_HIRED = "Hired members";
 
+    private Integer mInterval = 15000;
+    private Handler mHandler;
+    ArrayList<feed> arrayList_feed;
+    private Integer index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(intent);
                         return true;
                     case R.id.menu_mytask:
+                        intent = new Intent(MainActivity.this, my_task.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.task_I_created:
                         intent = new Intent(MainActivity.this, Created_task.class);
                         startActivity(intent);
                         return true;
@@ -107,12 +117,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         current_user_name = (TextView)headerView.findViewById(R.id.current_user_name);
         current_user_email = (TextView)headerView.findViewById(R.id.current_user_email);
 
+
+        arrayList_feed = new ArrayList<feed>();
+
         all_members.setOnClickListener(this);
         new_task.setOnClickListener(this);
         my_task.setOnClickListener(this);
         created_task.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        try {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
+        catch (Exception e){
+            Log.e(TAG, e.toString());
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.drawable.logo);
@@ -251,19 +270,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         try {
                             HashMap<String, Object> userData = (HashMap<String, Object>) data;
-                            String post_title = userData.get("Title").toString();
-                            String post_desc = userData.get("Description").toString();
-                            String post_created = userData.get("Created_Date").toString();
-
-                            TextView title = (TextView) findViewById(R.id.post_title);
-                            TextView desc = (TextView) findViewById(R.id.post_desc);
-                            TextView created = (TextView) findViewById(R.id.post_created);
-                            title.setText(post_title.toString());
-                            desc.setText(post_desc.toString());
-                            created.setText(post_created.toString());
-
-
-                        } catch (ClassCastException cce) {
+                            String feed_title = userData.get("Title").toString();
+                            String feed_desc = userData.get("Description").toString();
+                            String feed_created = userData.get("Created_Date").toString();
+                            feed feed = new feed(feed_title, feed_desc, feed_created);
+                            arrayList_feed.add(feed);
+//                            TextView title = (TextView) findViewById(R.id.post_title);
+//                            TextView desc = (TextView) findViewById(R.id.post_desc);
+//                            TextView created = (TextView) findViewById(R.id.post_created);
+//                            title.setText(feed_title.toString());
+//                            desc.setText(feed_desc.toString());
+//                            created.setText(feed_created.toString());
+                        } catch (Exception cce) {
+                            Log.e(TAG, cce.toString());
                         }
 
 
@@ -402,7 +421,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-
+        mHandler = new Handler();
+        startRepeatingTask();
     }
 
     @Override
@@ -412,6 +432,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setPhoto(Global.current_user_photo);
 
     }
+
+    private void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+    void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
+    }
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            if (index == arrayList_feed.size()){
+                index = 0;
+            }
+            if (arrayList_feed.size()>0) {
+                arrayList_feed.get(index).getFeed_crated_date();
+                TextView title = (TextView) findViewById(R.id.post_title);
+                TextView desc = (TextView) findViewById(R.id.post_desc);
+                TextView created = (TextView) findViewById(R.id.post_created);
+                title.setText(arrayList_feed.get(index).getFeed_title());
+                desc.setText(arrayList_feed.get(index).getFeed_description());
+                created.setText(arrayList_feed.get(index).getFeed_crated_date());
+                index++;
+            }
+
+            mHandler.postDelayed(mStatusChecker, mInterval);
+        }
+    };
 
     private void setPhoto(String base64photo) {
         String imageDataBytes = base64photo.substring(base64photo.indexOf(",")+1);
@@ -431,7 +478,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_mytask:
-
+                intent = new Intent(MainActivity.this, my_task.class);
+                startActivity(intent);
                 break;
             case R.id.btn_newtask:
                 intent = new Intent(this, make_new_task.class);
