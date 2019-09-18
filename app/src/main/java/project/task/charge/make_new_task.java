@@ -24,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.Random;
 
+import javax.microedition.khronos.opengles.GL;
+
 import project.task.charge.ui.fragment.newtask_first;
 import project.task.charge.ui.fragment.newtask_preview;
 import project.task.charge.ui.fragment.newtask_second;
@@ -160,6 +162,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is:" + value);
                 Toast.makeText(make_new_task.this,"Making New Task Finished Successfully",Toast.LENGTH_LONG).show();
+                init();
                 finish();
             }
 
@@ -170,6 +173,17 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(make_new_task.this,"Making New Task Failed. the error code is"+databaseError.toString(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void init() {
+        Global.task_id = "";
+        Global.array_hired_members.clear();
+        Global.task_created_date = "";
+        Global.task_deadline = "";
+        Global.task_start_date = "";
+        Global.task_end_date = "";
+        Global.project_name = "";
+        Global.task_description = "";
     }
 
     private boolean validateTask() {

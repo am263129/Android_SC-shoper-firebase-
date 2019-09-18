@@ -12,10 +12,11 @@ public class task {
     public String task_end_date;
     public String task_creator;
     public ArrayList<hired_member> hired_members;
+    public ArrayList<feedback> feedbacks;
     public task(){
 
     }
-    public task(String id, String description, String created_date, String project, String duration, String start_date, String end_date, String creator, ArrayList<hired_member> hired){
+    public task(String id, String description, String created_date, String project, String duration, String start_date, String end_date, String creator, ArrayList<hired_member> hired, ArrayList<feedback> feedbacks){
         this.task_id = id;
         this.task_description = description;
         this.task_created_date = created_date;
@@ -25,6 +26,7 @@ public class task {
         this.task_end_date =  end_date;
         this.task_creator = creator;
         this.hired_members = hired;
+        this.feedbacks = feedbacks;
     }
 
     public String getTask_id(){
@@ -55,5 +57,9 @@ public class task {
 
     public ArrayList<hired_member> getHired_members(){
         return this.hired_members;
+    }
+
+    public ArrayList<feedback> getFeedbacks() {
+        return feedbacks;
     }
 }

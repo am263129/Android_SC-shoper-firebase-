@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".my_task"></activity>
+        <activity android:name=".Created_task"></activity>
         <activity android:name=".make_new_task" />
         <activity android:name=".tasks" />
         <activity android:name=".members" />

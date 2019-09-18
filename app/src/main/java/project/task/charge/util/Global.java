@@ -28,4 +28,6 @@ public class Global {
     public static List<String> list_project = new ArrayList<String>();
 
     public static ArrayList<task> array_all_task = new ArrayList<task>();
+    public static ArrayList<task> array_created_task = new ArrayList<task>();
+    public static ArrayList<task> array_my_task = new ArrayList<task>();
 }

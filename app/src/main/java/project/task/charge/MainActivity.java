@@ -29,13 +29,14 @@ import java.util.HashMap;
 
 import project.task.charge.member.Member;
 import project.task.charge.util.Global;
+import project.task.charge.util.feedback;
 import project.task.charge.util.hired_member;
 import project.task.charge.util.task;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public String TAG = "Main";
-    private LinearLayout all_members, new_task, my_task, about_us;
+    private LinearLayout all_members, new_task, my_task, created_task;
     public static MainActivity myself;
     private Intent intent;
     private TextView current_user_name, current_user_email;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         all_members = (LinearLayout)findViewById(R.id.btn_all_task);
         new_task = (LinearLayout)findViewById(R.id.btn_newtask);
         my_task = (LinearLayout)findViewById(R.id.btn_mytask);
-        about_us = (LinearLayout)findViewById(R.id.btn_about_us);
+        created_task = (LinearLayout)findViewById(R.id.btn_task_created);
         navigationView = (NavigationView)findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -75,9 +76,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(intent);
                         return true;
                     case R.id.menu_mytask:
-                        intent = new Intent(MainActivity.this, my_task.class);
+                        intent = new Intent(MainActivity.this, Created_task.class);
                         startActivity(intent);
-//                showHelp();
                         return true;
                     case R.id.menu_profile_setting:
 //                showHelp();
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         all_members.setOnClickListener(this);
         new_task.setOnClickListener(this);
         my_task.setOnClickListener(this);
-        about_us.setOnClickListener(this);
+        created_task.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -249,18 +249,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                             }
-                            task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member);
+                            ArrayList<feedback> feedbacks = new ArrayList<>();
+                            try {
+                                HashMap<String, Object> feedback = (HashMap<String, Object>) userData.get("E_Feedback");
+                                for (String subkey : feedback.keySet()) {
+                                    Object sub_feedback = feedback.get(subkey);
+                                    feedback item_feedback = null;
+                                    try {
+                                        HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_feedback;
+                                        String hired_name = hired_Data.get("Author").toString();
+                                        String hired_feedback = hired_Data.get("Feedback").toString();
+                                        item_feedback = new feedback(hired_name, hired_feedback);
+                                        feedbacks.add(item_feedback);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                            catch (Exception e){
+                                Log.e("Task", "No Feedback");
+                            }
+
+                            task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member, feedbacks);
                             if (Global.array_all_task.size()>0){
                                 boolean is_new = true;
                                 for (int i =0 ; i< Global.array_all_task.size(); i ++){
                                     if(task_id.equals(Global.array_all_task.get(i).getTask_id()))
                                         is_new = false;
                                 }
-                                if (is_new)
+                                if (is_new) {
                                     Global.array_all_task.add(task);
+                                    if (task.getTask_creator().equals(Global.current_user_name))
+                                        Global.array_created_task.add(task);
+                                }
                             }
-                            else
+                            else {
                                 Global.array_all_task.add(task);
+                                if (task.getTask_creator().equals(Global.current_user_name))
+                                    Global.array_created_task.add(task);
+                            }
 
                         }catch (Exception cce){
                             continue;
@@ -294,11 +322,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_mytask:
+
                 break;
             case R.id.btn_newtask:
                 intent = new Intent(this, make_new_task.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_task_created:
+                intent = new Intent(this, Created_task.class);
+                startActivity(intent);
+                break;
+
         }
 
     }
@@ -321,7 +355,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 return true;
             case R.id.menu_mytask:
-//                showHelp();
+                intent = new Intent(this, Created_task.class);
+                startActivity(intent);
                 return true;
             case R.id.menu_profile_setting:
 //                showHelp();

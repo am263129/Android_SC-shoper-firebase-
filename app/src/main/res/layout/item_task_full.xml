@@ -83,7 +83,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="8dp"
-                        android:text="Task Id" />
+                        android:text="Task Id"
+                        android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
                         android:id="@+id/dlg_task_id"
@@ -106,7 +107,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="8dp"
-                        android:text="Descrioption" />
+                        android:text="Descrioption"
+                        android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
                         android:id="@+id/dlg_task_description"
@@ -127,8 +129,8 @@
                         android:id="@+id/label_deadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:text="Deadline" />
+                        android:text="Deadline"
+                        android:textColor="@color/flatui_midnight_blue" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -202,7 +204,8 @@
                         android:id="@+id/involving_project"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Project Name" />
+                        android:text="Project Name"
+                        android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
                         android:id="@+id/dlg_involving_project_name"
@@ -223,7 +226,8 @@
                         android:id="@+id/label_hired_members"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hired Members" />
+                        android:text="Hired Members"
+                        android:textColor="@color/flatui_midnight_blue" />
 
                     <TextView
                         android:id="@+id/dlg_hired_members"
