@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_header"
     android:layout_width="match_parent"
     android:layout_height="160dp"
@@ -11,11 +12,15 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/nav_header_imageView"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/nav_header_userphoto"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:background="@drawable/man_dummy"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/dummy_user"
+        app:riv_corner_radius="70dp"
+        app:riv_mutate_background="false"
+        app:riv_oval="false" />
 
     <TextView
         android:id="@+id/current_user_name"

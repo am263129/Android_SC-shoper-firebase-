@@ -6,12 +6,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,14 +28,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import project.task.charge.member.Member;
+import project.task.charge.ui.register.register;
 import project.task.charge.util.Global;
 import project.task.charge.util.feedback;
 import project.task.charge.util.hired_member;
 import project.task.charge.util.task;
+
+import static project.task.charge.util.Global.array_my_task;
+import static project.task.charge.util.Global.current_user_index;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TASK_DURATION = "Duration";
     private String TASK_HIRED = "Hired members";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
+                    case R.id.add_new_member:
+                        intent = new Intent(MainActivity.this, register.class);
+                        startActivity(intent);
+                        return true;
                     case R.id.menu_all_task:
                         intent = new Intent(MainActivity.this, tasks.class);
                         startActivity(intent);
@@ -80,10 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(intent);
                         return true;
                     case R.id.menu_profile_setting:
-//                showHelp();
-                        return true;
-                    case R.id.menu_exit:
-                        finish();
+                        intent = new Intent(MainActivity.this, profile.class);
+                        startActivity(intent);
                         return true;
                     default:
                         return true;
@@ -129,23 +142,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String userName = userData.get("Name").toString();
                             String userEmail = userData.get("Email").toString();
                             String userGender = userData.get("Gender").toString();
+                            String password = userData.get("Password").toString();
+                            String base64photo = "";
+                            String birthday = null;
+                            String address = null;
+                            String location = null;
+                            String phone = null;
+                            try {
+                                birthday = userData.get("Birthday").toString();
+                                address = userData.get("Address").toString();
+                                location = userData.get("Location").toString();
+                                phone = userData.get("Phone").toString();
+                            }
+                            catch (Exception e)
+                            {
+                                Log.e(TAG, "user profile is not complited");
+                                if (userEmail.equals(Global.current_user_email))
+                                    Toast.makeText(MainActivity.this,"You didn't complete profile. please complete the profile",Toast.LENGTH_LONG).show();
+                            }
+
                             if(userEmail.equals(Global.current_user_email)) {
                                 Global.current_user_name = userName;
                                 current_user_name.setText(Global.current_user_name);
                                 current_user_email.setText(Global.current_user_email);
+                                current_user_index = array_all_members.size();
+                                try {
+                                    base64photo = userData.get("Photo").toString();
+                                    Global.current_user_photo = base64photo;
+                                    setPhoto(base64photo);
+                                }
+                                catch (Exception e){
+                                    Log.e(TAG,e.toString());
+                                }
+                                try {
+                                    String permission = userData.get("Permission").toString();
+                                    if (permission.equals("admin")) {
+                                        Global.is_admin = true;
+                                        navigationView.getMenu().getItem(0).setVisible(true);
+                                    }
+
+                                }
+                                catch (Exception e){
+                                    Log.e(TAG, "No permission");
+
+                                }
                             }
-                            array_all_members.add(new Member(userName, userEmail, userGender));
-                        }catch (ClassCastException cce){
-
-
-                            try{
-
-                                String mString = String.valueOf(dataMap.get(key));
-//                                Log.e(TAG, mString);
-
-                            }catch (ClassCastException cce2){
-
-                            }
+                            array_all_members.add(new Member(userName, userEmail, userGender, base64photo, birthday, address, location, phone, password));
+                        }catch (Exception cce){
+                            Log.e(TAG, cce.toString());
                         }
 
                     }
@@ -153,11 +197,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
             }
         });
+        /*
         DatabaseReference post_Ref = database.getReference("POST");
         post_Ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -182,6 +228,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     Global.array_all_members = array_all_members;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG,"Failed to rad value ", databaseError.toException());
+            }
+        });*/
+
+        DatabaseReference post_Ref = database.getReference("Feed");
+        post_Ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
+//                    Member Member = dataSnapshot.getValue(Member.class);
+//                    Log.d(TAG, "User name: " + Member.getName() + ", email " + Member.getEmail());
+                    for (String key : dataMap.keySet()) {
+
+                        Object data = dataMap.get(key);
+
+                        try {
+                            HashMap<String, Object> userData = (HashMap<String, Object>) data;
+                            String post_title = userData.get("Title").toString();
+                            String post_desc = userData.get("Description").toString();
+                            String post_created = userData.get("Created_Date").toString();
+
+                            TextView title = (TextView) findViewById(R.id.post_title);
+                            TextView desc = (TextView) findViewById(R.id.post_desc);
+                            TextView created = (TextView) findViewById(R.id.post_created);
+                            title.setText(post_title.toString());
+                            desc.setText(post_desc.toString());
+                            created.setText(post_created.toString());
+
+
+                        } catch (ClassCastException cce) {
+                        }
+
+
+                        Global.array_all_members = array_all_members;
+                    }
                 }
             }
 
@@ -219,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (dataSnapshot.exists()){
                     HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
                     for (String key : dataMap.keySet()){
-
+                        boolean this_is_mine = false;
                         Object data = dataMap.get(key);
 
                         try{
@@ -243,6 +330,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String hired_email = hired_Data.get("Email").toString();
                                     member = new hired_member(hired_name,hired_email);
                                     hired_member.add(member);
+                                    if (hired_email.equals(Global.current_user_email))
+                                            this_is_mine = true;
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -289,6 +378,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 if (task.getTask_creator().equals(Global.current_user_name))
                                     Global.array_created_task.add(task);
                             }
+                            if(this_is_mine)
+                                array_my_task.add(task);
 
                         }catch (Exception cce){
                             continue;
@@ -315,6 +406,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (Global.current_user_photo != null)
+            setPhoto(Global.current_user_photo);
+
+    }
+
+    private void setPhoto(String base64photo) {
+        String imageDataBytes = base64photo.substring(base64photo.indexOf(",")+1);
+
+        InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
+
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+        ImageView userPhoto  = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.nav_header_userphoto);
+        userPhoto.setImageBitmap(bitmap);
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_all_task:
@@ -337,37 +446,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.menu_all_task:
-                intent = new Intent(this, tasks.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_make_task:
-                intent = new Intent(this, make_new_task.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_mytask:
-                intent = new Intent(this, Created_task.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_profile_setting:
-//                showHelp();
-                return true;
-            case R.id.menu_exit:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
+//        return true;
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.menu_all_task:
+//                intent = new Intent(this, tasks.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.menu_make_task:
+//                intent = new Intent(this, make_new_task.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.menu_mytask:
+//                intent = new Intent(this, Created_task.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.menu_profile_setting:
+//                intent = new Intent(this, profile.class);
+//                startActivity(intent);
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
 
     public static MainActivity getInstance(){

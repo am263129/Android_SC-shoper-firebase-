@@ -1,6 +1,9 @@
 package project.task.charge.member;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import project.task.charge.R;
@@ -41,13 +46,19 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
         v = inflater.inflate(R.layout.item_user_list, null);
         TextView user_name = (TextView) v.findViewById(R.id.user_name);
         TextView user_email = (TextView) v.findViewById(R.id.user_email);
-        TextView user_gender = (TextView)v.findViewById(R.id.user_gender);
+        TextView user_gender = (TextView) v.findViewById(R.id.user_gender);
         RoundedImageView user_photo = (RoundedImageView) v.findViewById(R.id.roundedImageViewLovesItemLovesImage);
-        hire = (CheckBox)v.findViewById(R.id.check_hire);
+        hire = (CheckBox) v.findViewById(R.id.check_hire);
         String userName = array_all_members.get(position).getName();
         String userEmail = array_all_members.get(position).getEmail();
-        String userGender= array_all_members.get(position).getGender();
-        if(!Global.is_hiring_member)
+        String userGender = array_all_members.get(position).getGender();
+        String userPhoto = array_all_members.get(position).getPhoto();
+        String userBirthday = array_all_members.get(position).getBirthday();
+        String userAddress = array_all_members.get(position).getAddress();
+        String userLocation = array_all_members.get(position).getLocation();
+        String userPhone = array_all_members.get(position).getPhone();
+        String userPassword = array_all_members.get(position).getPassword();
+        if (!Global.is_hiring_member)
             hire.setVisibility(View.GONE);
 
         else {
@@ -58,12 +69,11 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
                 hire.setChecked(false);
 
         }
-        member = new Member(userName, userEmail, userGender);
+        member = new Member(userName, userEmail, userGender, userPhoto, userBirthday, userAddress, userLocation, userPhone, userPassword );
         hire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Global.hired_status.get(position))
-                {
+                if (Global.hired_status.get(position)) {
                     Global.hired_status.set(position, false);
                 } else {
                     Global.hired_status.set(position, true);
@@ -73,12 +83,21 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
         user_name.setText(userName);
         user_email.setText(userEmail);
         user_gender.setText(userGender);
-        if(array_all_members.get(position).getGender().equals("Male"))
-            user_photo.setImageResource(R.drawable.man_dummy);
-        else
-            user_photo.setImageResource(R.drawable.woman_dummy);
 
+        String base64photo = array_all_members.get(position).getPhoto();
+        if (base64photo.equals("")) {
+            if (array_all_members.get(position).getGender().equals("Male"))
+                user_photo.setImageResource(R.drawable.man_dummy);
+            else
+                user_photo.setImageResource(R.drawable.woman_dummy);
+
+        } else {
+            String imageDataBytes = base64photo.substring(base64photo.indexOf(",") + 1);
+            InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
+            Bitmap bitmap = BitmapFactory.decodeStream(stream);
+            user_photo.setImageBitmap(bitmap);
+        }
         return v;
-
     }
+
 }

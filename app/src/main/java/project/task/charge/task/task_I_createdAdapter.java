@@ -20,12 +20,12 @@ import project.task.charge.util.feedback;
 import project.task.charge.util.hired_member;
 import project.task.charge.util.task;
 
-public class my_taskAdapter extends ArrayAdapter<task> implements Filterable {
+public class task_I_createdAdapter extends ArrayAdapter<task> implements Filterable {
 
 
     ArrayList<task> array_task = new ArrayList<>();
     task task;
-    public my_taskAdapter(Context context, int textViewResourceId, ArrayList<task> objects) {
+    public task_I_createdAdapter(Context context, int textViewResourceId, ArrayList<task> objects) {
         super(context, textViewResourceId, objects);
         array_task = objects;
     }

@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,9 +41,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import project.task.charge.MainActivity;
 import project.task.charge.R;
@@ -124,14 +128,6 @@ public class register extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        mAuth.signOut();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-
-            Log.e(TAG,"loged in?"+user.isAnonymous());
-        } else if(userEmail!=null){
-            signIn();
-        }
     }
 
     public boolean checkemail() {
@@ -180,6 +176,10 @@ public class register extends AppCompatActivity {
         myRef.setValue(password);
         myRef = database.getReference(id+"/Gender");
         myRef.setValue(gender);
+        if (bitmap!=null) {
+            myRef = database.getReference(id + "/Photo");
+            myRef.setValue(getBase64String(bitmap));
+        }
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -206,61 +206,17 @@ public class register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Log.e(TAG,"Successful");
-                    signIn();
+                    Toast.makeText(MainActivity.getInstance(),"New user Added Successfully!", Toast.LENGTH_LONG).show();
+                    finish();
                 }else{
-                    Toast.makeText(MainActivity.getInstance()
-                            ,"error on creating user",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.getInstance(),"New user Adding Failed!", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });
     }
-    private void signIn() {
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(userEmail, userPass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-//                            ImageUpload(bitmap);
-                            finish();
-//                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
+/*
     private void upload_image() {
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference storageRef = storage.getReference();
-////        StorageReference riversRef = storageRef.child("images/"+filePath.getLastPathSegment());
-////        UploadTask uploadTask = riversRef.putFile(filePath);
-////        Uri file = Uri.fromFile(upload_file);
-//        StorageReference riversRef = storageRef.child("test.jpg");
-//        String URL = String.valueOf(riversRef.getDownloadUrl());
-//        riversRef.putFile(filePath)
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        // Get a URL to the uploaded content
-////                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        // Handle unsuccessful uploads
-//                        // ...
-//                    }
-//                });
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://sc-app-1ce6f.appspot.com/");
@@ -319,24 +275,6 @@ public class register extends AppCompatActivity {
                                             Uri uriImage = task.getResult();
                                             String stringImage = uriImage.toString();
                                                 Log.e("error", stringImage);
-//                                            Map<String, Object> mapImage = new HashMap<>();
-//                                            mapImage.put("user_image", stringImage);
-//
-//                                            firebaseFirestore.collection("users")
-//                                                    .document(currentUser)
-//                                                    .update(mapImage)
-//                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                        @Override
-//                                                        public void onComplete(@NonNull Task<Void> task) {
-//                                                            if (task.isSuccessful()) {
-//                                                               // CoverUpload(currentUser, bitmap, currentCover, carouselNumber);
-//                                                            } else {
-//                                                                Toast.makeText(register.this,
-//                                                                        "Something went wrong. Please try again!",
-//                                                                        Toast.LENGTH_SHORT).show();
-//                                                            }
-//                                                        }
-//                                                    });
                                         }
                                     });
                         }
@@ -346,57 +284,9 @@ public class register extends AppCompatActivity {
                     }
                 });
 
-    }
+    }*/
 
-    private void uploadFile() {
-        //if there is a file to upload
-        if (filePath != null) {
-            //displaying a progress dialog while upload is going on
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading");
-            progressDialog.show();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference riversRef = storageRef.child("images/image1.jpg");
-            riversRef.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //if the upload is successfull
-                            //hiding the progress dialog
-                            progressDialog.dismiss();
 
-                            //and displaying a success toast
-                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            //if the upload is not successfull
-                            //hiding the progress dialog
-                            progressDialog.dismiss();
-
-                            //and displaying error message
-                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //calculating progress percentage
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                            //displaying percentage in progress dialog
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-                        }
-                    });
-        }
-        //if there is not any file
-        else {
-            //you can display an error toast
-        }
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -413,4 +303,30 @@ public class register extends AppCompatActivity {
             filePath = data.getData();
         }
     }
+
+    /**
+     * encode
+     * @param bitmap
+     * @return String
+     */
+    private String getBase64String(Bitmap bitmap) {
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+    /* decode
+    private void decodeBase64AndSetImage(String completeImageData, ImageView imageView) {
+
+        // Incase you're storing into aws or other places where we have extension stored in the starting.
+        String imageDataBytes = completeImageData.substring(completeImageData.indexOf(",")+1);
+
+        InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
+
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+
+        imageView.setImageBitmap(bitmap);
+    }*/
 }

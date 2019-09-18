@@ -8,9 +8,12 @@ import project.task.charge.member.Member;
 public class Global {
     public static String current_user_name = "";
     public static String current_user_email = "";
+    public static String current_user_photo;
+    public static int current_user_index;
 
     public static Integer mk_task_progress = 0;
     public static boolean validate_newtask = true;
+    public static boolean is_admin = false;
 
     public static String task_id;
     public static String task_description;
@@ -30,4 +33,5 @@ public class Global {
     public static ArrayList<task> array_all_task = new ArrayList<task>();
     public static ArrayList<task> array_created_task = new ArrayList<task>();
     public static ArrayList<task> array_my_task = new ArrayList<task>();
+
 }

@@ -5,14 +5,25 @@ public class Member {
     public String email;
     public String gender;
     public boolean hired;
+    public String photo;
+    public String address;
+    public String location;
+    public String phone;
+    public String birthday;
+    public String password;
     public Member(){
 
     }
-    public Member(String name, String email, String gender){
+    public Member(String name, String email, String gender, String photo, String birthday, String address, String location, String phone, String password){
         this.name = name;
         this.email = email;
         this.gender = gender;
-        this.hired = hired;
+        this.photo = photo;
+        this.address = address;
+        this.location = location;
+        this.phone = phone;
+        this.birthday = birthday;
+        this.password = password;
     }
 
     public String getName(){
@@ -26,5 +37,23 @@ public class Member {
     }
     public boolean getStatus(){
         return this.hired;
+    }
+    public String getPhoto() {
+        return photo;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getBirthday() {
+        return birthday;
+    }
+    public String getLocation() {
+        return location;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public String getPassword() {
+        return password;
     }
 }

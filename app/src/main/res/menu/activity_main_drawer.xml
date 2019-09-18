@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
+        <item
+            android:id="@+id/add_new_member"
+            android:icon="@drawable/ico_add_member"
+            android:title="Add New Member"
+            android:visible="false" />
         <item android:id="@+id/menu_all_task"
             android:icon="@drawable/nav_ico_team"
             android:title="All Task" />
@@ -13,10 +18,7 @@
             android:title="My Tasks" />
         <item android:id="@+id/menu_profile_setting"
             android:icon="@drawable/ico_profile_setting"
-            android:title="Setting" />
-        <item android:id="@+id/menu_exit"
-            android:icon="@drawable/nav_ico_exit"
-            android:title="Exit" />
+            android:title="Profile" />
     </group>
     <item
         android:id="@+id/connect_us"
