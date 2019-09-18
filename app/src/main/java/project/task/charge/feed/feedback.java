@@ -1,4 +1,4 @@
-package project.task.charge.util;
+package job.task.charge.feed;
 
 public class feedback {
     public String name;

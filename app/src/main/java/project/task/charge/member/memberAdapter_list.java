@@ -56,7 +56,7 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
         String userBirthday = array_all_members.get(position).getBirthday();
         String userAddress = array_all_members.get(position).getAddress();
         String userLocation = array_all_members.get(position).getLocation();
-        String userPhone = array_all_members.get(position).getPhone();
+        String userPhone = array_all_members.get(position).getOfficial_phone();
         String userPassword = array_all_members.get(position).getPassword();
         if (!Global.is_hiring_member)
             hire.setVisibility(View.GONE);

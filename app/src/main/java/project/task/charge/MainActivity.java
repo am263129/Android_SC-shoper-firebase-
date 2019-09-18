@@ -13,11 +13,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,25 +34,25 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import project.task.charge.R;
+
 import project.task.charge.member.Member;
 import project.task.charge.ui.register.register;
 import project.task.charge.util.Global;
-import project.task.charge.util.feed;
-import project.task.charge.util.feedback;
-import project.task.charge.util.hired_member;
-import project.task.charge.util.task;
-
-import static project.task.charge.util.Global.array_my_task;
-import static project.task.charge.util.Global.current_user_index;
+import project.task.charge.feed.feed;
+import project.task.charge.feed.feedback;
+import project.task.charge.member.hired_member;
+import project.task.charge.task.task;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public String TAG = "Main";
-    private LinearLayout all_members, new_task, my_task, created_task;
+    private LinearLayout all_members, new_task, my_task, created_task, project, new_project, task, create_member;
     public static MainActivity myself;
     private Intent intent;
     private TextView current_user_name, current_user_email;
     private NavigationView navigationView;
+    private TableRow task_area_a, task_area_b, project_area_a, project_area_b;
     ViewPager viewPager;
     private ArrayList<Member> array_all_members = new ArrayList<Member>();
 
@@ -79,7 +79,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_task = (LinearLayout)findViewById(R.id.btn_newtask);
         my_task = (LinearLayout)findViewById(R.id.btn_mytask);
         created_task = (LinearLayout)findViewById(R.id.btn_task_created);
+        project = (LinearLayout)findViewById(R.id.btn_project);
+        new_project = (LinearLayout)findViewById(R.id.btn_newproject);
+        task = (LinearLayout)findViewById(R.id.btn_task);
+        create_member = (LinearLayout)findViewById(R.id.btn_create_member);
         navigationView = (NavigationView)findViewById(R.id.nav_view);
+        task_area_a = (TableRow)findViewById(R.id.task_area_a);
+        task_area_b = (TableRow)findViewById(R.id.task_area_b);
+        project_area_a = (TableRow)findViewById(R.id.project_area_a);
+        project_area_b = (TableRow)findViewById(R.id.project_area_b);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -124,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_task.setOnClickListener(this);
         my_task.setOnClickListener(this);
         created_task.setOnClickListener(this);
+        project.setOnClickListener(this);
+        new_project.setOnClickListener(this);
+        task.setOnClickListener(this);
+        create_member.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
         try {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -184,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Global.current_user_name = userName;
                                 current_user_name.setText(Global.current_user_name);
                                 current_user_email.setText(Global.current_user_email);
-                                current_user_index = array_all_members.size();
+                                Global.current_user_index = array_all_members.size();
                                 try {
                                     base64photo = userData.get("Photo").toString();
                                     Global.current_user_photo = base64photo;
@@ -197,7 +209,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String permission = userData.get("Permission").toString();
                                     if (permission.equals("admin")) {
                                         Global.is_admin = true;
+                                        new_project.setClickable(true);
+                                        create_member.setClickable(true);
                                         navigationView.getMenu().getItem(0).setVisible(true);
+                                        new_project.setBackgroundResource(R.drawable.ico_make_project);
+                                        create_member.setBackgroundResource(R.drawable.ico_add_user);
                                     }
 
                                 }
@@ -379,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Log.e("Task", "No Feedback");
                             }
 
-                            task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member, feedbacks);
+                            project.task.charge.task.task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member, feedbacks);
                             if (Global.array_all_task.size()>0){
                                 boolean is_new = true;
                                 for (int i =0 ; i< Global.array_all_task.size(); i ++){
@@ -398,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Global.array_created_task.add(task);
                             }
                             if(this_is_mine)
-                                array_my_task.add(task);
+                                Global.array_my_task.add(task);
 
                         }catch (Exception cce){
                             continue;
@@ -489,6 +505,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, Created_task.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_project:
+                break;
+            case R.id.btn_newproject:
+                break;
+            case R.id.btn_task:
+                Global.is_task_area = true;
+                project_area_a.setVisibility(View.GONE);
+                project_area_b.setVisibility(View.GONE);
+                task_area_a.setVisibility(View.VISIBLE);
+                task_area_b.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_create_member:
+                if(Global.is_admin){
+                intent = new Intent(MainActivity.this, register.class);
+                startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this,"You don't have permission",Toast.LENGTH_LONG).show();
+                }
+                break;
 
         }
 
@@ -527,5 +563,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static MainActivity getInstance(){
         return myself;
+    }
+    @Override
+    public void onBackPressed()
+    {
+        if(Global.is_task_area){
+            project_area_a.setVisibility(View.VISIBLE);
+            project_area_b.setVisibility(View.VISIBLE);
+            task_area_a.setVisibility(View.GONE);
+            task_area_b.setVisibility(View.GONE);
+            Global.is_task_area = false;
+        }
+        else {
+
+        }
+
     }
 }

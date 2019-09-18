@@ -1,16 +1,4 @@
-package project.task.charge.util;
-
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import com.google.firebase.database.annotations.Nullable;
-
-import java.util.Calendar;
-
-import project.task.charge.R;
+package job.task.charge.feed;
 
 public class feed {
     public String feed_title;

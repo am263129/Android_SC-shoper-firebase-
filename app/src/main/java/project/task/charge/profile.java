@@ -14,17 +14,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.google.android.gms.plus.model.people.Person;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,9 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import project.task.charge.R;
 
 import project.task.charge.util.Global;
 
@@ -65,7 +61,7 @@ public class profile extends AppCompatActivity {
         userEmail = (EditText)findViewById(R.id.email_edt);
         userAddress = (EditText)findViewById(R.id.address_edt);
         userLocation = (EditText)findViewById(R.id.location_edt);
-        userPhone = (EditText)findViewById(R.id.phone_edt);
+        userPhone = (EditText)findViewById(R.id.personal_phone_edt);
         userPass = (EditText)findViewById(R.id.password_edt);
         userbirthday = (EditText)findViewById(R.id.birthday_edt);
         oldPass = (EditText)findViewById(R.id.previous_password_edt);
@@ -98,7 +94,7 @@ public class profile extends AppCompatActivity {
         try {
             userAddress.setText(Global.array_all_members.get(Global.current_user_index).getAddress());
             userLocation.setText(Global.array_all_members.get(Global.current_user_index).getLocation());
-            userPhone.setText(Global.array_all_members.get(Global.current_user_index).getPhone());
+            userPhone.setText(Global.array_all_members.get(Global.current_user_index).getOfficial_phone());
             userbirthday.setText(Global.array_all_members.get(Global.current_user_index).getBirthday());
         }
         catch (Exception e)

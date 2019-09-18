@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.task.charge.member.Member;
+import project.task.charge.project.project;
+import project.task.charge.task.task;
 
 public class Global {
+    public static boolean is_task_area = false;
     public static String current_user_name = "";
     public static String current_user_email = "";
     public static String current_user_photo;
@@ -33,5 +36,7 @@ public class Global {
     public static ArrayList<task> array_all_task = new ArrayList<task>();
     public static ArrayList<task> array_created_task = new ArrayList<task>();
     public static ArrayList<task> array_my_task = new ArrayList<task>();
+    public static ArrayList<task> array_task_in_project = new ArrayList<task>();
+    public static ArrayList<project> array_project = new ArrayList<project>();
 
 }

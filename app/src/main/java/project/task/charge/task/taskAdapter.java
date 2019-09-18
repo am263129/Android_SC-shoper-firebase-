@@ -7,21 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
 import project.task.charge.R;
-import project.task.charge.member.Member;
-import project.task.charge.tasks;
-import project.task.charge.util.Global;
-import project.task.charge.util.hired_member;
-import project.task.charge.util.task;
+import project.task.charge.member.hired_member;
 
 public class taskAdapter extends ArrayAdapter<task> implements Filterable {
 

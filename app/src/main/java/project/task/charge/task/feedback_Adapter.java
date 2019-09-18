@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import project.task.charge.R;
-import project.task.charge.util.feedback;
+import project.task.charge.feed.feedback;
 
 public class feedback_Adapter extends ArrayAdapter<feedback> implements Filterable {
 

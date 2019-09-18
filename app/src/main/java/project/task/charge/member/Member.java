@@ -8,9 +8,13 @@ public class Member {
     public String photo;
     public String address;
     public String location;
-    public String phone;
+    public String official_phone;
     public String birthday;
     public String password;
+    public String personal_phone;
+    public String personal_email;
+    public String designation;
+
     public Member(){
 
     }
@@ -21,7 +25,7 @@ public class Member {
         this.photo = photo;
         this.address = address;
         this.location = location;
-        this.phone = phone;
+        this.official_phone = phone;
         this.birthday = birthday;
         this.password = password;
     }
@@ -50,8 +54,8 @@ public class Member {
     public String getLocation() {
         return location;
     }
-    public String getPhone() {
-        return phone;
+    public String getOfficial_phone() {
+        return official_phone;
     }
     public String getPassword() {
         return password;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".make_new_task">
+    tools:context="project.task.charge.make_new_task">
 
 <!--    <ScrollView-->
 <!--        android:layout_width="match_parent"-->

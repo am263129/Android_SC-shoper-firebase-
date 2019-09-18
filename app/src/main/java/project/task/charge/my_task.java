@@ -7,9 +7,11 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import project.task.charge.R;
+
 import project.task.charge.task.taskAdapter;
 import project.task.charge.util.Global;
-import project.task.charge.util.task;
+import project.task.charge.task.task;
 
 public class my_task extends AppCompatActivity {
 

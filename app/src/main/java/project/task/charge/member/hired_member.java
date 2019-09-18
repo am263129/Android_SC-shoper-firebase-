@@ -1,4 +1,4 @@
-package project.task.charge.util;
+package job.task.charge.member;
 
 public class hired_member {
     private String name;

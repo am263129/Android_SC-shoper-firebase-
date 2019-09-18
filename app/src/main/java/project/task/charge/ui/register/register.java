@@ -3,10 +3,8 @@ package project.task.charge.ui.register;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,15 +19,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,21 +31,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import project.task.charge.MainActivity;
 import project.task.charge.R;
 
 public class register extends AppCompatActivity {
-    EditText username_edt, email_edt, password_edt;
+    EditText username_edt, official_email_edt, password_edt, personal_email_edt, official_num_edt, personal_num_edt, designation_edt;
     ImageView profile_pic;
     Button register_btn;
     RadioGroup genderrb;
@@ -79,8 +69,13 @@ public class register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         username_edt = (EditText) findViewById(R.id.username_edt);
-        email_edt = (EditText) findViewById(R.id.email_edt);
+        official_email_edt = (EditText) findViewById(R.id.email_official_edt);
         password_edt = (EditText) findViewById(R.id.password_edt);
+        personal_email_edt = (EditText) findViewById(R.id.personal_email_edt);
+        official_num_edt = (EditText) findViewById(R.id.official_number_edt);
+        personal_num_edt = (EditText) findViewById(R.id.personal_number_edt);
+        designation_edt = (EditText) findViewById(R.id.designation_edt);
+
         genderrb = (RadioGroup) findViewById(R.id.genderrb);
         profile_pic = (ImageView) findViewById(R.id.profile_pic);
         register_btn = (Button) findViewById(R.id.register_btn);
@@ -102,15 +97,16 @@ public class register extends AppCompatActivity {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkemail() & check_username() & check_password()) {
+                if (checkemail() & check_username() & check_password() & checkemail_personal()) {
 
                     int selectedId = genderrb.getCheckedRadioButtonId();
                     RadioButton radiogender = (RadioButton) findViewById(selectedId);
 
                     String selected_gender = radiogender.getText().toString();
                     String username = username_edt.getText().toString();
-                    String email = email_edt.getText().toString();
+                    String email = official_email_edt.getText().toString();
                     String password = password_edt.getText().toString();
+
 
                     RegisterAPI(username, email, password, selected_gender, upload_file);
 
@@ -133,11 +129,22 @@ public class register extends AppCompatActivity {
     public boolean checkemail() {
 
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(
-                email_edt.getText().toString()).matches()) {
+                official_email_edt.getText().toString()).matches()) {
 
             return true;
         } else {
-            email_edt.setError("Email Invalid");
+            official_email_edt.setError("Email Invalid");
+            return false;
+        }
+    }
+    public boolean checkemail_personal() {
+
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(
+                personal_email_edt.getText().toString()).matches()) {
+
+            return true;
+        } else {
+            personal_email_edt.setError("Email Invalid");
             return false;
         }
     }
@@ -170,10 +177,18 @@ public class register extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(id+"/Name");
         myRef.setValue(username);
-        myRef = database.getReference(id+"/Email");
+        myRef = database.getReference(id+"/Official Email");
         myRef.setValue(email);
         myRef = database.getReference(id+"/Password");
         myRef.setValue(password);
+        myRef = database.getReference(id+"/Personal Email");
+        myRef.setValue(personal_email_edt.getText().toString());
+        myRef = database.getReference(id+"/Official Number");
+        myRef.setValue(official_num_edt.getText().toString());
+        myRef = database.getReference(id+"/Personal Number");
+        myRef.setValue(personal_num_edt.getText().toString());
+        myRef = database.getReference(id+"/Designation");
+        myRef.setValue(designation_edt.getText().toString());
         myRef = database.getReference(id+"/Gender");
         myRef.setValue(gender);
         if (bitmap!=null) {
@@ -193,12 +208,6 @@ public class register extends AppCompatActivity {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
             }
         });
-
-      //  uploadFile();
-//        upload_image();
-
-
-
     }
     private void singUp(){
         mAuth.createUserWithEmailAndPassword(userEmail,userPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

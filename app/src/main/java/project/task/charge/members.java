@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import project.task.charge.R;
+
 import project.task.charge.member.Member;
 import project.task.charge.member.memberAdapter_list;
 import project.task.charge.util.Global;

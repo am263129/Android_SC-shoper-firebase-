@@ -22,9 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
-import java.util.Random;
 
-import javax.microedition.khronos.opengles.GL;
+import project.task.charge.R;
 
 import project.task.charge.ui.fragment.newtask_first;
 import project.task.charge.ui.fragment.newtask_preview;

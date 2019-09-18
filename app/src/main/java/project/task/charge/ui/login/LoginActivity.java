@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import project.task.charge.R;
+
+import project.task.charge.MainActivity;
 import project.task.charge.util.Global;
 
 public class LoginActivity extends AppCompatActivity {
@@ -99,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Global.current_user_email = user.getEmail();
-                            Intent intent = new Intent(LoginActivity.this, project.task.charge.MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
 

@@ -1,6 +1,9 @@
-package project.task.charge.util;
+package project.task.charge.task;
 
 import java.util.ArrayList;
+
+import project.task.charge.feed.feedback;
+import project.task.charge.member.hired_member;
 
 public class task {
     public String task_id;
