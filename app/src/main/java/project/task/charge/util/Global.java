@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import project.task.charge.feed.feed;
 import project.task.charge.member.Member;
 import project.task.charge.project.project;
 import project.task.charge.task.task;
@@ -43,6 +44,7 @@ public class Global {
     public static ArrayList<task> array_my_task = new ArrayList<task>();
     public static ArrayList<task> array_task_in_project = new ArrayList<task>();
     public static ArrayList<project> array_project = new ArrayList<project>();
+    public static ArrayList<feed> array_feed = new ArrayList<feed>();
 
 
     public static String INDEX = "index";
@@ -55,6 +57,9 @@ public class Global {
     public static String FROM_MAIN = "from_main";
     public static String FLAG = "flag";
     public static String today = "";
+    public static String TYPE = "type";
+    public static String TYPE_EDIT = "edit";
+    public static String TYPE_NEW = "new";
 
 
     public static String getCountOfDays(String start_date, String end_date) {

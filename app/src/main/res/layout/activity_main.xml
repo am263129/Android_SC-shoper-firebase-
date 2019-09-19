@@ -15,29 +15,79 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/main_back"
+            android:background="@drawable/login_back"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/gray_light"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-
-            </androidx.appcompat.widget.Toolbar>
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/scrool_feed_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_margin="20dp"
+                android:background="@drawable/border"
+                android:orientation="vertical">
 
-                <include
-                    android:id="@+id/feed"
-                    layout="@layout/post_of_admin"></include>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp">
 
-            </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/post_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="30dp"
+                                android:fontFamily="@font/ts"
+                                android:text="Admin's post"
+                                android:textColor="@color/textcolor"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/post_desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="8dp"
+                                android:fontFamily="@font/ts"
+                                android:textColor="@color/textcolor"
+                                android:typeface="serif" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom"
+                            android:orientation="vertical">
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/post_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:fontFamily="@font/ts"
+                    android:padding="10dp"
+                    android:textColor="@color/textcolor" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,23 +97,28 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:weightSum="2">
 
                     <TableRow
                         android:id="@+id/task_area_a"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
                         android:visibility="gone">
 
                         <LinearLayout
                             android:id="@+id/btn_all_task"
+                            android:background="@drawable/main_ico_task_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/back_team_members"
                             android:gravity="bottom"
                             android:orientation="vertical"
                             android:paddingBottom="10dp">
@@ -72,7 +127,6 @@
                                 android:id="@+id/textView10"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="Lists of Tasks"
@@ -83,11 +137,15 @@
 
                         <LinearLayout
                             android:id="@+id/btn_newtask"
+                            android:background="@drawable/main_ico_newtask"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/back_make_task"
+                            android:clickable="false"
                             android:gravity="bottom"
                             android:orientation="vertical"
                             android:paddingBottom="10dp">
@@ -96,7 +154,6 @@
                                 android:id="@+id/textView11"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="New Task"
@@ -110,15 +167,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:paddingLeft="30dp"
+                        android:paddingEnd="30dp"
+                        android:paddingRight="30dp"
                         android:visibility="gone">
 
                         <LinearLayout
                             android:id="@+id/btn_mytask"
+                            android:background="@drawable/main_ico_mytask"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/back_mytask"
                             android:gravity="bottom"
                             android:orientation="vertical"
                             android:paddingBottom="10dp">
@@ -127,7 +189,6 @@
                                 android:id="@+id/textView12"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="My Task"
@@ -137,11 +198,14 @@
 
                         <LinearLayout
                             android:id="@+id/btn_task_created"
+                            android:background="@drawable/main_ico_createdtask"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/back_aboutus"
+                            android:clickable="false"
                             android:gravity="bottom"
                             android:orientation="vertical"
                             android:paddingBottom="10dp">
@@ -150,7 +214,6 @@
                                 android:id="@+id/textView13"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="Tasks I Created"
@@ -162,17 +225,22 @@
                     <TableRow
                         android:id="@+id/project_area_a"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
+                        android:visibility="visible">
 
                         <LinearLayout
                             android:id="@+id/btn_project"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/ico_project_list"
+                            android:background="@drawable/main_ico_project"
                             android:gravity="bottom"
                             android:orientation="vertical"
                             android:paddingBottom="10dp">
@@ -181,7 +249,6 @@
                                 android:id="@+id/label_project"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="Project"
@@ -194,9 +261,12 @@
                             android:id="@+id/btn_newproject"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/ico_make_project_disable"
+                            android:background="@drawable/main_ico_newproject"
                             android:clickable="false"
                             android:gravity="bottom"
                             android:orientation="vertical"
@@ -206,7 +276,6 @@
                                 android:id="@+id/label_newproject"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="New Project"
@@ -219,16 +288,21 @@
                         android:id="@+id/project_area_b"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:paddingLeft="30dp"
+                        android:paddingEnd="30dp"
+                        android:paddingRight="30dp"
+                        android:visibility="visible">
 
                         <LinearLayout
                             android:id="@+id/btn_task"
+                            android:background="@drawable/main_ico_task"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/ico_task"
                             android:gravity="bottom"
                             android:orientation="vertical"
                             android:paddingBottom="10dp">
@@ -237,7 +311,6 @@
                                 android:id="@+id/label_task"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="Task"
@@ -250,9 +323,11 @@
                             android:id="@+id/btn_create_member"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_weight="1"
-                            android:background="@drawable/ico_add_user_disable"
+                            android:background="@drawable/main_ico_addmember"
                             android:clickable="false"
                             android:gravity="bottom"
                             android:orientation="vertical"
@@ -262,7 +337,6 @@
                                 android:id="@+id/label_cteate_member"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/gray_dark_transparent"
                                 android:fontFamily="@font/ts"
                                 android:gravity="center_horizontal"
                                 android:text="Create Member"
@@ -270,9 +344,73 @@
                                 android:textSize="22dp" />
                         </LinearLayout>
                     </TableRow>
+
+                    <TableRow
+                        android:id="@+id/contact_us"
+                        android:layout_width="match_parent"
+                        android:layout_height="169dp"
+                        android:layout_weight="0.2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="33"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ico_facebook"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/bottom_ico_facebook" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="33"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ico_linkedin"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/bottom_ico_linkedin" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="33"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ico_twitter"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/bottom_ico_twitter" />
+
+                        </LinearLayout>
+                    </TableRow>
                 </TableLayout>
 
             </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/gray_light"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            </androidx.appcompat.widget.Toolbar>
 
 
         </com.google.android.material.appbar.AppBarLayout>

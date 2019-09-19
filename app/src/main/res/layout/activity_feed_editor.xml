@@ -12,19 +12,40 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ts"
+                android:text="Feed Title"
+                android:textColor="@color/textcolor" />
+
+            <EditText
+                android:id="@+id/feed_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPostalAddress|textEmailAddress"
+                android:textColor="@color/textcolor" />
+
+
+
+        </LinearLayout>
         <TextView
-            android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:fontFamily="@font/ts"
+            android:text="Feed Content"
             android:textColor="@color/textcolor" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/admin_feed"
+                android:id="@+id/feed_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -53,10 +74,18 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_feed_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_btn_next"
+            android:text="Update Feed" />
+
+        <Button
+            android:id="@+id/btn_feed_new"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_btn_finish"
-            android:text="POST" />
+            android:text=" Post new Feed"
+            android:visibility="gone" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

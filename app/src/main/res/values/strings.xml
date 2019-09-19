@@ -41,5 +41,8 @@
     <string name="status_completed">completed</string>
     <string name="created_tasks">Created Tasks</string>
     <string name="created_date">Created Date</string>
+    <string name="dlg_label">What Do You Want?</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_new">New</string>
 
 </resources>

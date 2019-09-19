@@ -5,18 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +42,7 @@ import java.util.HashMap;
 
 import project.task.charge.R;
 
+import project.task.charge.feed.feed_editor;
 import project.task.charge.member.Member;
 import project.task.charge.project.project;
 import project.task.charge.ui.register.register;
@@ -67,12 +73,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TASK_DURATION = "Duration";
     private String TASK_HIRED = "Hired members";
 
-    private Integer mInterval = 15000;
+    private Integer mInterval = 0;
     private Handler mHandler;
     ArrayList<feed> arrayList_feed;
     private Integer index = 0;
     private Calendar calendar;
     private int year, month, day;
+    TextView feed_area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         task_area_b = (TableRow)findViewById(R.id.task_area_b);
         project_area_a = (TableRow)findViewById(R.id.project_area_a);
         project_area_b = (TableRow)findViewById(R.id.project_area_b);
+        feed_area = (TextView) findViewById(R.id.post_title);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -141,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_project.setOnClickListener(this);
         task_list.setOnClickListener(this);
         create_member.setOnClickListener(this);
-
+        feed_area.setOnClickListener(this);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -221,8 +229,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         new_project.setClickable(true);
                                         create_member.setClickable(true);
                                         navigationView.getMenu().getItem(0).setVisible(true);
-                                        new_project.setBackgroundResource(R.drawable.ico_make_project);
-                                        create_member.setBackgroundResource(R.drawable.ico_add_user);
+                                        new_project.setBackgroundResource(R.drawable.main_ico_newproject);
+                                        create_member.setBackgroundResource(R.drawable.main_ico_addmember);
                                     }
 
                                 }
@@ -286,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    Global.array_feed.clear();
                     HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
                     for (String key : dataMap.keySet()) {
 
@@ -302,9 +311,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.e(TAG, cce.toString());
                         }
 
-
-                        Global.array_all_members = array_all_members;
                     }
+                    Global.array_feed = arrayList_feed;
+
                 }
             }
 
@@ -579,9 +588,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Runnable mStatusChecker = new Runnable() {
         @Override
         public void run() {
-            if (index == arrayList_feed.size()){
-                index = 0;
-            }
             if (arrayList_feed.size()>0) {
                 arrayList_feed.get(index).getFeed_crated_date();
                 TextView title = (TextView) findViewById(R.id.post_title);
@@ -591,6 +597,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 desc.setText(arrayList_feed.get(index).getFeed_description());
                 created.setText(arrayList_feed.get(index).getFeed_crated_date());
                 index++;
+                if (index == arrayList_feed.size()){
+                    index = 0;
+                }
+                mInterval = 15000;
             }
 
             mHandler.postDelayed(mStatusChecker, mInterval);
@@ -652,14 +662,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,"You don't have permission",Toast.LENGTH_LONG).show();
                 }
                 break;
-            case R.id.feed:
+            case R.id.post_title:
                 make_dialog();
+                break;
 
         }
 
     }
 
     private void make_dialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dlg_feed);
+        dialog.setTitle("Edit Feed");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCanceledOnTouchOutside(true);
+        Button feed_edit = (Button)dialog.findViewById(R.id.btn_edit);
+        Button feed_new = (Button)dialog.findViewById(R.id.btn_new);
+
+        final Intent intent = new Intent(MainActivity.this, feed_editor.class);
+        feed_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer tempindex = index -1;
+                if (tempindex < 0 )
+                    tempindex = arrayList_feed.size()-1;
+                if (index > arrayList_feed.size()-1) {
+                    tempindex = arrayList_feed.size() - 1;
+                }
+                intent.putExtra(Global.TYPE, Global.TYPE_EDIT);
+                intent.putExtra(Global.INDEX, tempindex);
+                startActivity(intent);
+                dialog.dismiss();
+
+            }
+        });
+        feed_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra(Global.TYPE, Global.TYPE_NEW);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+
+
     }
 
 //    @Override
