@@ -37,8 +37,8 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageButton
-                            android:id="@+id/imageButton"
+                        <ImageView
+                            android:id="@+id/task_status_icon"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -306,7 +306,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="15dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/label_write_feedback"
@@ -348,7 +349,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ts"
                         android:padding="8dp"
-                        android:text="ProjectName" />
+                        android:text="On Going" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -359,6 +360,14 @@
                     android:padding="15dp"
                     android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/label_change_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Client Action"
+                        android:textColor="@color/flatui_midnight_blue" />
+
                     <Button
                         android:id="@+id/btn_complete"
                         android:layout_width="match_parent"
@@ -368,14 +377,6 @@
                         android:padding="15dp"
                         android:text="Completed" />
 
-                    <TextView
-                        android:id="@+id/label_change_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ts"
-                        android:text="Client Action"
-                        android:textColor="@color/flatui_midnight_blue" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -383,7 +384,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="15dp"
+                    android:visibility="gone">
 
                     <Button
                         android:id="@+id/btn_update_data"

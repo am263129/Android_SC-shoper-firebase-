@@ -148,6 +148,8 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         myRef.setValue(Global.project_name);
         myRef = database.getReference(id+"/E_Creator");
         myRef.setValue(Global.current_user_name);
+        myRef = database.getReference(id+"/F_Status");
+        myRef.setValue("On Going");
         for(int i  = 0;i < Global.array_hired_members.size();i ++){
             myRef = database.getReference(id+"/Hired_Members/"+Global.array_hired_members.get(i).getName() +"/Name");
             myRef.setValue(Global.array_hired_members.get(i).getName());

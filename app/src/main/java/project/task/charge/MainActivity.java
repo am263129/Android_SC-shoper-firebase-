@@ -312,6 +312,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot snapshot) {
                 Log.e("Count " ,""+snapshot.getChildrenCount());
                 Global.list_project.clear();
+                Global.array_all_task.clear();
+                Global.array_my_task.clear();
+                Global.array_created_task.clear();
+
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.getKey();
                     Global.list_project.add(name);
@@ -346,6 +350,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String task_end_date = userData.get("C_End_date").toString();
                                     String task_creator = userData.get("E_Creator").toString();
                                     String task_involving_project = userData.get("D_Involving_Project").toString();
+                                    String task_status = userData.get("F_Status").toString();
                                     ArrayList<hired_member> hired_member = new ArrayList<>();
                                     HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
                                     for (String sub_subkey : Hired.keySet()) {
@@ -386,24 +391,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         Log.e("Task", "No Feedback");
                                     }
 
-                                    task task = new task(task_id, task_description, task_created_date, task_involving_project, task_duration, task_start_date, task_end_date, task_creator, hired_member, feedbacks);
+                                    task task = new task(task_id, task_description, task_created_date, task_involving_project, task_duration, task_start_date, task_end_date, task_creator, hired_member, feedbacks, task_status );
                                     created_tasks.add(task);
-                                    if (Global.array_all_task.size() > 0) {
-                                        boolean is_new = true;
-                                        for (int i = 0; i < Global.array_all_task.size(); i++) {
-                                            if (task_id.equals(Global.array_all_task.get(i).getTask_id()))
-                                                is_new = false;
-                                        }
-                                        if (is_new) {
-                                            Global.array_all_task.add(task);
-                                            if (task.getTask_creator().equals(Global.current_user_name))
-                                                Global.array_created_task.add(task);
-                                        }
-                                    } else {
-                                        Global.array_all_task.add(task);
-                                        if (task.getTask_creator().equals(Global.current_user_name))
-                                            Global.array_created_task.add(task);
-                                    }
+                                    Global.array_all_task.add(task);
+                                    if (task.getTask_creator().equals(Global.current_user_name))
+                                        Global.array_created_task.add(task);
                                     if (this_is_mine)
                                         Global.array_my_task.add(task);
                                 } catch (Exception e) {

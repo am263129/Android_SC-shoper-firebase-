@@ -36,7 +36,7 @@ public class create_project extends AppCompatActivity {
 
     private DatePicker datePicker;
     private Calendar calendar;
-    private int year, month, day, start_year, start_month, start_day, end_year, end_month, end_day;
+    private int year, month, day;
     String current_date;
     String duration;
     private DatePickerDialog picker;

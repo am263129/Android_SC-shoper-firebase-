@@ -63,44 +63,44 @@ public class taskAdapter extends ArrayAdapter<task> implements Filterable {
         task_duration.setText("("+duration+"days)");
         task_hired_person.setText(hired_member);
 
-        final Dialog dialog = new Dialog(super.getContext());
-        dialog.setContentView(R.layout.item_task_full);
-        dialog.setTitle("Task Detail");
-
-        // set the custom dialog components - text, image and button
-        TextView dlg_id = (TextView) dialog.findViewById(R.id.dlg_task_id);
-        TextView dlg_description = (TextView) dialog.findViewById(R.id.dlg_task_description);
-        TextView dlg_creator_name = (TextView) dialog.findViewById(R.id.dlg_creator_name);
-        TextView dlg_created_date = (TextView) dialog.findViewById(R.id.dlg_created_date);
-        TextView dlg_duration = (TextView) dialog.findViewById(R.id.dlg_deadline);
-        TextView dlg_start_date = (TextView) dialog.findViewById(R.id.dlg_start_date);
-        TextView dlg_end_date = (TextView) dialog.findViewById(R.id.dlg_end_date);
-        TextView dlg_hired_member = (TextView) dialog.findViewById(R.id.dlg_hired_members);
-        TextView dlg_project_name = (TextView) dialog.findViewById(R.id.dlg_involving_project_name);
-        dlg_id.setText(id);
-        dlg_start_date.setText(start_date);
-        dlg_end_date.setText(end_date);
-        dlg_description.setText(description);
-        dlg_created_date.setText(created_date);
-        dlg_duration.setText(duration);
-        dlg_hired_member.setText(hired_member);
-        dlg_project_name.setText(upper_project);
-        dlg_creator_name.setText(creator);
-        Button dialogButton = (Button) dialog.findViewById(R.id.dlg_btn_ok);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.show();
-            }
-        });
+//        final Dialog dialog = new Dialog(super.getContext());
+//        dialog.setContentView(R.layout.item_task_full);
+//        dialog.setTitle("Task Detail");
+//
+//        // set the custom dialog components - text, image and button
+//        TextView dlg_id = (TextView) dialog.findViewById(R.id.dlg_task_id);
+//        TextView dlg_description = (TextView) dialog.findViewById(R.id.dlg_task_description);
+//        TextView dlg_creator_name = (TextView) dialog.findViewById(R.id.dlg_creator_name);
+//        TextView dlg_created_date = (TextView) dialog.findViewById(R.id.dlg_created_date);
+//        TextView dlg_duration = (TextView) dialog.findViewById(R.id.dlg_deadline);
+//        TextView dlg_start_date = (TextView) dialog.findViewById(R.id.dlg_start_date);
+//        TextView dlg_end_date = (TextView) dialog.findViewById(R.id.dlg_end_date);
+//        TextView dlg_hired_member = (TextView) dialog.findViewById(R.id.dlg_hired_members);
+//        TextView dlg_project_name = (TextView) dialog.findViewById(R.id.dlg_involving_project_name);
+//        dlg_id.setText(id);
+//        dlg_start_date.setText(start_date);
+//        dlg_end_date.setText(end_date);
+//        dlg_description.setText(description);
+//        dlg_created_date.setText(created_date);
+//        dlg_duration.setText(duration);
+//        dlg_hired_member.setText(hired_member);
+//        dlg_project_name.setText(upper_project);
+//        dlg_creator_name.setText(creator);
+//        Button dialogButton = (Button) dialog.findViewById(R.id.dlg_btn_ok);
+//        dialogButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//
+//        v.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.show();
+//            }
+//        });
         return v;
 
     }
