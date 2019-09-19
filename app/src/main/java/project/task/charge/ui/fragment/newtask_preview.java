@@ -27,6 +27,7 @@ public class newtask_preview extends Fragment {
         TextView deadline = (TextView)view.findViewById(R.id.deadline);
         TextView project_name = (TextView)view.findViewById(R.id.involving_project_name);
         GridView hired_members = (GridView)view.findViewById(R.id.hired_members);
+        TextView created_date = (TextView)view.findViewById(R.id.created_date);
         memberAdapter_grid adapter_grid = new memberAdapter_grid(make_new_task.getInstance(),R.layout.item_user_grid, Global.array_hired_members);
         hired_members.setAdapter(adapter_grid);
 
@@ -49,6 +50,7 @@ public class newtask_preview extends Fragment {
         description.setText(Global.task_description);
         deadline.setText(Global.task_deadline);
         project_name.setText(Global.project_name);
+        created_date.setText(Global.today);
         return view;
     }
 }

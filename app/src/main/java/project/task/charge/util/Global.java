@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import project.task.charge.member.Member;
 import project.task.charge.project.project;
@@ -30,7 +31,6 @@ public class Global {
     public static String task_deadline;
     public static String project_name;
     public static String[] task_hired_members;
-    public static String task_created_date;
 
     public static boolean is_hiring_member = false;
     public static ArrayList<Member> array_all_members = new ArrayList<Member>();
@@ -52,6 +52,8 @@ public class Global {
     public static String ALLTASK = "all_task";
     public static String FROMPROJECT = "from_pro";
     public static String I_CREATED = "I_created";
+    public static String FLAG = "flag";
+    public static String today = "";
 
 
     public static String getCountOfDays(String start_date, String end_date) {
@@ -121,6 +123,13 @@ public class Global {
             }
         }
         return "invalid";
+    }
+
+    public static Integer getRandom(){
+        final int min = 1000;
+        final int max = 9999;
+        Integer random  = new Random().nextInt((max - min) + 1) + min;
+        return random;
     }
 
 }

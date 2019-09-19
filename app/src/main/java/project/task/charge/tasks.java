@@ -19,6 +19,9 @@ import project.task.charge.task.task;
 
 public class tasks extends AppCompatActivity {
 
+    boolean form_project = false;
+    Integer pro_index;
+    String origin = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,25 +29,38 @@ public class tasks extends AppCompatActivity {
         ListView task_list = (ListView)findViewById(R.id.task_list);
         ArrayList<task> array_all_task = new ArrayList<task>();
         final Intent intent = getIntent();
-        if (intent.getStringExtra("flag").equals("from_project"))
-        {
-            Integer index = intent.getIntExtra("Index",0);
-            array_all_task = Global.array_project.get(index).getProject_created_task();
+        try {
+            origin = intent.getStringExtra(Global.ORIGIN);
+        }
+        catch (Exception E){
+
+        }
+
+        if (origin.equals(Global.I_CREATED)){
+            array_all_task = Global.array_created_task;
         }
         else {
             array_all_task = Global.array_all_task;
         }
-
-        array_all_task = Global.array_all_task;
         taskAdapter adapter = new taskAdapter(this,R.layout.item_user_list,array_all_task);
         task_list.setAdapter(adapter);
         task_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent call_intent = new Intent(tasks.this, task_view.class);
-                call_intent.putExtra(Global.ORIGIN,Global.ALLTASK);
-                call_intent.putExtra(Global.INDEX,i);
-                startActivity(call_intent);
+                if(origin.equals(Global.I_CREATED)){
+                    Intent call_intent = new Intent(tasks.this, task_view.class);
+                    call_intent.putExtra(Global.ORIGIN,Global.I_CREATED);
+                    call_intent.putExtra(Global.INDEX,i);
+                    startActivity(call_intent);
+                }
+                else {
+                    Intent call_intent = new Intent(tasks.this, task_view.class);
+                    call_intent.putExtra(Global.ORIGIN, Global.ALLTASK);
+                    call_intent.putExtra(Global.INDEX, i);
+                    startActivity(call_intent);
+                }
+
+
 
             }
         });

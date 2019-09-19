@@ -278,6 +278,29 @@
                         android:text="hired_members" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/group_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/label_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Status"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <TextView
+                        android:id="@+id/task_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:padding="8dp"
+                        android:text="On Going" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/view_for_client"
@@ -322,35 +345,14 @@
                         android:layout_height="match_parent">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/user_feedback"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Feedback" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/group_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
 
-                    <TextView
-                        android:id="@+id/label_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ts"
-                        android:text="Status"
-                        android:textColor="@color/flatui_midnight_blue" />
-
-                    <TextView
-                        android:id="@+id/task_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ts"
-                        android:padding="8dp"
-                        android:text="On Going" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/action_for_client"
@@ -380,6 +382,33 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/client_uncomplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/label_uncomplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Client Action"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <Button
+                        android:id="@+id/btn_uncompleted"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/button_rounded"
+                        android:padding="15dp"
+                        android:text="UnCompleted" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/action_for_both"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -392,7 +421,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/selector_btn_finish"
+                        android:background="@drawable/selector_btn_next"
                         android:padding="15dp"
                         android:text="@string/common_google_play_services_update_button" />
                 </LinearLayout>

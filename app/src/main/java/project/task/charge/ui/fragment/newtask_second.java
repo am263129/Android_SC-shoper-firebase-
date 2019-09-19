@@ -49,11 +49,6 @@ public class newtask_second extends Fragment implements View.OnClickListener{
         btn_end_date.setOnClickListener(this);
         btn_start_date.setOnClickListener(this);
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        Global.task_created_date = String.valueOf(day+"/"+(month+1)+"/"+year);
 
 
         return view;

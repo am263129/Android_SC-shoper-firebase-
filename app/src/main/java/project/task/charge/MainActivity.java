@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import project.task.charge.R;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler mHandler;
     ArrayList<feed> arrayList_feed;
     private Integer index = 0;
+    private Calendar calendar;
+    private int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +140,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_project.setOnClickListener(this);
         task_list.setOnClickListener(this);
         create_member.setOnClickListener(this);
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        Global.today = String.valueOf(day+"-"+(month+1)+"-"+year);
+
         FirebaseApp.initializeApp(this);
         try {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -603,7 +613,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_task_created:
-                intent = new Intent(this, Created_task.class);
+                intent = new Intent(this, tasks.class);
+                intent.putExtra(Global.ORIGIN,Global.I_CREATED);
                 startActivity(intent);
                 break;
             case R.id.btn_project:

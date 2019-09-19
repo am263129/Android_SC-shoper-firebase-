@@ -36,5 +36,9 @@
     <string name="hint_start">Start Date of Project</string>
     <string name="button">Button</string>
     <string name="btn_create">Create</string>
+    <string name="status_ongoing">On Going.</string>
+    <string name="status_late">Late</string>
+    <string name="status_completed">completed</string>
+    <string name="created_tasks">Created Tasks</string>
 
 </resources>
