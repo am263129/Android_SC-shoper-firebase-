@@ -33,7 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp">
 
-                <include layout="@layout/post_of_admin"></include>
+                <include
+                    android:id="@+id/feed"
+                    layout="@layout/post_of_admin"></include>
 
             </RelativeLayout>
 

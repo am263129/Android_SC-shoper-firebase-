@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     case R.id.menu_all_task:
                         intent = new Intent(MainActivity.this, tasks.class);
+                        intent.putExtra(Global.ORIGIN,Global.FROM_MAIN);
                         startActivity(intent);
                         return true;
                     case R.id.menu_make_task:
@@ -157,9 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.logo);
-        toolbar.setTitle(R.string.project_id);
-        toolbar.setTitleTextColor(Color.BLACK);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -385,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         try {
                                             HashMap<String, Object> feedback = (HashMap<String, Object>) userData.get("E_Feedback");
                                             for (String sub_sub_subkey : feedback.keySet()) {
-                                                String feedback_id = sub_sub_subkey.getkey();
+//                                                String feedback_id = sub_sub_subkey.getkey();
                                                 Object sub_feedback = feedback.get(sub_sub_subkey);
                                                 feedback item_feedback = null;
                                                 try {
@@ -402,7 +400,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             if (feedbacks.size()>0){
                                                 ArrayList<feedback> temp = new ArrayList<feedback>();
                                                 for (int j = 0; j< feedbacks.size(); j++){
-                                                    Integer order = feedbacks.get
+//                                                    Integer order = feedbacks.get
                                                 }
 
                                             }
@@ -615,7 +613,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_all_task:
                 intent = new Intent(this, tasks.class);
                 intent.putExtra(Global.ORIGIN,Global.FROM_MAIN);
-                intent.putExtra("flag","from_main");
                 startActivity(intent);
                 break;
             case R.id.btn_mytask:
@@ -655,9 +652,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,"You don't have permission",Toast.LENGTH_LONG).show();
                 }
                 break;
+            case R.id.feed:
+                make_dialog();
 
         }
 
+    }
+
+    private void make_dialog() {
     }
 
 //    @Override
