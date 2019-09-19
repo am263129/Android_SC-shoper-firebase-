@@ -52,6 +52,7 @@ public class Global {
     public static String ALLTASK = "all_task";
     public static String FROMPROJECT = "from_pro";
     public static String I_CREATED = "I_created";
+    public static String FROM_MAIN = "from_main";
     public static String FLAG = "flag";
     public static String today = "";
 

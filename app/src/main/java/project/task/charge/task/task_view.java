@@ -206,8 +206,11 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
 
                 break;
             case R.id.btn_update_data:
-                if (validate())
+                if (validate()) {
                     update_data();
+                    user_feedback.setText("");
+                }
+
                 else
                     Toast.makeText(task_view.this, "You didn't change any data.", Toast.LENGTH_LONG).show();
                 break;
@@ -259,7 +262,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         if (created)
             myRef.setValue(task_status.getText().toString());
         if (mytask) {
-            String path = id + "/E_Feedback/" + Global.today + ":" + Global.current_user_name + String.valueOf(Global.getRandom());
+            String path = id + "/E_Feedback/" + Global.today + ":" + Global.current_user_name +":"+String.valueOf(tasklist.get(index).getFeedbacks().size()+1);
             myRef = database.getReference( path+ "/Feedback");
             myRef.setValue(user_feedback.getText().toString());
             myRef = database.getReference(path + "/Author");

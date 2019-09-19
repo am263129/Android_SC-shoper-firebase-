@@ -49,7 +49,10 @@ public class newtask_second extends Fragment implements View.OnClickListener{
         btn_end_date.setOnClickListener(this);
         btn_start_date.setOnClickListener(this);
 
-
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         return view;
     }
@@ -75,7 +78,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
                                 start_day = dayOfMonth;
                                 getCountOfDays();
                             }
-                        }, start_year, start_month , start_day);
+                        }, year, month , day);
 
                 picker.show();
 
@@ -97,7 +100,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
                                 end_day = dayOfMonth;
                                 getCountOfDays();
                             }
-                        }, end_year, end_month , end_day);
+                        }, year, month , day);
                 picker.show();
                 break;
 
