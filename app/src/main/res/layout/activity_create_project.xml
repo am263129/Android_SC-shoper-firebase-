@@ -1,9 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.task.charge.create_project">
+    tools:context="project.task.charge.create_project"
+    android:background="@drawable/back_project"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/gray_light"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_name"
+                        android:textColor="@color/textcolor" />
+
+                    <EditText
+                        android:id="@+id/project_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textPostalAddress|textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_description"
+                        android:textColor="@color/textcolor" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="179dp"
+                        android:saveEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/project_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textcolor" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_client"
+                        android:textColor="@color/textcolor" />
+
+                    <EditText
+                        android:id="@+id/project_client"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textPostalAddress|textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_location"
+                        android:textColor="@color/textcolor" />
+
+                    <EditText
+                        android:id="@+id/project_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textPostalAddress|textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_start_date"
+                        android:textColor="@color/textcolor" />
+
+                    <TextView
+                        android:id="@+id/project_start_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_start"
+                        android:inputType="none"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_contractual_end_date"
+                        android:textColor="@color/textcolor" />
+
+                    <TextView
+                        android:id="@+id/project_cont_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_contractual"
+                        android:inputType="none"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_target_end_date"
+                        android:textColor="@color/textcolor" />
+
+                    <TextView
+                        android:id="@+id/project_tar_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_target_end"
+                        android:inputType="none"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/project_duration"
+                        android:textColor="@color/textcolor" />
+
+                    <TextView
+                        android:id="@+id/project_duration"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/project_duration"
+                        android:inputType="textPostalAddress|textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_project_finish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/selector_btn_finish"
+                android:text="@string/btn_create" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

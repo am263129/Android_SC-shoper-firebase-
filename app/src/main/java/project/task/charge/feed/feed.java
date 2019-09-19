@@ -1,4 +1,4 @@
-package job.task.charge.feed;
+package project.task.charge.feed;
 
 public class feed {
     public String feed_title;

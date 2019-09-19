@@ -1,4 +1,4 @@
-package job.task.charge.task;
+package project.task.charge.task;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import com.task.charge.R;
-import job.task.charge.feed.feedback;
-import job.task.charge.member.hired_member;
+import project.task.charge.R;
+import project.task.charge.feed.feedback;
+import project.task.charge.member.hired_member;
 
 public class task_I_createdAdapter extends ArrayAdapter<task> implements Filterable {
 

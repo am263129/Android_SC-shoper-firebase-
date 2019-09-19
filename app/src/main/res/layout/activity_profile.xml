@@ -32,15 +32,7 @@
                 android:paddingRight="8dp">
 
 
-                <Button
-                    android:id="@+id/update_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/selector_btn_next"
-                    android:text="UPDATE"
-                    android:textColor="@color/textcolor" />
+
 
 
                 <LinearLayout
@@ -207,6 +199,13 @@
                     android:layout_height="90dp"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/email"
+                        android:textColor="@color/textcolor" />
+
                     <EditText
                         android:id="@+id/email_edt"
                         android:layout_width="match_parent"
@@ -215,26 +214,12 @@
                         android:inputType="textEmailAddress"
                         android:textColor="@color/textcolor" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ts"
-                        android:text="@string/email"
-                        android:textColor="@color/textcolor" />
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/birthday_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/textcolor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -243,19 +228,19 @@
                         android:text="Birthday"
                         android:textColor="@color/textcolor" />
 
+                    <EditText
+                        android:id="@+id/birthday_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/address_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/textcolor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -264,19 +249,19 @@
                         android:text="Address"
                         android:textColor="@color/textcolor" />
 
+                    <EditText
+                        android:id="@+id/address_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/location_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/textcolor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -285,19 +270,19 @@
                         android:text="Location"
                         android:textColor="@color/textcolor" />
 
+                    <EditText
+                        android:id="@+id/location_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/textcolor" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/previous_password_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="textPassword"
-                        android:textColor="@color/textcolor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -306,19 +291,19 @@
                         android:text="Old Password"
                         android:textColor="@color/textcolor" />
 
+                    <EditText
+                        android:id="@+id/previous_password_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textPassword"
+                        android:textColor="@color/textcolor" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/password_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:inputType="textPassword"
-                        android:textColor="@color/textcolor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -327,12 +312,26 @@
                         android:text="New Password"
                         android:textColor="@color/textcolor" />
 
+                    <EditText
+                        android:id="@+id/password_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:inputType="textPassword"
+                        android:textColor="@color/textcolor" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="@string/gender"
+                        android:textColor="@color/textcolor" />
 
                     <RadioGroup
                         android:id="@+id/genderrb"
@@ -361,14 +360,17 @@
 
                     </RadioGroup>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ts"
-                        android:text="@string/gender"
-                        android:textColor="@color/textcolor" />
 
                 </LinearLayout>
+                <Button
+                    android:id="@+id/update_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/selector_btn_next"
+                    android:text="UPDATE"
+                    android:textColor="@color/textcolor" />
 
 
             </LinearLayout>

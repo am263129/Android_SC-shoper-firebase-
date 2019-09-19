@@ -1,7 +1,12 @@
 package project.task.charge.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import project.task.charge.member.Member;
 import project.task.charge.project.project;
@@ -38,5 +43,75 @@ public class Global {
     public static ArrayList<task> array_my_task = new ArrayList<task>();
     public static ArrayList<task> array_task_in_project = new ArrayList<task>();
     public static ArrayList<project> array_project = new ArrayList<project>();
+
+
+    public static String getCountOfDays(String start_date, String end_date) {
+        if((!(start_date.equals("")))&&(!end_date.equals(""))) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+            try {
+                createdConvertedDate = dateFormat.parse(start_date);
+                expireCovertedDate = dateFormat.parse(end_date);
+
+                Date today = new Date();
+
+                todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int cYear = 0, cMonth = 0, cDay = 0;
+
+            if (createdConvertedDate.after(todayWithZeroTime)) {
+                Calendar cCal = Calendar.getInstance();
+                cCal.setTime(createdConvertedDate);
+                cYear = cCal.get(Calendar.YEAR);
+                cMonth = cCal.get(Calendar.MONTH);
+                cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+            } else {
+                Calendar cCal = Calendar.getInstance();
+                cCal.setTime(todayWithZeroTime);
+                cYear = cCal.get(Calendar.YEAR);
+                cMonth = cCal.get(Calendar.MONTH);
+                cDay = cCal.get(Calendar.DAY_OF_MONTH);
+            }
+
+
+    /*Calendar todayCal = Calendar.getInstance();
+    int todayYear = todayCal.get(Calendar.YEAR);
+    int today = todayCal.get(Calendar.MONTH);
+    int todayDay = todayCal.get(Calendar.DAY_OF_MONTH);
+    */
+
+            Calendar eCal = Calendar.getInstance();
+            eCal.setTime(expireCovertedDate);
+
+            int eYear = eCal.get(Calendar.YEAR);
+            int eMonth = eCal.get(Calendar.MONTH);
+            int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+            Calendar date1 = Calendar.getInstance();
+            Calendar date2 = Calendar.getInstance();
+
+            date1.clear();
+            date1.set(cYear, cMonth, cDay);
+            date2.clear();
+            date2.set(eYear, eMonth, eDay);
+
+            long diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+
+            float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+            if(dayCount > 0) {
+                String duration = ("" + (int) dayCount);
+                return duration;
+            }
+            else {
+
+            }
+        }
+        return "invalid";
+    }
 
 }

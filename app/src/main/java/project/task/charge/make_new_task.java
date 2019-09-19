@@ -130,7 +130,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
 
     private void uploadNewTask() {
         FirebaseApp.initializeApp(this);
-        String id = "TASK/" + Global.task_id;
+        String id = "Project/" + Global.project_name + "/" +Global.task_id;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(id+"/A_Id");
         myRef.setValue(Global.task_id);

@@ -318,6 +318,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Log.e("Count " ,""+snapshot.getChildrenCount());
+                Global.list_project.clear();
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.getKey();
                     Global.list_project.add(name);
@@ -508,6 +509,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_project:
                 break;
             case R.id.btn_newproject:
+                intent = new Intent(this, create_project.class);
+                startActivity(intent);
                 break;
             case R.id.btn_task:
                 Global.is_task_area = true;

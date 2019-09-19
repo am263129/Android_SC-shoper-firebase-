@@ -23,5 +23,18 @@
     <string name="enter_your_email">Enter Your Email</string>
     <string name="password">Password</string>
     <string name="enter_your_password">Enter Your Password</string>
+    <string name="project_name">Project Name</string>
+    <string name="project_description">Description</string>
+    <string name="project_client">Client</string>
+    <string name="project_location">Location</string>
+    <string name="project_duration">Duration</string>
+    <string name="project_start_date">Start Date</string>
+    <string name="project_contractual_end_date">Contractual End Date</string>
+    <string name="project_target_end_date">Target End Date</string>
+    <string name="hint_target_end">Target End Date of Project</string>
+    <string name="hint_contractual">Contractual End date of Project</string>
+    <string name="hint_start">Start Date of Project</string>
+    <string name="button">Button</string>
+    <string name="btn_create">Create</string>
 
 </resources>
