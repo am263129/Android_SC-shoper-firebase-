@@ -45,6 +45,15 @@ public class Global {
     public static ArrayList<project> array_project = new ArrayList<project>();
 
 
+    public static String INDEX = "index";
+    public static String PRO_INDEX = "pro_index";
+    public static String ORIGIN = "orgin";
+    public static String MYTASK = "my_task";
+    public static String ALLTASK = "all_task";
+    public static String FROMPROJECT = "from_pro";
+    public static String I_CREATED = "I_created";
+
+
     public static String getCountOfDays(String start_date, String end_date) {
         if((!(start_date.equals("")))&&(!end_date.equals(""))) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

@@ -30,7 +30,7 @@ public class projectAdapter extends ArrayAdapter<project> {
 
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v = inflater.inflate(R.layout.item_tasks_list, null);
+        v = inflater.inflate(R.layout.item_project_list, null);
 
         TextView project_name = (TextView)v.findViewById(R.id.item_project_name);
 

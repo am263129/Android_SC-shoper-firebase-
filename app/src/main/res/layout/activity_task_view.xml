@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.task.charge.ui.register.register">
+
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/ico_late" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/ts"
+                        android:gravity="center_horizontal"
+                        android:text="Task"
+                        android:textSize="24sp"
+                        android:textStyle="bold|italic" />
+
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:srcCompat="@drawable/man_dummy" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/ts"
+                                android:gravity="center_horizontal"
+                                android:text="Creator" />
+
+                            <TextView
+                                android:id="@+id/task_creator_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/ts"
+                                android:gravity="center_horizontal"
+                                android:text="Name" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/label_task_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="Task Id"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/task_task_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Task Id"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/label_task_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        android:text="Descrioption"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/task_task_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/label_deadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Deadline"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/task_deadline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/label_days"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="days" />
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/task_start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" - " />
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/task_end_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Created Date" />
+
+                        <TextView
+                            android:fontFamily="@font/ts"
+                            android:id="@+id/task_created_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="TextView" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/involving_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Project Name"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/task_involving_project_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="ProjectName" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/label_hired_members"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hired Members"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <TextView
+                        android:fontFamily="@font/ts"
+                        android:id="@+id/task_hired_members"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="hired_members" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_for_client"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/label_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Feedbacks"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <ListView
+                        android:id="@+id/task_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/action_for_mytask"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/label_write_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Write Feedback"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Feedback" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/label_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Status"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                    <TextView
+                        android:id="@+id/task_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:padding="8dp"
+                        android:text="ProjectName" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/action_for_client"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/btn_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/selector_btn_finish"
+                        android:padding="15dp"
+                        android:text="Completed" />
+
+                    <TextView
+                        android:id="@+id/label_change_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Client Action"
+                        android:textColor="@color/flatui_midnight_blue" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/action_for_both"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <Button
+                        android:id="@+id/btn_update_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/selector_btn_finish"
+                        android:padding="15dp"
+                        android:text="@string/common_google_play_services_update_button" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

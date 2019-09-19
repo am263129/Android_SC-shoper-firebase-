@@ -37,6 +37,7 @@ import java.util.HashMap;
 import project.task.charge.R;
 
 import project.task.charge.member.Member;
+import project.task.charge.project.project;
 import project.task.charge.ui.register.register;
 import project.task.charge.util.Global;
 import project.task.charge.feed.feed;
@@ -47,7 +48,7 @@ import project.task.charge.task.task;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public String TAG = "Main";
-    private LinearLayout all_members, new_task, my_task, created_task, project, new_project, task, create_member;
+    private LinearLayout all_members, new_task, my_task, created_task, project_list, new_project, task_list, create_member;
     public static MainActivity myself;
     private Intent intent;
     private TextView current_user_name, current_user_email;
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_task = (LinearLayout)findViewById(R.id.btn_newtask);
         my_task = (LinearLayout)findViewById(R.id.btn_mytask);
         created_task = (LinearLayout)findViewById(R.id.btn_task_created);
-        project = (LinearLayout)findViewById(R.id.btn_project);
+        project_list = (LinearLayout)findViewById(R.id.btn_project);
         new_project = (LinearLayout)findViewById(R.id.btn_newproject);
-        task = (LinearLayout)findViewById(R.id.btn_task);
+        task_list = (LinearLayout)findViewById(R.id.btn_task);
         create_member = (LinearLayout)findViewById(R.id.btn_create_member);
         navigationView = (NavigationView)findViewById(R.id.nav_view);
         task_area_a = (TableRow)findViewById(R.id.task_area_a);
@@ -132,9 +133,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new_task.setOnClickListener(this);
         my_task.setOnClickListener(this);
         created_task.setOnClickListener(this);
-        project.setOnClickListener(this);
+        project_list.setOnClickListener(this);
         new_project.setOnClickListener(this);
-        task.setOnClickListener(this);
+        task_list.setOnClickListener(this);
         create_member.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
         try {
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Member");
-        Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
 //        myRef.setValue("test@test.com");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -278,8 +279,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
-//                    Member Member = dataSnapshot.getValue(Member.class);
-//                    Log.d(TAG, "User name: " + Member.getName() + ", email " + Member.getEmail());
                     for (String key : dataMap.keySet()) {
 
                         Object data = dataMap.get(key);
@@ -291,12 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String feed_created = userData.get("Created_Date").toString();
                             feed feed = new feed(feed_title, feed_desc, feed_created);
                             arrayList_feed.add(feed);
-//                            TextView title = (TextView) findViewById(R.id.post_title);
-//                            TextView desc = (TextView) findViewById(R.id.post_desc);
-//                            TextView created = (TextView) findViewById(R.id.post_created);
-//                            title.setText(feed_title.toString());
-//                            desc.setText(feed_desc.toString());
-//                            created.setText(feed_created.toString());
                         } catch (Exception cce) {
                             Log.e(TAG, cce.toString());
                         }
@@ -322,6 +315,120 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.getKey();
                     Global.list_project.add(name);
+                    HashMap<String, Object> dataMap = (HashMap<String, Object>) snapshot.getValue();
+
+                    for (String key : dataMap.keySet()) {
+                        boolean this_is_mine = false;
+                        Object data = dataMap.get(key);
+
+                        try {
+                            HashMap<String, Object> whole_data = (HashMap<String, Object>) data;
+                            String project_name = whole_data.get("Name").toString();
+                            String project_description = whole_data.get("Description").toString();
+                            String project_client = whole_data.get("Client").toString();
+                            String project_location = whole_data.get("Location").toString();
+                            String project_duration = whole_data.get("Duration").toString();
+                            String project_start_date = whole_data.get("Start_date").toString();
+                            String project_con_date = whole_data.get("Contractual End Date").toString();
+                            String project_tar_date = whole_data.get("Target End Date").toString();
+                            String project_created_date = whole_data.get("Created_date").toString();
+                            ArrayList<task> created_tasks = new ArrayList<task>();
+                            HashMap<String, Object> tasks = (HashMap<String, Object>) whole_data.get("Created Tasks");
+                            for (String subkey : tasks.keySet()) {
+                                Object sub_data = tasks.get(subkey);
+                                try {
+                                    HashMap<String, Object> userData = (HashMap<String, Object>) sub_data;
+                                    String task_id = userData.get("A_Id").toString();
+                                    String task_description = userData.get("B_Description").toString();
+                                    String task_created_date = userData.get("C_Created_date").toString();
+                                    String task_duration = userData.get("C_Duration").toString();
+                                    String task_start_date = userData.get("C_Start_date").toString();
+                                    String task_end_date = userData.get("C_End_date").toString();
+                                    String task_creator = userData.get("E_Creator").toString();
+                                    String task_involving_project = userData.get("D_Involving_Project").toString();
+                                    ArrayList<hired_member> hired_member = new ArrayList<>();
+                                    HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
+                                    for (String sub_subkey : Hired.keySet()) {
+                                        Object sub_subdata = Hired.get(sub_subkey);
+                                        hired_member member = null;
+                                        try {
+                                            HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_subdata;
+                                            String hired_name = hired_Data.get("Name").toString();
+                                            String hired_email = hired_Data.get("Email").toString();
+                                            member = new hired_member(hired_name, hired_email);
+                                            hired_member.add(member);
+                                            if (hired_email.equals(Global.current_user_email))
+                                                this_is_mine = true;
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+
+                                    }
+                                    ArrayList<feedback> feedbacks = new ArrayList<>();
+                                    try {
+                                        HashMap<String, Object> feedback = (HashMap<String, Object>) userData.get("E_Feedback");
+                                        for (String sub_sub_subkey : feedback.keySet()) {
+                                            Object sub_feedback = feedback.get(sub_sub_subkey);
+                                            feedback item_feedback = null;
+                                            try {
+                                                HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_feedback;
+                                                String hired_name = hired_Data.get("Author").toString();
+                                                String hired_feedback = hired_Data.get("Feedback").toString();
+                                                item_feedback = new feedback(hired_name, hired_feedback);
+                                                feedbacks.add(item_feedback);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("Task", "No Feedback");
+                                    }
+
+                                    task task = new task(task_id, task_description, task_created_date, task_involving_project, task_duration, task_start_date, task_end_date, task_creator, hired_member, feedbacks);
+                                    created_tasks.add(task);
+                                    if (Global.array_all_task.size() > 0) {
+                                        boolean is_new = true;
+                                        for (int i = 0; i < Global.array_all_task.size(); i++) {
+                                            if (task_id.equals(Global.array_all_task.get(i).getTask_id()))
+                                                is_new = false;
+                                        }
+                                        if (is_new) {
+                                            Global.array_all_task.add(task);
+                                            if (task.getTask_creator().equals(Global.current_user_name))
+                                                Global.array_created_task.add(task);
+                                        }
+                                    } else {
+                                        Global.array_all_task.add(task);
+                                        if (task.getTask_creator().equals(Global.current_user_name))
+                                            Global.array_created_task.add(task);
+                                    }
+                                    if (this_is_mine)
+                                        Global.array_my_task.add(task);
+                                } catch (Exception e) {
+                                    Log.e(TAG, e.toString());
+                                }
+                            }
+
+                            project project = new project(project_name, project_description, project_client, project_location, project_duration, project_start_date, project_con_date, project_tar_date, project_created_date, created_tasks);
+                            if (Global.array_project.size() >0){
+                                boolean is_new = true;
+                                for (int j = 0; j < Global.array_project.size(); j ++){
+                                    if (Global.array_project.get(j).getProject_name().equals(project_name))
+                                        is_new = false;
+                                }
+                                if (is_new){
+                                    Global.array_project.add(project);
+                                }
+                            }
+                            else
+                                Global.array_project.add(project);
+                        } catch (Exception cce) {
+                            continue;
+                        }
+
+                    }
                 }
 
             }
@@ -333,109 +440,109 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        DatabaseReference Task_Ref = database.getReference("TASK");
-        Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
-//        myRef.setValue("test@test.com");
-        Task_Ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
-                    for (String key : dataMap.keySet()){
-                        boolean this_is_mine = false;
-                        Object data = dataMap.get(key);
-
-                        try{
-                            HashMap<String, Object> userData = (HashMap<String, Object>) data;
-                            String task_id = userData.get("A_Id").toString();
-                            String task_description = userData.get("B_Description").toString();
-                            String task_created_date = userData.get("C_Created_date").toString();
-                            String task_duration = userData.get("C_Duration").toString();
-                            String task_start_date = userData.get("C_Start_date").toString();
-                            String task_end_date = userData.get("C_End_date").toString();
-                            String task_creator = userData.get("E_Creator").toString();
-                            String task_involving_project = userData.get("D_Involving_Project").toString();
-                            ArrayList<hired_member> hired_member = new ArrayList<>();
-                            HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
-                            for (String subkey : Hired.keySet()) {
-                                Object sub_data = Hired.get(subkey);
-                                hired_member member = null;
-                                try {
-                                    HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_data;
-                                    String hired_name = hired_Data.get("Name").toString();
-                                    String hired_email = hired_Data.get("Email").toString();
-                                    member = new hired_member(hired_name,hired_email);
-                                    hired_member.add(member);
-                                    if (hired_email.equals(Global.current_user_email))
-                                            this_is_mine = true;
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-                            ArrayList<feedback> feedbacks = new ArrayList<>();
-                            try {
-                                HashMap<String, Object> feedback = (HashMap<String, Object>) userData.get("E_Feedback");
-                                for (String subkey : feedback.keySet()) {
-                                    Object sub_feedback = feedback.get(subkey);
-                                    feedback item_feedback = null;
-                                    try {
-                                        HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_feedback;
-                                        String hired_name = hired_Data.get("Author").toString();
-                                        String hired_feedback = hired_Data.get("Feedback").toString();
-                                        item_feedback = new feedback(hired_name, hired_feedback);
-                                        feedbacks.add(item_feedback);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            }
-                            catch (Exception e){
-                                Log.e("Task", "No Feedback");
-                            }
-
-                            project.task.charge.task.task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member, feedbacks);
-                            if (Global.array_all_task.size()>0){
-                                boolean is_new = true;
-                                for (int i =0 ; i< Global.array_all_task.size(); i ++){
-                                    if(task_id.equals(Global.array_all_task.get(i).getTask_id()))
-                                        is_new = false;
-                                }
-                                if (is_new) {
-                                    Global.array_all_task.add(task);
-                                    if (task.getTask_creator().equals(Global.current_user_name))
-                                        Global.array_created_task.add(task);
-                                }
-                            }
-                            else {
-                                Global.array_all_task.add(task);
-                                if (task.getTask_creator().equals(Global.current_user_name))
-                                    Global.array_created_task.add(task);
-                            }
-                            if(this_is_mine)
-                                Global.array_my_task.add(task);
-
-                        }catch (Exception cce){
-                            continue;
-//                            try{
-//                                String mString = String.valueOf(dataMap.get(key));
-////                                Log.e(TAG, mString);
-//                            }catch (ClassCastException cce2){
+//        DatabaseReference Task_Ref = database.getReference("TASK");
+//        Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
+////        myRef.setValue("test@test.com");
+//        Task_Ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()){
+//                    HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
+//                    for (String key : dataMap.keySet()){
+//                        boolean this_is_mine = false;
+//                        Object data = dataMap.get(key);
+//
+//                        try{
+//                            HashMap<String, Object> userData = (HashMap<String, Object>) data;
+//                            String task_id = userData.get("A_Id").toString();
+//                            String task_description = userData.get("B_Description").toString();
+//                            String task_created_date = userData.get("C_Created_date").toString();
+//                            String task_duration = userData.get("C_Duration").toString();
+//                            String task_start_date = userData.get("C_Start_date").toString();
+//                            String task_end_date = userData.get("C_End_date").toString();
+//                            String task_creator = userData.get("E_Creator").toString();
+//                            String task_involving_project = userData.get("D_Involving_Project").toString();
+//                            ArrayList<hired_member> hired_member = new ArrayList<>();
+//                            HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
+//                            for (String subkey : Hired.keySet()) {
+//                                Object sub_data = Hired.get(subkey);
+//                                hired_member member = null;
+//                                try {
+//                                    HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_data;
+//                                    String hired_name = hired_Data.get("Name").toString();
+//                                    String hired_email = hired_Data.get("Email").toString();
+//                                    member = new hired_member(hired_name,hired_email);
+//                                    hired_member.add(member);
+//                                    if (hired_email.equals(Global.current_user_email))
+//                                            this_is_mine = true;
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//
 //
 //                            }
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG,"Failed to rad value ", databaseError.toException());
-            }
-        });
+//                            ArrayList<feedback> feedbacks = new ArrayList<>();
+//                            try {
+//                                HashMap<String, Object> feedback = (HashMap<String, Object>) userData.get("E_Feedback");
+//                                for (String subkey : feedback.keySet()) {
+//                                    Object sub_feedback = feedback.get(subkey);
+//                                    feedback item_feedback = null;
+//                                    try {
+//                                        HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_feedback;
+//                                        String hired_name = hired_Data.get("Author").toString();
+//                                        String hired_feedback = hired_Data.get("Feedback").toString();
+//                                        item_feedback = new feedback(hired_name, hired_feedback);
+//                                        feedbacks.add(item_feedback);
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+//
+//                                }
+//                            }
+//                            catch (Exception e){
+//                                Log.e("Task", "No Feedback");
+//                            }
+//
+//                            project.task.charge.task.task task = new task(task_id, task_description,task_created_date, task_involving_project, task_duration, task_start_date, task_end_date,  task_creator, hired_member, feedbacks);
+//                            if (Global.array_all_task.size()>0){
+//                                boolean is_new = true;
+//                                for (int i =0 ; i< Global.array_all_task.size(); i ++){
+//                                    if(task_id.equals(Global.array_all_task.get(i).getTask_id()))
+//                                        is_new = false;
+//                                }
+//                                if (is_new) {
+//                                    Global.array_all_task.add(task);
+//                                    if (task.getTask_creator().equals(Global.current_user_name))
+//                                        Global.array_created_task.add(task);
+//                                }
+//                            }
+//                            else {
+//                                Global.array_all_task.add(task);
+//                                if (task.getTask_creator().equals(Global.current_user_name))
+//                                    Global.array_created_task.add(task);
+//                            }
+//                            if(this_is_mine)
+//                                Global.array_my_task.add(task);
+//
+//                        }catch (Exception cce){
+//                            continue;
+////                            try{
+////                                String mString = String.valueOf(dataMap.get(key));
+//////                                Log.e(TAG, mString);
+////                            }catch (ClassCastException cce2){
+////
+////                            }
+//                        }
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.w(TAG,"Failed to rad value ", databaseError.toException());
+//            }
+//        });
 
 
         mHandler = new Handler();
@@ -492,6 +599,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_all_task:
                 intent = new Intent(this, tasks.class);
+                intent.putExtra("flag","from_main");
                 startActivity(intent);
                 break;
             case R.id.btn_mytask:
@@ -507,6 +615,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_project:
+                intent = new Intent(this, project_list.class);
+                startActivity(intent);
                 break;
             case R.id.btn_newproject:
                 intent = new Intent(this, create_project.class);

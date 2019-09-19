@@ -6,11 +6,27 @@
     android:layout_height="match_parent"
     tools:context="project.task.charge.project_list">
 
-    <ListView
-        android:id="@+id/project_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="221dp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/ts"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="All Projects"
+            android:textSize="24sp" />
+
+        <ListView
+            android:id="@+id/project_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:padding="10dp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

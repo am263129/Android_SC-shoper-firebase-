@@ -44,7 +44,6 @@ public class newtask_first extends Fragment {
         project.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(make_new_task.getInstance(),Global.list_project.get(i),Toast.LENGTH_LONG).show();
                 Global.project_name = Global.list_project.get(i);
             }
 
