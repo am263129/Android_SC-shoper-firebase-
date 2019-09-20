@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.solver.GoalRow;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +27,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 import project.task.charge.MainActivity;
 import project.task.charge.R;
@@ -37,6 +43,7 @@ import static project.task.charge.util.Global.FLAG;
 import static project.task.charge.util.Global.INDEX;
 import static project.task.charge.util.Global.ORIGIN;
 import static project.task.charge.util.Global.PRO_INDEX;
+import static project.task.charge.util.Global.array_all_members;
 
 public class task_view extends AppCompatActivity implements View.OnClickListener {
     TextView task_id, task_description, task_creator_name, task_created_date, task_duration, task_start_date, task_end_date, task_hired_member,task_project_name, task_status;
@@ -58,6 +65,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
     boolean mytask = false;
     boolean created = false;
     boolean changed = false;
+    ImageView creator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         task_status_icon = (ImageView)findViewById(R.id.task_status_icon);
         feedback_list = (ListView)findViewById(R.id.task_feedback);
         user_feedback = (EditText)findViewById(R.id.user_feedback);
+        creator = (ImageView)findViewById(R.id.creator);
         complete.setOnClickListener(this);
         update.setOnClickListener(this);
         uncompleted.setOnClickListener(this);
@@ -98,6 +107,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         index = intent.getIntExtra(INDEX,0);
         Integer pro_index = intent.getIntExtra(PRO_INDEX, 0);
         String from = intent.getStringExtra(ORIGIN);
+        tasklist.clear();
         switch (from){
             case "my_task":
                 mytask = true;
@@ -181,6 +191,19 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         params.height = totalHeight;
         feedback_list.setLayoutParams(params);
 
+        String base64 = "";
+        for (int i=0; i < array_all_members.size(); i++){
+            if (array_all_members.get(i).getName().equals(task_array.get(index).getTask_creator())){
+                base64 = array_all_members.get(i).getPhoto();
+            }
+        }
+        if (!base64.equals("")){
+            String imageDataBytes = base64.substring(base64.indexOf(",")+1);
+            InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
+            Bitmap bitmap = BitmapFactory.decodeStream(stream);
+            creator.setImageBitmap(bitmap);
+        }
+
 
 
     }
@@ -259,10 +282,15 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         String id = "Project/" + tasklist.get(index).getTask_involvoing_project() + "/Created Tasks/" + tasklist.get(index).getTask_id();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(id+"/F_Status");
+
+        final int min = 0;
+        final int max = 99999999;
+        Integer random = new Random().nextInt((max - min) + 1) + min;
+
         if (created)
             myRef.setValue(task_status.getText().toString());
         if (mytask) {
-            String path = id + "/E_Feedback/" + Global.today + ":" + Global.current_user_name +":"+String.valueOf(tasklist.get(index).getFeedbacks().size()+1);
+            String path = id + "/E_Feedback/" + Global.today + ":" + Global.current_user_name +":"+String.valueOf(random)+":"+String.valueOf(tasklist.get(index).getFeedbacks().size()+1);
             myRef = database.getReference( path+ "/Feedback");
             myRef.setValue(user_feedback.getText().toString());
             myRef = database.getReference(path + "/Author");

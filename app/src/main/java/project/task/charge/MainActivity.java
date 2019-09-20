@@ -38,6 +38,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 
 import project.task.charge.R;
@@ -392,38 +393,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         try {
                                             HashMap<String, Object> feedback = (HashMap<String, Object>) userData.get("E_Feedback");
                                             for (String sub_sub_subkey : feedback.keySet()) {
-//                                                String feedback_id = sub_sub_subkey.getkey();
+                                                String id = sub_sub_subkey;
                                                 Object sub_feedback = feedback.get(sub_sub_subkey);
                                                 feedback item_feedback = null;
                                                 try {
                                                     HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_feedback;
                                                     String hired_name = hired_Data.get("Author").toString();
                                                     String hired_feedback = hired_Data.get("Feedback").toString();
-                                                    item_feedback = new feedback(hired_name, hired_feedback);
+                                                    item_feedback = new feedback(sub_sub_subkey,hired_name, hired_feedback);
                                                     feedbacks.add(item_feedback);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }
 
                                             }
-                                            if (feedbacks.size()>0){
-                                                ArrayList<feedback> temp = new ArrayList<feedback>();
-                                                for (int j = 0; j< feedbacks.size(); j++){
-//                                                    Integer order = feedbacks.get
-                                                }
-
-                                            }
+                                            Collections.sort(feedbacks, new Global.FishNameComparator());
                                         } catch (Exception e) {
                                             Log.e("Task", "No Feedback");
                                         }
 
                                         task task = new task(task_id, task_description, task_created_date, task_involving_project, task_duration, task_start_date, task_end_date, task_creator, hired_member, feedbacks, task_status);
+
                                         created_tasks.add(task);
-                                        Global.array_all_task.add(task);
-                                        if (task.getTask_creator().equals(Global.current_user_name))
-                                            Global.array_created_task.add(task);
-                                        if (this_is_mine)
-                                            Global.array_my_task.add(task);
+                                        {
+                                            boolean is_new = true;
+                                            for (int i =0; i < Global.array_all_task.size();i ++) {
+                                                if (Global.array_all_task.get(i).getTask_id().toString().equals(task_id)) {
+                                                    is_new = false;
+                                                    break;
+                                                }
+                                            }
+                                            if (is_new)
+                                                Global.array_all_task.add(task);
+                                        }
+                                        if (task.getTask_creator().equals(Global.current_user_name)) {
+
+                                            boolean is_new = true;
+                                            for (int i =0; i < Global.array_created_task.size();i ++) {
+                                                if (Global.array_created_task.get(i).getTask_id().toString().equals(task_id)) {
+                                                    is_new = false;
+                                                    break;
+                                                }
+                                            }
+                                            if (is_new)
+                                                Global.array_created_task.add(task);
+                                        }
+                                        if (this_is_mine) {
+                                            boolean is_new = true;
+                                            for (int i =0; i < Global.array_my_task.size();i ++) {
+                                                if (Global.array_my_task.get(i).getTask_id().toString().equals(task_id)) {
+                                                    is_new = false;
+                                                    break;
+                                                }
+                                            }
+                                            if (is_new)
+                                                Global.array_my_task.add(task);
+                                        }
                                     } catch (Exception e) {
                                         Log.e(TAG, e.toString());
                                     }
@@ -460,6 +485,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e("The read failed: " ,databaseError.toString());
             }
         });
+
 
 
 //        DatabaseReference Task_Ref = database.getReference("TASK");

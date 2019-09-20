@@ -60,4 +60,16 @@ public class Member {
     public String getPassword() {
         return password;
     }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public String getPersonal_email() {
+        return personal_email;
+    }
+
+    public String getPersonal_phone() {
+        return personal_phone;
+    }
 }

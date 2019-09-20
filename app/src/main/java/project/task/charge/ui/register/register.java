@@ -304,12 +304,13 @@ public class register extends AppCompatActivity {
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-            } catch (IOException e) {
+                profile_pic.setImageBitmap(bitmap);
+                upload_file = new File(data.getData().getPath());
+                filePath = data.getData();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            profile_pic.setImageBitmap(bitmap);
-            upload_file = new File(data.getData().getPath());
-            filePath = data.getData();
+
         }
     }
 

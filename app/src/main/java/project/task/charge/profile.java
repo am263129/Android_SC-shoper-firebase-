@@ -238,10 +238,11 @@ public class profile extends AppCompatActivity {
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-            } catch (IOException e) {
+                userPhoto.setImageBitmap(bitmap);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            userPhoto.setImageBitmap(bitmap);
+
         }
     }
 }

@@ -1,12 +1,20 @@
 package project.task.charge.ui.fragment;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import project.task.charge.R;
 import project.task.charge.make_new_task;
@@ -28,6 +36,7 @@ public class newtask_preview extends Fragment {
         TextView project_name = (TextView)view.findViewById(R.id.involving_project_name);
         GridView hired_members = (GridView)view.findViewById(R.id.hired_members);
         TextView created_date = (TextView)view.findViewById(R.id.created_date);
+        ImageView creator = (ImageView)view.findViewById(R.id.photo_creator);
         memberAdapter_grid adapter_grid = new memberAdapter_grid(make_new_task.getInstance(),R.layout.item_user_grid, Global.array_hired_members);
         hired_members.setAdapter(adapter_grid);
 
@@ -51,6 +60,10 @@ public class newtask_preview extends Fragment {
         deadline.setText(Global.task_deadline);
         project_name.setText(Global.project_name);
         created_date.setText(Global.today);
+        String imageDataBytes = Global.current_user_photo.substring(Global.current_user_photo.indexOf(",")+1);
+        InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+        creator.setImageBitmap(bitmap);
         return view;
     }
 }

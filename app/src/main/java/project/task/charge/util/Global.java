@@ -4,12 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
 import project.task.charge.feed.feed;
+import project.task.charge.feed.feedback;
 import project.task.charge.member.Member;
 import project.task.charge.project.project;
 import project.task.charge.task.task;
@@ -136,6 +138,12 @@ public class Global {
         final int max = 9999;
         Integer random  = new Random().nextInt((max - min) + 1) + min;
         return random;
+    }
+    public static class FishNameComparator implements Comparator<feedback>
+    {
+        public int compare(feedback left, feedback right) {
+            return right.getFeedback_id().toString().split(":")[3].compareTo(left.getFeedback_id().toString().split(":")[3]);
+        }
     }
 
 }
