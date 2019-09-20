@@ -17,8 +17,8 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/roundedImageViewLovesItemLovesImage"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="fitXY"
             android:src="@drawable/ico_project_item"
             app:riv_corner_radius="70dp"
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:weightSum="10">
 
@@ -43,11 +43,11 @@
                     android:id="@+id/item_project_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
+                    android:layout_gravity="center_vertical"
                     android:fontFamily="@font/ts"
                     android:text="Name"
                     android:textSize="18sp"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

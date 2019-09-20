@@ -49,7 +49,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_task);
-
+        Global.mk_task_progress = 0;
         header = (TextView)findViewById(R.id.header);
         btn_pre = (Button)findViewById(R.id.btn_pre);
         btn_next = (Button)findViewById(R.id.btn_next);
@@ -69,7 +69,9 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
 
         changeTaskArea(0);
     }
+    @Override
     protected void onResume() {
+        Global.mk_task_progress = 0;
         btn_next.setEnabled(Global.validate_newtask);
         btn_pre.setEnabled(Global.validate_newtask);
         super.onResume();
@@ -80,18 +82,40 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         Toast.makeText(make_new_task.this,String.valueOf(Global.mk_task_progress),Toast.LENGTH_LONG).show();
         switch (view.getId()){
             case R.id.btn_next:
-                Global.mk_task_progress = Global.mk_task_progress+1;
+                boolean valid = true;
+                switch (Global.mk_task_progress){
+                    case 0:
+                        if (Global.task_id.equals("") || Global.task_description.equals(""))
+                            valid = false;
+                        break;
+                    case 1:
+                        if(Global.task_start_date.equals("") || Global.task_end_date.equals(""))
+                            valid = false;
+                        break;
+                    case 2:
+                        if(Global.task_hired_members.length == 0)
+                            valid = false;
+                        break;
+                }
 
-                if ((Global.mk_task_progress > 1)) {
-                    if(validateTask()) {
-                        btn_next.setVisibility(view.GONE);
-                        btn_preview.setVisibility(view.VISIBLE);
+
+                if (!valid)
+                    Toast.makeText(make_new_task.this,"Please input required data",Toast.LENGTH_LONG).show();
+                else {
+                    Global.mk_task_progress = Global.mk_task_progress + 1;
+
+                    if ((Global.mk_task_progress > 1)) {
+                        if (validateTask()) {
+                            btn_next.setVisibility(view.GONE);
+                            btn_preview.setVisibility(view.VISIBLE);
+                        }
                     }
+                    if (Global.mk_task_progress > 3) {
+                        Global.mk_task_progress = 3;
+                    }
+
+                    changeTaskArea(Global.mk_task_progress);
                 }
-                if(Global.mk_task_progress > 3){
-                    Global.mk_task_progress = 3;
-                }
-                changeTaskArea(Global.mk_task_progress);
                 break;
             case R.id.btn_pre:
                 Global.mk_task_progress = Global.mk_task_progress-1;

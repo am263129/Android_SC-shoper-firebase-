@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,9 +45,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 import project.task.charge.R;
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Calendar calendar;
     private int year, month, day;
     TextView feed_area;
+    ImageView facebook, linkedin, twitter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         project_area_a = (TableRow)findViewById(R.id.project_area_a);
         project_area_b = (TableRow)findViewById(R.id.project_area_b);
         feed_area = (TextView) findViewById(R.id.post_title);
+        facebook = (ImageView)findViewById(R.id.ico_facebook);
+        linkedin = (ImageView)findViewById(R.id.ico_linkedin);
+        twitter = (ImageView)findViewById(R.id.ico_twitter);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -159,12 +166,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         task_list.setOnClickListener(this);
         create_member.setOnClickListener(this);
         feed_area.setOnClickListener(this);
+        facebook.setOnClickListener(this);
+        linkedin.setOnClickListener(this);
+        twitter.setOnClickListener(this);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        Global.today = String.valueOf(day+"-"+(month+1)+"-"+year);
-
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+        String str = sdf.format(currentTime);
+        String sub_id = String.valueOf(currentTime.getHours())+String.valueOf(currentTime.getMinutes());
+//        Global.today = String.valueOf(day+"-"+(month+1)+"-"+year);
+        Global.today = currentTime.toString();
         FirebaseApp.initializeApp(this);
         try {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -186,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                String value = dataSnapshot.getValue(String.class);
 //                Log.d(TAG, "Value is:" + value);
+                Global.array_all_members.clear();
                 if (dataSnapshot.exists()){
                     HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
 //                    Member Member = dataSnapshot.getValue(Member.class);
@@ -197,9 +212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try{
                             HashMap<String, Object> userData = (HashMap<String, Object>) data;
                             String userName = userData.get("Name").toString();
-                            String userEmail = userData.get("Email").toString();
+                            String userEmail = userData.get("Personal Email").toString();
                             String userGender = userData.get("Gender").toString();
                             String password = userData.get("Password").toString();
+                            String user_designation = userData.get("Designation").toString();
+                            String user_official_email = userData.get("Official Email").toString();
+                            String user_official_number = userData.get("Official Number").toString();
+                            String user_personal_number = userData.get("Personal Number").toString();
                             String base64photo = "";
                             String birthday = null;
                             String address = null;
@@ -235,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String permission = userData.get("Permission").toString();
                                     if (permission.equals("admin")) {
                                         Global.is_admin = true;
+                                        Toast.makeText(MainActivity.this,"Now you have admin permission",Toast.LENGTH_LONG).show();
                                         new_project.setClickable(true);
                                         create_member.setClickable(true);
                                         navigationView.getMenu().getItem(0).setVisible(true);
@@ -248,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 }
                             }
-                            array_all_members.add(new Member(userName, userEmail, userGender, base64photo, birthday, address, location, phone, password));
+                            array_all_members.add(new Member(userName, userEmail, userGender, base64photo, birthday, address, location, password, user_designation, user_official_email, user_official_number, user_personal_number));
                         }catch (Exception cce){
                             Log.e(TAG, cce.toString());
                         }
@@ -341,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Global.array_all_task.clear();
                 Global.array_my_task.clear();
                 Global.array_created_task.clear();
+                Global.array_project.clear();
 
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.getKey();
@@ -456,6 +477,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
                                             if (is_new)
                                                 Global.array_my_task.add(task);
+                                            if (!task.getTask_status().toString().equals("completed")){
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                                    String creator = task.getTask_creator().toLowerCase();
+                                                    String notification_message;
+                                                    String status = "";
+                                                    if (task.getTask_status().equals("On Going.")) {
+                                                        notification_message = "Hi, Your task " + task.getTask_id().toString() + " is on going";
+                                                        status = "ongoing";
+                                                    }
+                                                    else {
+                                                        notification_message = "Hi, Your task " + task.getTask_id().toString() + " uncompleted and late. Please hurry up";
+                                                        status = "late";
+                                                    }
+                                                    notificationDialog(creator, notification_message, status);
+
+                                                }
+                                            }
                                         }
                                     } catch (Exception e) {
                                         Log.e(TAG, e.toString());
@@ -606,13 +644,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void notificationDialog() {
+    private void notificationDialog(String creator, String message, String status) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "tutorialspoint_01";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_MAX);
+            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, creator, NotificationManager.IMPORTANCE_MAX);
             // Configure the notification channel.
-            notificationChannel.setDescription("Sample Channel description");
+            notificationChannel.setDescription(message);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
@@ -623,12 +661,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notificationBuilder.setAutoCancel(false)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker("Tutorialspoint")
                 //.setPriority(Notification.PRIORITY_MAX)
-                .setContentTitle("sample notification")
-                .setContentText("This is sample notification")
-                .setContentInfo("Information");
+                .setContentTitle("Task status")
+                .setContentText(message)
+                .setContentInfo(creator);
+        if (status.equals("late")){
+            notificationBuilder.setSmallIcon(R.drawable.ico_late);
+        }else
+            notificationBuilder.setSmallIcon(R.drawable.ico_ongoing);
         notificationManager.notify(1, notificationBuilder.build());
     }
 
@@ -680,11 +721,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Intent URL_intent = new Intent();
         switch (view.getId()){
             case R.id.btn_all_task:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    notificationDialog();
-                }
                 intent = new Intent(this, tasks.class);
                 intent.putExtra(Global.ORIGIN,Global.FROM_MAIN);
                 startActivity(intent);
@@ -737,6 +776,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                     Toast.makeText(MainActivity.this,"You don't have permission",Toast.LENGTH_LONG).show();
                 break;
+            case R.id.ico_facebook:
+                URL_intent.setAction(Intent.ACTION_VIEW);
+                URL_intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                URL_intent.setData(Uri.parse("http://facebook.com"));
+                startActivity(URL_intent);
+                break;
+            case R.id.ico_linkedin:
+                URL_intent.setAction(Intent.ACTION_VIEW);
+                URL_intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                URL_intent.setData(Uri.parse("http://linkedin.com"));
+                startActivity(URL_intent);
+                break;
+            case R.id.ico_twitter:
+                URL_intent.setAction(Intent.ACTION_VIEW);
+                URL_intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                URL_intent.setData(Uri.parse("http://twitter.com"));
+                startActivity(URL_intent);
+                break;
+
+
+
 
         }
 

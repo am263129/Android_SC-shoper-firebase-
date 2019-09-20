@@ -19,7 +19,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +39,7 @@ import java.io.InputStream;
 
 import project.task.charge.R;
 
+import project.task.charge.task.task;
 import project.task.charge.util.Global;
 
 import static project.task.charge.ui.register.register.PICK_IMAGE;
@@ -51,7 +58,9 @@ public class profile extends AppCompatActivity {
     EditText oldPass;
     String gender;
     RadioButton userGender;
-
+    FirebaseUser user;
+    AuthCredential credential;
+    boolean passwordchanged;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +76,10 @@ public class profile extends AppCompatActivity {
         oldPass = (EditText)findViewById(R.id.previous_password_edt);
         Button Update = (Button)findViewById(R.id.update_btn);
         userGender = (RadioButton)findViewById(R.id.malerb);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        credential = EmailAuthProvider.getCredential(Global.current_user_email,Global.array_all_members.get(Global.current_user_index).getPassword().toString() );
+
 
         try {
             String imageDataBytes = Global.current_user_photo.substring(Global.current_user_photo.indexOf(",")+1);
@@ -116,6 +129,28 @@ public class profile extends AppCompatActivity {
     }
 
      public void updateProfile(){
+
+         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+             @Override
+             public void onComplete(@NonNull Task<Void> task) {
+                 if (task.isSuccessful()) {
+                     user.updatePassword(userPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                         @Override
+                         public void onComplete(@NonNull Task<Void> task) {
+                             if (task.isSuccessful()) {
+                                 passwordchanged = true;
+                                 Log.d(TAG, "Password updated");
+                             } else {
+                                 passwordchanged = false;
+                                 Log.d(TAG, "Error password not updated");
+                             }
+                         }
+                     });
+                 } else {
+                     Log.d(TAG, "Error auth failed");
+                 }
+             }
+         });
             if(validate()) {
                 FirebaseApp.initializeApp(this);
                 String id = "Member/" + Global.current_user_name;
@@ -125,7 +160,12 @@ public class profile extends AppCompatActivity {
                 myRef = database.getReference(id + "/Email");
                 myRef.setValue(userEmail.getText().toString());
                 myRef = database.getReference(id + "/Password");
-                myRef.setValue(userPass.getText().toString());
+                if (passwordchanged) {
+                    myRef.setValue(userPass.getText().toString());
+                }
+                else {
+                    myRef.setValue(Global.current_user_email,Global.array_all_members.get(Global.current_user_index).getPassword().toString());
+                }
                 myRef = database.getReference(id + "/Gender");
                 if (userGender.isChecked())
                     gender = "Male";
@@ -143,6 +183,8 @@ public class profile extends AppCompatActivity {
                 bitmap = ((BitmapDrawable) userPhoto.getDrawable()).getBitmap();
                 myRef = database.getReference(id + "/Photo");
                 myRef.setValue(getBase64String(bitmap));
+
+
 
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -245,4 +287,10 @@ public class profile extends AppCompatActivity {
 
         }
     }
+
+
+    // Get auth credentials from the user for re-authentication. The example below shows
+// email and password credentials but there are multiple possible providers,
+// such as GoogleAuthProvider or FacebookAuthProvider.
+
 }

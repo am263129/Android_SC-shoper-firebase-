@@ -170,7 +170,7 @@ public class register extends AppCompatActivity {
     }
 
     public void RegisterAPI(String username, final String email, final String password, String gender, File file1) {
-        userEmail = email;
+        userEmail = personal_email_edt.getText().toString();
         userPass = password;
         FirebaseApp.initializeApp(this);
         String id = "Member/" + username;

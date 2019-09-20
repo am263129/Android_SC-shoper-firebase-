@@ -57,7 +57,7 @@ public class newtask_preview extends Fragment {
         employser_name.setText(Global.current_user_name);
         title.setText(Global.task_id);
         description.setText(Global.task_description);
-        deadline.setText(Global.task_deadline);
+        deadline.setText(Global.task_end_date);
         project_name.setText(Global.project_name);
         created_date.setText(Global.today);
         String imageDataBytes = Global.current_user_photo.substring(Global.current_user_photo.indexOf(",")+1);

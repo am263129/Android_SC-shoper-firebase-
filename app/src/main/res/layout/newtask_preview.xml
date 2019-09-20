@@ -76,23 +76,23 @@
                     android:background="@drawable/border"
                     android:orientation="vertical">
 
-                            <TextView
-                                android:fontFamily="@font/ts"
-                                android:id="@+id/label_task_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="8dp"
-                                android:text="Task Id" />
+                    <TextView
+                        android:id="@+id/label_task_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/ts"
+                        android:text="Task Id"
+                        android:textStyle="bold" />
 
-                            <TextView
-                                 android:fontFamily="@font/ts"
-                                android:id="@+id/task_id"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Task Title"
-                                android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/task_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/ts"
+                        android:text="Task Title"
+                        android:textSize="14sp" />
                         </LinearLayout>
 
                 <LinearLayout
@@ -101,14 +101,15 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border"
                     android:orientation="vertical">
-                            <TextView
-                                android:fontFamily="@font/ts"
-                                android:id="@+id/label_task_description"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="8dp"
-                                android:text="Descrioption" />
+
+                    <TextView
+                        android:id="@+id/label_task_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/ts"
+                        android:text="Description"
+                        android:textStyle="bold" />
 
                             <TextView
                                 android:fontFamily="@font/ts"
@@ -127,13 +128,13 @@
                     android:background="@drawable/border"
                     android:orientation="vertical">
 
-                            <TextView
-                                android:fontFamily="@font/ts"
-                                android:id="@+id/label_deadline"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="Deadline" />
+                    <TextView
+                        android:id="@+id/label_deadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Deadline"
+                        android:textStyle="bold" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -141,19 +142,14 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:fontFamily="@font/ts"
                                     android:id="@+id/deadline"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/ts"
+                                    android:paddingTop="8dp"
+                                    android:paddingBottom="8dp"
                                     android:text="TextView" />
 
-                                <TextView
-                                    android:fontFamily="@font/ts"
-                                    android:id="@+id/label_days"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:text="days" />
 
                             </LinearLayout>
 
@@ -166,20 +162,22 @@
                     android:background="@drawable/border"
                     android:orientation="vertical">
 
-                            <TextView
-                                android:fontFamily="@font/ts"
-                                android:id="@+id/involving_project"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Project Name" />
+                    <TextView
+                        android:id="@+id/involving_project"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Project Name"
+                        android:textStyle="bold" />
 
-                            <TextView
-                                android:fontFamily="@font/ts"
-                                android:id="@+id/involving_project_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="ProjectName" />
+                    <TextView
+                        android:id="@+id/involving_project_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="ProjectName" />
 
                         </LinearLayout>
 
@@ -195,7 +193,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ts"
-                        android:text="Hired Members" />
+                        android:text="Hired Members"
+                        android:textStyle="bold" />
 
                     <GridView
                         android:id="@+id/hired_members"
@@ -214,20 +213,22 @@
                     android:background="@drawable/border"
                     android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/task_created_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/ts"
-                                android:text="Created Date" />
+                    <TextView
+                        android:id="@+id/task_created_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:text="Created Date"
+                        android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/created_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/ts"
-                                android:padding="8dp"
-                                android:text="created date" />
+                    <TextView
+                        android:id="@+id/created_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ts"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="created date" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"

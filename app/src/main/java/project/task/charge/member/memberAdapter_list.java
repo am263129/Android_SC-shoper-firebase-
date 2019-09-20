@@ -47,6 +47,7 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
         TextView user_name = (TextView) v.findViewById(R.id.user_name);
         TextView user_email = (TextView) v.findViewById(R.id.user_email);
         TextView user_gender = (TextView) v.findViewById(R.id.user_gender);
+        TextView user_designation = (TextView)v.findViewById(R.id.user_designation);
         RoundedImageView user_photo = (RoundedImageView) v.findViewById(R.id.roundedImageViewLovesItemLovesImage);
         hire = (CheckBox) v.findViewById(R.id.check_hire);
         String userName = array_all_members.get(position).getName();
@@ -58,6 +59,10 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
         String userLocation = array_all_members.get(position).getLocation();
         String userPhone = array_all_members.get(position).getOfficial_phone();
         String userPassword = array_all_members.get(position).getPassword();
+        String userDesignation = array_all_members.get(position).getDesignation();
+        String userOfficialEmail = array_all_members.get(position).getOfficial_email();
+        String userOfficialNum = array_all_members.get(position).getOfficial_phone();
+        String userPersonalNum = array_all_members.get(position).getPersonal_phone();
         if (!Global.is_hiring_member)
             hire.setVisibility(View.GONE);
 
@@ -69,7 +74,7 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
                 hire.setChecked(false);
 
         }
-        member = new Member(userName, userEmail, userGender, userPhoto, userBirthday, userAddress, userLocation, userPhone, userPassword );
+        member = new Member(userName, userEmail, userGender, userPhoto, userBirthday, userAddress, userLocation, userPassword ,userDesignation, userOfficialEmail, userOfficialNum, userPersonalNum);
         hire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +88,7 @@ public class memberAdapter_list extends ArrayAdapter <Member> implements Filtera
         user_name.setText(userName);
         user_email.setText(userEmail);
         user_gender.setText(userGender);
+        user_designation.setText(userDesignation);
 
         String base64photo = array_all_members.get(position).getPhoto();
         if (base64photo.equals("")) {

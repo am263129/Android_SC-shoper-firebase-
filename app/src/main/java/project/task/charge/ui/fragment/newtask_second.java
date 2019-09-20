@@ -51,6 +51,8 @@ public class newtask_second extends Fragment implements View.OnClickListener{
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        start_date.setText(Global.task_start_date);
+        end_date.setText(Global.task_end_date);
 
         return view;
     }

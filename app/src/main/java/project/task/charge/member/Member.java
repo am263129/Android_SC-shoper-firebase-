@@ -12,22 +12,26 @@ public class Member {
     public String birthday;
     public String password;
     public String personal_phone;
-    public String personal_email;
+    public String official_email;
     public String designation;
+
 
     public Member(){
 
     }
-    public Member(String name, String email, String gender, String photo, String birthday, String address, String location, String phone, String password){
+    public Member(String name, String email, String gender, String photo, String birthday, String address, String location, String password, String designation, String official_email, String official_phone, String personal_phone){
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.photo = photo;
         this.address = address;
         this.location = location;
-        this.official_phone = phone;
         this.birthday = birthday;
         this.password = password;
+        this.designation = designation;
+        this.official_email = official_email;
+        this.official_phone = official_phone;
+        this.personal_phone = personal_phone;
     }
 
     public String getName(){
@@ -65,11 +69,14 @@ public class Member {
         return designation;
     }
 
-    public String getPersonal_email() {
-        return personal_email;
-    }
-
     public String getPersonal_phone() {
         return personal_phone;
     }
+
+    public String getOfficial_email() {
+
+        return official_email;
+    }
+
+
 }

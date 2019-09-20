@@ -14,7 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 import project.task.charge.R;
@@ -61,7 +63,11 @@ public class newtask_first extends Fragment {
         final int min = 1000;
         final int max = 9999;
         random = new Random().nextInt((max - min) + 1) + min;
-        Global.task_id = String.valueOf(day) + "-" + String.valueOf(month + 1) + "-" + String.valueOf(year) + ":" + random;
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+        String str = sdf.format(currentTime);
+        String sub_id = String.valueOf(currentTime.getHours())+String.valueOf(currentTime.getMinutes());
+        Global.task_id =  String.valueOf(year)  + String.valueOf(month + 1)  +String.valueOf(day)  + str;
         task_id.setText(Global.task_id);
 
         task_description.addTextChangedListener(new TextWatcher() {

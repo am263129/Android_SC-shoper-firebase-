@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/ts"
-            android:text="@string/project_name"
+            android:text="@string/project_start_date"
             android:textColor="@color/textcolor" />
 
         <TextView
@@ -41,14 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/ts"
-            android:text="@string/project_name"
+            android:text="End Date"
             android:textColor="@color/textcolor" />
 
         <TextView
             android:id="@+id/end_date"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/project_start_date"
+            android:hint="End Date"
             android:textColor="@color/textcolor" />
 
 

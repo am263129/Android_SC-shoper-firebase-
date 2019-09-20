@@ -48,19 +48,19 @@
                         android:layout_weight="6"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ts"
+                            android:text="@string/username"
+                            android:textColor="@color/textcolor" />
+
                         <EditText
                             android:id="@+id/username_edt"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:editable="false"
                             android:inputType="textPersonName"
-                            android:textColor="@color/textcolor" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/ts"
-                            android:text="@string/username"
                             android:textColor="@color/textcolor" />
 
                     </LinearLayout>

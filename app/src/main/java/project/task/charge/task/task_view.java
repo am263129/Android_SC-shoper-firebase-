@@ -123,6 +123,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
             case "from_pro":
                 tasklist = Global.array_project.get(index).getProject_created_task();
                 show_task(tasklist, pro_index);
+
                 break;
             case "I_created":
                 tasklist = Global.array_created_task;
@@ -148,7 +149,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         task_project_name.setText(task_array.get(index).getTask_involvoing_project());
         task_creator_name.setText(task_array.get(index).getTask_creator());
         for(int i = 0; i < task_array.get(index).getHired_members().size(); i++){
-            hired_members = hired_members + task_array.get(index).getHired_members().get(i).getName().toString() + ", ";
+            hired_members = hired_members + task_array.get(index).getHired_members().get(i).getName().toString() + "\n";
         }
         task_hired_member.setText(hired_members);
 
