@@ -40,14 +40,12 @@ public class newtask_second extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
 // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.newtask_second, container, false);
-        Button btn_start_date = (Button)view.findViewById(R.id.btn_start_date);
-        Button btn_end_date = (Button)view.findViewById(R.id.btn_end_date);
         start_date = (TextView)view.findViewById(R.id.start_date);
         end_date = (TextView)view.findViewById(R.id.end_date);
         toatldays = (TextView)view.findViewById(R.id.total_date);
         toatldays.setText(Global.task_deadline);
-        btn_end_date.setOnClickListener(this);
-        btn_start_date.setOnClickListener(this);
+        start_date.setOnClickListener(this);
+        end_date.setOnClickListener(this);
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -60,7 +58,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_start_date:
+            case R.id.start_date:
 //                start_date.setText("Selected Date: "+ picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear());
                 if(String.valueOf(start_date.getText()).equals(""))
                 {
@@ -83,7 +81,7 @@ public class newtask_second extends Fragment implements View.OnClickListener{
                 picker.show();
 
                 break;
-            case R.id.btn_end_date:
+            case R.id.end_date:
                 if(String.valueOf(end_date.getText()).equals(""))
                 {
                     end_year = year;

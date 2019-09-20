@@ -14,7 +14,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_back"
         android:orientation="vertical">
 
         <LinearLayout
@@ -29,18 +28,6 @@
                 tools:layout_editor_absoluteX="10dp"
                 tools:layout_editor_absoluteY="10dp">
 
-                <TextView
-    android:fontFamily="@font/ts"
-                    android:id="@+id/header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="8dp"
-                    android:padding="10dp"
-                    android:text="Hire Members"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -53,6 +40,7 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_btn_previous"
+                        android:fontFamily="@font/ts"
                         android:padding="5dp"
                         android:text="Previous"
                         android:textColor="@color/white" />
@@ -93,14 +81,24 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/ts"
+                    android:padding="10dp"
+                    android:text="Hire Members"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
                 <FrameLayout
                     android:id="@+id/frame_make_task"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                 </FrameLayout>
-
-
 
 
             </LinearLayout>

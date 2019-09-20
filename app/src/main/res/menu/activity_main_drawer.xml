@@ -23,16 +23,4 @@
             android:icon="@drawable/ico_profile_setting"
             android:title="Profile" />
     </group>
-    <item
-        android:id="@+id/connect_us"
-        android:title="Connect with us">
-        <menu>
-            <item
-                android:id="@+id/social_items"
-                android:checkable="true"
-                app:showAsAction="always"
-                android:title=""
-                app:actionLayout="@layout/contact_us"/>
-        </menu>
-    </item>
 </menu>

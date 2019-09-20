@@ -4,29 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     android:paddingTop="30dp">
 
-    <TextView
-    android:fontFamily="@font/ts"
-        android:id="@+id/label_task_id"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:padding="5dp"
-        android:text="Task Id"
-        android:textSize="12sp" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:orientation="vertical">
 
-    <TextView
-    android:fontFamily="@font/ts"
-        android:id="@+id/task_id"
+        <TextView
+            android:id="@+id/label_task_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/ts"
+            android:padding="5dp"
+            android:text="Task Id"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/task_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ems="10"
+            android:fontFamily="@font/ts"
+            android:hint="Task Id"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:ems="10"
-        android:hint="Task Id"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:singleLine="true" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/label_involving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ts"
+            android:padding="10dp"
+            android:text="Project" />
+    <Spinner
+        android:id="@+id/project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="20dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -40,20 +80,5 @@
             android:layout_height="wrap_content"
             android:hint="Task Description" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-    android:fontFamily="@font/ts"
-        android:id="@+id/label_involving"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Project" />
-
-    <Spinner
-        android:id="@+id/project_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:padding="20dp" />
+    </LinearLayout>
 </LinearLayout>

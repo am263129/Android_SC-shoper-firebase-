@@ -22,7 +22,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,9 +99,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:fontFamily="@font/ts"
@@ -124,9 +126,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:fontFamily="@font/ts"
@@ -150,9 +153,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:fontFamily="@font/ts"
@@ -233,9 +237,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:fontFamily="@font/ts"
@@ -257,9 +262,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:fontFamily="@font/ts"
@@ -279,11 +285,11 @@
 
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/group_b"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_status"
@@ -303,11 +309,16 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/view_for_client"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/task_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                     <TextView
                         android:id="@+id/label_feedback"
@@ -317,20 +328,15 @@
                         android:text="Feedbacks"
                         android:textColor="@color/flatui_midnight_blue" />
 
-                    <ListView
-                        android:id="@+id/task_feedback"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/action_for_mytask"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="15dp"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/action_for_mytask"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_write_feedback"

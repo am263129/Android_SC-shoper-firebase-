@@ -70,7 +70,7 @@ public class newtask_third extends Fragment {
                 params.height = (int)totalHeight/3 + item_height;
                 hired_members.setLayoutParams(params);
 
-                if(!Global.array_hired_members.isEmpty())
+                if(hired_members.getAdapter().isEmpty())
                     nobody.setVisibility(View.GONE);
                 else
                     nobody.setVisibility(View.VISIBLE);

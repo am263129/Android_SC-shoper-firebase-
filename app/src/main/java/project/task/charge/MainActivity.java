@@ -1,16 +1,24 @@
 package project.task.charge;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -597,6 +605,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startRepeatingTask();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void notificationDialog() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "tutorialspoint_01";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_MAX);
+            // Configure the notification channel.
+            notificationChannel.setDescription("Sample Channel description");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        notificationBuilder.setAutoCancel(false)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setTicker("Tutorialspoint")
+                //.setPriority(Notification.PRIORITY_MAX)
+                .setContentTitle("sample notification")
+                .setContentText("This is sample notification")
+                .setContentInfo("Information");
+        notificationManager.notify(1, notificationBuilder.build());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -647,6 +682,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_all_task:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationDialog();
+                }
                 intent = new Intent(this, tasks.class);
                 intent.putExtra(Global.ORIGIN,Global.FROM_MAIN);
                 startActivity(intent);
@@ -669,8 +707,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_newproject:
-                intent = new Intent(this, create_project.class);
-                startActivity(intent);
+                if(Global.is_admin) {
+                    intent = new Intent(this, create_project.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this,"You don't have permission",Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.btn_task:
                 Global.is_task_area = true;
@@ -689,7 +732,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.post_title:
+                if (Global.is_admin)
                 make_dialog();
+                else
+                    Toast.makeText(MainActivity.this,"You don't have permission",Toast.LENGTH_LONG).show();
                 break;
 
         }
