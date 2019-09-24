@@ -17,8 +17,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import project.task.charge.MainActivity;
 import project.task.charge.R;
 import project.task.charge.task.task_view;
 import project.task.charge.util.Global;
@@ -52,22 +54,31 @@ public class feed_editor extends AppCompatActivity implements View.OnClickListen
             post.setVisibility(View.GONE);
             update.setVisibility(View.VISIBLE);
         }
-        else {
+        else if (intent.getStringExtra(Global.TYPE).equals(Global.TYPE_NEW)){
             type = Global.TYPE_NEW;
             update.setVisibility(View.GONE);
             post.setVisibility(View.VISIBLE);
             feed_created.setText(Global.today);
         }
+        else if (intent.getStringExtra(Global.TYPE).equals(Global.TYPE_DELETE)){
+            index = intent.getIntExtra(Global.INDEX,0);
+            delete_feed();
+            finish();
+        }
     }
+
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_feed_edit:
                 update_data(Global.TYPE_EDIT);
+                finish();
                 break;
             case R.id.btn_feed_new:
                 update_data(Global.TYPE_NEW);
+                finish();
                 break;
             default:
                 break;
@@ -81,7 +92,7 @@ public class feed_editor extends AppCompatActivity implements View.OnClickListen
             path = "Feed/" + "Feed_" + String.valueOf(index);
         }
         else {
-            path = "Feed/" + "Feed_" + String.valueOf(Global.array_feed.size()+1);
+            path = "Feed/" + "Feed_" + String.valueOf(Global.getToday());
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(path+"/Title");
@@ -97,7 +108,6 @@ public class feed_editor extends AppCompatActivity implements View.OnClickListen
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (type.equals(Global.TYPE_EDIT)){
                     Toast.makeText(feed_editor.this,"Feed Edited Successfullly", Toast.LENGTH_LONG).show();
-                    finish();
                 }
                 else
                     Toast.makeText(feed_editor.this,"New Feed Posted Successfullly", Toast.LENGTH_LONG).show();
@@ -108,6 +118,25 @@ public class feed_editor extends AppCompatActivity implements View.OnClickListen
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG,"Failed", databaseError.toException());
                 Toast.makeText(feed_editor.this,"Failed"+databaseError.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void delete_feed() {
+        FirebaseApp.initializeApp(this);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query applesQuery = ref.child("Feed").orderByChild("Title").equalTo(Global.array_feed.get(index).getFeed_title().toString());
+
+        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    appleSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
             }
         });
     }

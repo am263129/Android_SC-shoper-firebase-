@@ -291,7 +291,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         if (created)
             myRef.setValue(task_status.getText().toString());
         if (mytask) {
-            String path = id + "/E_Feedback/" + Global.today + ":" + Global.current_user_name +":"+String.valueOf(random)+":"+String.valueOf(tasklist.get(index).getFeedbacks().size()+1);
+            String path = id + "/E_Feedback/" + Global.getToday() + ":" + Global.current_user_name +":"+String.valueOf(random)+":"+String.valueOf(tasklist.get(index).getFeedbacks().size()+1);
             myRef = database.getReference( path+ "/Feedback");
             myRef.setValue(user_feedback.getText().toString());
             myRef = database.getReference(path + "/Author");

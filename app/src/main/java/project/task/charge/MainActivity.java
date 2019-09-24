@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Integer mInterval = 0;
     private Handler mHandler;
     ArrayList<feed> arrayList_feed;
-    private Integer index = 0;
+    public Integer index = 0;
     private Calendar calendar;
     private int year, month, day;
     TextView feed_area;
@@ -342,6 +342,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                     Global.array_feed = arrayList_feed;
+                    index = 0;
+                    stopRepeatingTask();
+                    startRepeatingTask();
 
                 }
             }
@@ -684,7 +687,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void startRepeatingTask() {
         mStatusChecker.run();
     }
-    void stopRepeatingTask() {
+    public void stopRepeatingTask() {
         mHandler.removeCallbacks(mStatusChecker);
     }
     Runnable mStatusChecker = new Runnable() {
@@ -702,7 +705,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (index == arrayList_feed.size()){
                     index = 0;
                 }
-                mInterval = 15000;
+                mInterval = 10000;
             }
 
             mHandler.postDelayed(mStatusChecker, mInterval);
@@ -810,17 +813,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setCanceledOnTouchOutside(true);
         Button feed_edit = (Button)dialog.findViewById(R.id.btn_edit);
         Button feed_new = (Button)dialog.findViewById(R.id.btn_new);
+        Button feed_delete = (Button)dialog.findViewById(R.id.btn_delete);
 
         final Intent intent = new Intent(MainActivity.this, feed_editor.class);
         feed_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Integer tempindex = index -1;
-                if (tempindex < 0 )
+                if ((tempindex < 0 )||(index > arrayList_feed.size()-1))
                     tempindex = arrayList_feed.size()-1;
-                if (index > arrayList_feed.size()-1) {
-                    tempindex = arrayList_feed.size() - 1;
-                }
                 intent.putExtra(Global.TYPE, Global.TYPE_EDIT);
                 intent.putExtra(Global.INDEX, tempindex);
                 startActivity(intent);
@@ -834,6 +835,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra(Global.TYPE, Global.TYPE_NEW);
                 startActivity(intent);
                 dialog.dismiss();
+            }
+        });
+        feed_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer tempindex = index -1;
+                if (tempindex < 0 )
+                    tempindex = arrayList_feed.size()-1;
+                if (index > arrayList_feed.size()-1) {
+                    tempindex = arrayList_feed.size() - 1;
+                }
+                intent.putExtra(Global.TYPE, Global.TYPE_DELETE);
+                intent.putExtra(Global.INDEX, tempindex);
+                startActivity(intent);
+                dialog.dismiss();
+
             }
         });
         dialog.show();

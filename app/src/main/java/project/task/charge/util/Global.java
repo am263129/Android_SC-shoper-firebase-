@@ -17,6 +17,7 @@ import project.task.charge.project.project;
 import project.task.charge.task.task;
 
 public class Global {
+
     public static boolean is_task_area = false;
     public static String current_user_name = "";
     public static String current_user_email = "";
@@ -62,6 +63,7 @@ public class Global {
     public static String TYPE = "type";
     public static String TYPE_EDIT = "edit";
     public static String TYPE_NEW = "new";
+    public static String  TYPE_DELETE = "delete";
 
 
     public static String getCountOfDays(String start_date, String end_date) {
@@ -144,6 +146,13 @@ public class Global {
         public int compare(feedback left, feedback right) {
             return right.getFeedback_id().toString().split(":")[3].compareTo(left.getFeedback_id().toString().split(":")[3]);
         }
+    }
+    public static String getToday(){
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+        String str = sdf.format(currentTime);
+        String sub_id = String.valueOf(currentTime.getHours())+String.valueOf(currentTime.getMinutes());
+        return currentTime.toString();
     }
 
 }

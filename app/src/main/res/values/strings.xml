@@ -44,5 +44,6 @@
     <string name="dlg_label">What Do You Want?</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_new">New</string>
+    <string name="btn_delete">Delete</string>
 
 </resources>

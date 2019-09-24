@@ -167,7 +167,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         myRef = database.getReference(id+"/C_End_date");
         myRef.setValue(Global.task_end_date);
         myRef = database.getReference(id+"/C_Created_date");
-        myRef.setValue(Global.today);
+        myRef.setValue(Global.getToday());
         myRef = database.getReference(id+"/D_Involving_Project");
         myRef.setValue(Global.project_name);
         myRef = database.getReference(id+"/E_Creator");
