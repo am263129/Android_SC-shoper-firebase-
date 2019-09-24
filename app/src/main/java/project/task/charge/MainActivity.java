@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Calendar calendar;
     private int year, month, day;
     TextView feed_area;
-    ImageView facebook, linkedin, twitter;
+    ImageView facebook, linkedin, twitter, btn_pre_feed, btn_next_feed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         facebook = (ImageView)findViewById(R.id.ico_facebook);
         linkedin = (ImageView)findViewById(R.id.ico_linkedin);
         twitter = (ImageView)findViewById(R.id.ico_twitter);
+        btn_pre_feed = (ImageView)findViewById(R.id.btn_previous_feed);
+        btn_next_feed = (ImageView)findViewById(R.id.btn_next_feed);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -169,6 +172,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         facebook.setOnClickListener(this);
         linkedin.setOnClickListener(this);
         twitter.setOnClickListener(this);
+        btn_pre_feed.setOnClickListener(this);
+        btn_next_feed.setOnClickListener(this);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -797,7 +802,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 URL_intent.setData(Uri.parse("http://twitter.com"));
                 startActivity(URL_intent);
                 break;
+            case R.id.btn_previous_feed:
+                stopRepeatingTask();
+                index = index - 2;
 
+                if (index == -1)
+                    index = arrayList_feed.size()-1;
+                else if (index == -2)
+                    index = arrayList_feed.size()-2;
+                startRepeatingTask();
+
+                break;
+            case R.id.btn_next_feed:
+                if (index == arrayList_feed.size())
+                    index = 0;
+                stopRepeatingTask();
+                startRepeatingTask();
+
+                break;
 
 
 

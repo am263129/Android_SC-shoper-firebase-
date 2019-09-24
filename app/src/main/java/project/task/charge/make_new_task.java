@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -144,6 +146,9 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btn_finish:
                 uploadNewTask();
+                for (Integer i = 0; i < Global.array_hired_members.size(); i++){
+                    sendEmail(Global.array_hired_members.get(i).getEmail(),Global.current_user_email);
+                }
                 break;
 
 
@@ -254,6 +259,28 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         return make_task;
     }
 
+    protected void sendEmail(String To, String From) {
+        Log.i("Send email", "");
+
+        String[] TO = {To};
+        String[] CC = {From};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "New task created for you");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Description : "+Global.task_description+"\n Duration" + Global.task_end_date);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Finished sending", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MainActivity.getInstance(),
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }
