@@ -194,27 +194,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ts"
-                        android:text="@string/email"
-                        android:textColor="@color/textcolor" />
-
-                    <EditText
-                        android:id="@+id/email_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:editable="false"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/textcolor" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

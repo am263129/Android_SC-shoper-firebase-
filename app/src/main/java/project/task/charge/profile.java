@@ -116,6 +116,10 @@ public class profile extends AppCompatActivity {
             userLocation.setText(Global.array_all_members.get(Global.current_user_index).getLocation());
             userPhone.setText(Global.array_all_members.get(Global.current_user_index).getOfficial_phone());
             userbirthday.setText(Global.array_all_members.get(Global.current_user_index).getBirthday());
+            userDesignation.setText(Global.array_all_members.get(Global.current_user_index).getDesignation());
+            userOfficialEmail.setText(Global.array_all_members.get(Global.current_user_index).getOfficial_email());
+            userOfficialPhone.setText(Global.array_all_members.get(Global.current_user_index).getOfficial_phone());
+            userPersonalPhone.setText(Global.array_all_members.get(Global.current_user_index).getPersonal_phone());
         }
         catch (Exception e)
         {

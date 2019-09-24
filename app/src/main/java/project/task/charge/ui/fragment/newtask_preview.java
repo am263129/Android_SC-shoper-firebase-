@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,16 +55,21 @@ public class newtask_preview extends Fragment {
         params.height = (int)totalHeight/3 + item_height;
         hired_members.setLayoutParams(params);
 
-        employser_name.setText(Global.current_user_name);
-        title.setText(Global.task_id);
-        description.setText(Global.task_description);
-        deadline.setText(Global.task_end_date);
-        project_name.setText(Global.project_name);
-        created_date.setText(Global.today);
-        String imageDataBytes = Global.current_user_photo.substring(Global.current_user_photo.indexOf(",")+1);
-        InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
-        Bitmap bitmap = BitmapFactory.decodeStream(stream);
-        creator.setImageBitmap(bitmap);
+        try {
+            employser_name.setText(Global.current_user_name);
+            title.setText(Global.task_id);
+            description.setText(Global.task_description);
+            deadline.setText(Global.task_end_date);
+            project_name.setText(Global.project_name);
+            created_date.setText(Global.today);
+            String imageDataBytes = Global.current_user_photo.substring(Global.current_user_photo.indexOf(",") + 1);
+            InputStream stream = new ByteArrayInputStream(Base64.decode(imageDataBytes.getBytes(), Base64.DEFAULT));
+            Bitmap bitmap = BitmapFactory.decodeStream(stream);
+            creator.setImageBitmap(bitmap);
+        }
+        catch (Exception E){
+            Log.e("wanning", "profile uncompleted");
+        }
         return view;
     }
 }
