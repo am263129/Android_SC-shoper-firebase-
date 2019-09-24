@@ -144,6 +144,7 @@ public class profile extends AppCompatActivity {
 
 
             if (validate()) {
+                /*
                 user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -166,6 +167,8 @@ public class profile extends AppCompatActivity {
                     }
                 });
 
+                 */
+
                 FirebaseApp.initializeApp(this);
                 String id = "Member/" + Global.current_user_name;
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -173,12 +176,15 @@ public class profile extends AppCompatActivity {
                 myRef.setValue(userName.getText().toString());
                 myRef = database.getReference(id + "/Email");
                 myRef.setValue(userEmail.getText().toString());
+                /*
                 myRef = database.getReference(id + "/Password");
                 if (passwordchanged) {
                     myRef.setValue(userPass.getText().toString());
                 } else {
                     myRef.setValue(Global.current_user_email, Global.array_all_members.get(Global.current_user_index).getPassword().toString());
                 }
+
+                 */
                 myRef = database.getReference(id + "/Gender");
                 if (userGender.isChecked())
                     gender = "Male";
@@ -219,7 +225,7 @@ public class profile extends AppCompatActivity {
     }
 
     private boolean validate() {
-        if(check_birthday() && check_password() && check_address() && check_phone() && check_location()){
+        if(check_birthday() && check_address() && check_phone() && check_location()){
             return true;
         }
         else return false;
