@@ -56,6 +56,10 @@ public class profile extends AppCompatActivity {
     EditText userPass;
     EditText userbirthday;
     EditText oldPass;
+    EditText userOfficialEmail;
+    EditText userOfficialPhone;
+    EditText userPersonalPhone;
+    EditText userDesignation;
     String gender;
     RadioButton userGender;
     FirebaseUser user;
@@ -67,7 +71,7 @@ public class profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         userPhoto = (ImageView)findViewById(R.id.profile_pic);
         userName = (EditText)findViewById(R.id.username_edt);
-        userEmail = (EditText)findViewById(R.id.email_edt);
+        userEmail = (EditText)findViewById(R.id.personal_email_edt);
         userAddress = (EditText)findViewById(R.id.address_edt);
         userLocation = (EditText)findViewById(R.id.location_edt);
         userPhone = (EditText)findViewById(R.id.personal_phone_edt);
@@ -76,6 +80,9 @@ public class profile extends AppCompatActivity {
         oldPass = (EditText)findViewById(R.id.previous_password_edt);
         Button Update = (Button)findViewById(R.id.update_btn);
         userGender = (RadioButton)findViewById(R.id.malerb);
+        userOfficialEmail = (EditText)findViewById(R.id.email_official_edt);
+        userOfficialPhone = (EditText)findViewById(R.id.official_number_edt);
+        userDesignation = (EditText)findViewById(R.id.designation_edt);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         credential = EmailAuthProvider.getCredential(Global.current_user_email,Global.array_all_members.get(Global.current_user_index).getPassword().toString() );
