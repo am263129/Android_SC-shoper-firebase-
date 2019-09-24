@@ -136,29 +136,32 @@ public class profile extends AppCompatActivity {
     }
 
      public void updateProfile(){
+        try {
 
-         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-             @Override
-             public void onComplete(@NonNull Task<Void> task) {
-                 if (task.isSuccessful()) {
-                     user.updatePassword(userPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                         @Override
-                         public void onComplete(@NonNull Task<Void> task) {
-                             if (task.isSuccessful()) {
-                                 passwordchanged = true;
-                                 Log.d(TAG, "Password updated");
-                             } else {
-                                 passwordchanged = false;
-                                 Log.d(TAG, "Error password not updated");
-                             }
-                         }
-                     });
-                 } else {
-                     Log.d(TAG, "Error auth failed");
-                 }
-             }
-         });
-            if(validate()) {
+
+            if (validate()) {
+                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            user.updatePassword(userPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        passwordchanged = true;
+                                        Log.d(TAG, "Password updated");
+                                    } else {
+                                        passwordchanged = false;
+                                        Log.d(TAG, "Error password not updated");
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.d(TAG, "Error auth failed");
+                        }
+                    }
+                });
+
                 FirebaseApp.initializeApp(this);
                 String id = "Member/" + Global.current_user_name;
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -169,9 +172,8 @@ public class profile extends AppCompatActivity {
                 myRef = database.getReference(id + "/Password");
                 if (passwordchanged) {
                     myRef.setValue(userPass.getText().toString());
-                }
-                else {
-                    myRef.setValue(Global.current_user_email,Global.array_all_members.get(Global.current_user_index).getPassword().toString());
+                } else {
+                    myRef.setValue(Global.current_user_email, Global.array_all_members.get(Global.current_user_index).getPassword().toString());
                 }
                 myRef = database.getReference(id + "/Gender");
                 if (userGender.isChecked())
@@ -192,7 +194,6 @@ public class profile extends AppCompatActivity {
                 myRef.setValue(getBase64String(bitmap));
 
 
-
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -208,6 +209,9 @@ public class profile extends AppCompatActivity {
                     }
                 });
             }
+        }catch (Exception e){
+                Toast.makeText(MainActivity.getInstance(),e.toString(),Toast.LENGTH_LONG).show();
+         }
     }
 
     private boolean validate() {
