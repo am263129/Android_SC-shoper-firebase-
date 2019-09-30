@@ -19,7 +19,18 @@ public class Member {
     public Member(){
 
     }
-    public Member(String name, String email, String gender, String photo, String birthday, String address, String location, String password, String designation, String official_email, String official_phone, String personal_phone){
+    public Member(String name,
+                  String email,
+                  String gender,
+                  String photo,
+                  String birthday,
+                  String address,
+                  String location,
+                  String password,
+                  String designation,
+                  String official_email,
+                  String official_phone,
+                  String personal_phone){
         this.name = name;
         this.email = email;
         this.gender = gender;

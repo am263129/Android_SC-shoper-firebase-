@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int year, month, day;
     TextView feed_area;
     ImageView facebook, linkedin, twitter, btn_pre_feed, btn_next_feed;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +200,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Member");
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Now data loading");
+        progressDialog.show();
 //        Toast.makeText(this, myRef.toString(), Toast.LENGTH_LONG).show();
 //        myRef.setValue("test@test.com");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -259,7 +266,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     String permission = userData.get("Permission").toString();
                                     if (permission.equals("admin")) {
                                         Global.is_admin = true;
-                                        Toast.makeText(MainActivity.this,"Now you have admin permission",Toast.LENGTH_LONG).show();
                                         new_project.setClickable(true);
                                         create_member.setClickable(true);
                                         navigationView.getMenu().getItem(0).setVisible(true);
@@ -280,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                     Global.array_all_members = array_all_members;
+                    progressDialog.dismiss();
                 }
             }
 
