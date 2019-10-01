@@ -3,6 +3,7 @@ package project.task.charge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,9 +15,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +39,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 
 import project.task.charge.R;
 
@@ -52,19 +56,21 @@ public class profile extends AppCompatActivity {
     EditText userEmail;
     EditText userAddress;
     EditText userLocation;
-    EditText userPhone;
+    EditText userPersonalPhone;
     EditText userPass;
-    EditText userbirthday;
+    TextView userbirthday;
     EditText oldPass;
     EditText userOfficialEmail;
     EditText userOfficialPhone;
-    EditText userPersonalPhone;
     EditText userDesignation;
     String gender;
     RadioButton userGender;
     FirebaseUser user;
     AuthCredential credential;
     boolean passwordchanged;
+    private int year, month, day;
+    private DatePickerDialog picker;
+    private Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +80,9 @@ public class profile extends AppCompatActivity {
         userEmail = (EditText)findViewById(R.id.personal_email_edt);
         userAddress = (EditText)findViewById(R.id.address_edt);
         userLocation = (EditText)findViewById(R.id.location_edt);
-        userPhone = (EditText)findViewById(R.id.personal_phone_edt);
+        userPersonalPhone = (EditText)findViewById(R.id.personal_phone_edt);
         userPass = (EditText)findViewById(R.id.password_edt);
-        userbirthday = (EditText)findViewById(R.id.birthday_edt);
+        userbirthday = (TextView)findViewById(R.id.birthday_edt);
         oldPass = (EditText)findViewById(R.id.previous_password_edt);
         Button Update = (Button)findViewById(R.id.update_btn);
         userGender = (RadioButton)findViewById(R.id.malerb);
@@ -86,7 +92,10 @@ public class profile extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         credential = EmailAuthProvider.getCredential(Global.current_user_email,Global.array_all_members.get(Global.current_user_index).getPassword().toString() );
-
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
 
         try {
             String imageDataBytes = Global.current_user_photo.substring(Global.current_user_photo.indexOf(",")+1);
@@ -96,6 +105,22 @@ public class profile extends AppCompatActivity {
         }catch (Exception E){
             Log.e(TAG, E.toString());
         }
+        userbirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                picker = new DatePickerDialog(profile.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                userbirthday.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, year, month , day);
+
+                picker.show();
+            }
+        });
 
         userPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +139,6 @@ public class profile extends AppCompatActivity {
         try {
             userAddress.setText(Global.array_all_members.get(Global.current_user_index).getAddress());
             userLocation.setText(Global.array_all_members.get(Global.current_user_index).getLocation());
-            userPhone.setText(Global.array_all_members.get(Global.current_user_index).getOfficial_phone());
             userbirthday.setText(Global.array_all_members.get(Global.current_user_index).getBirthday());
             userDesignation.setText(Global.array_all_members.get(Global.current_user_index).getDesignation());
             userOfficialEmail.setText(Global.array_all_members.get(Global.current_user_index).getOfficial_email());
@@ -195,13 +219,17 @@ public class profile extends AppCompatActivity {
                 myRef.setValue(userAddress.getText().toString());
                 myRef = database.getReference(id + "/Location");
                 myRef.setValue(userLocation.getText().toString());
-                myRef = database.getReference(id + "/Phone");
-                myRef.setValue(userPhone.getText().toString());
+                myRef = database.getReference(id + "/Official Number");
+                myRef.setValue(userOfficialPhone.getText().toString());
+                myRef = database.getReference(id + "/Personal Number");
+                myRef.setValue(userPersonalPhone.getText().toString());
                 myRef = database.getReference(id + "/Birthday");
                 myRef.setValue(userbirthday.getText().toString());
                 bitmap = ((BitmapDrawable) userPhoto.getDrawable()).getBitmap();
                 myRef = database.getReference(id + "/Photo");
                 myRef.setValue(getBase64String(bitmap));
+                myRef = database.getReference(id+"/Designation");
+                myRef.setValue(userDesignation.getText().toString());
 
 
                 myRef.addValueEventListener(new ValueEventListener() {
@@ -276,11 +304,11 @@ public class profile extends AppCompatActivity {
     public boolean check_phone() {
 
         if (android.util.Patterns.PHONE.matcher(
-                userPhone.getText().toString()).matches()) {
+                userOfficialPhone.getText().toString()).matches()) {
             return true;
         }
         else {
-            userPhone.setError("Phone number is incorrect");
+            userOfficialPhone.setError("Phone number is incorrect");
             return false;
         }
     }

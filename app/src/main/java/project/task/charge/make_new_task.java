@@ -3,15 +3,19 @@ package project.task.charge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,13 +29,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+
 import project.task.charge.R;
 
+import project.task.charge.email.Mail;
 import project.task.charge.ui.fragment.newtask_first;
 import project.task.charge.ui.fragment.newtask_preview;
 import project.task.charge.ui.fragment.newtask_second;
 import project.task.charge.ui.fragment.newtask_third;
 import project.task.charge.util.Global;
+
+import static project.task.charge.util.Global.array_hired_members;
+import static project.task.charge.util.Global.current_user_email_pass;
 
 public class make_new_task extends AppCompatActivity implements View.OnClickListener{
 
@@ -43,6 +54,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
     private Fragment newtask_preview;
     private TextView header;
     public static make_new_task make_task;
+    Dialog dialog;
 
     private Calendar calendar;
 
@@ -66,7 +78,27 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         newtask_third = new newtask_third();
         newtask_preview = new newtask_preview();
         make_task = this;
-
+        dialog = new Dialog(this);
+        dialog.setTitle("Please input your EmailPassowrd");
+        dialog.setContentView(R.layout.request_password);
+        dialog.setCanceledOnTouchOutside(false);
+        final EditText password = dialog.findViewById(R.id.email_password);
+        Button ok = dialog.findViewById(R.id.btn_email_ok);
+        Button cancel = dialog.findViewById(R.id.btn_email_cancel);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                current_user_email_pass = password.getText().toString();
+                Sending_Email();
+                dialog.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
 
         changeTaskArea(0);
@@ -95,22 +127,17 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                             valid = false;
                         break;
                     case 2:
-                        if(Global.task_hired_members.length == 0)
+                        if(Global.array_hired_members.size() == 0)
                             valid = false;
                         break;
                 }
-
-
                 if (!valid)
                     Toast.makeText(make_new_task.this,"Please input required data",Toast.LENGTH_LONG).show();
                 else {
                     Global.mk_task_progress = Global.mk_task_progress + 1;
-
-                    if ((Global.mk_task_progress > 1)) {
-                        if (validateTask()) {
-                            btn_next.setVisibility(view.GONE);
-                            btn_preview.setVisibility(view.VISIBLE);
-                        }
+                    if (Global.mk_task_progress >1){
+                        btn_next.setVisibility(View.GONE);
+                        btn_preview.setVisibility(View.VISIBLE);
                     }
                     if (Global.mk_task_progress > 3) {
                         Global.mk_task_progress = 3;
@@ -138,17 +165,20 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 changeTaskArea(Global.mk_task_progress);
                 break;
             case R.id.btn_preview:
-                Global.mk_task_progress = Global.mk_task_progress + 1;
-                btn_preview.setVisibility(view.GONE);
-                btn_finish.setVisibility(View.VISIBLE);
-                changeTaskArea(Global.mk_task_progress);
-                calendar = Calendar.getInstance();
+                if(Global.array_hired_members.size() == 0)
+                    Toast.makeText(make_new_task.this,"Please input required data",Toast.LENGTH_LONG).show();
+                else {
+                    Global.mk_task_progress = Global.mk_task_progress + 1;
+                    btn_preview.setVisibility(view.GONE);
+                    btn_finish.setVisibility(View.VISIBLE);
+                    changeTaskArea(Global.mk_task_progress);
+                    calendar = Calendar.getInstance();
+                }
                 break;
             case R.id.btn_finish:
                 uploadNewTask();
-                for (Integer i = 0; i < Global.array_hired_members.size(); i++){
-                    sendEmail(Global.array_hired_members.get(i).getEmail(),Global.current_user_email);
-                }
+                dialog.show();
+
                 break;
 
 
@@ -156,6 +186,32 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
+    private void Sending_Email(){
+    if (!current_user_email_pass.equals("")) {
+        Integer size = 0;
+        if (Global.array_hired_members.size()>0)
+            size = Global.array_hired_members.size();
+        String[] send_to  = new String[size];
+        for (Integer i = 0; i < Global.array_hired_members.size(); i++) {
+            send_to[i] = array_hired_members.get(i).getEmail().toString();
+        }
+        MainActivity.SendEmailAsyncTask email = new MainActivity.SendEmailAsyncTask();
+        email.m = new Mail(Global.current_user_email, current_user_email_pass);
+        email.m.set_from(Global.current_user_name);
+        email.m.setBody(Global.task_email_body);
+        email.m.set_to(send_to);
+        email.m.set_subject("New Task has been Created!");
+        email.execute();
+        init();
+        finish();
+    }
+    else {
+        Toast.makeText(make_new_task.this,"Sending Email is Canceled",Toast.LENGTH_LONG).show();
+        init();
+        finish();
+    }
+}
 
     private void uploadNewTask() {
         FirebaseApp.initializeApp(this);
@@ -185,15 +241,17 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
             myRef = database.getReference(id+"/Hired_Members/"+Global.array_hired_members.get(i).getName() +"/Email");
             myRef.setValue(Global.array_hired_members.get(i).getEmail());
         }
-
+        Global.task_email_body = "Task Id :" + Global.task_id + "\n" +
+                                "Task Description :" + Global.task_description + "\n"+
+                                "Task Duration : " + Global.task_deadline + "\n"+
+                                "Task Creator :" + Global.current_user_name;
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is:" + value);
                 Toast.makeText(make_new_task.this,"Making New Task Finished Successfully",Toast.LENGTH_LONG).show();
-                init();
-                finish();
+
             }
 
 
@@ -214,18 +272,6 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         Global.project_name = "";
         Global.task_description = "";
     }
-
-    private boolean validateTask() {
-//        if((!Global.task_id_created_date.equals(""))&&(!Global.task_description.equals(""))&&(!Global.task_deadline.equals(""))&&(Global.task_hired_members.length>0))
-//        {
-//            //Global.task_id =
-//            return true;
-//        }
-//        else
-//            return false;
-            return true;//only testing;
-    }
-
     private void changeTaskArea(Integer index) {
 // create a FragmentManager
         Fragment fragment;
@@ -259,28 +305,9 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         return make_task;
     }
 
-    protected void sendEmail(String To, String From) {
-        Log.i("Send email", "");
 
-        String[] TO = {To};
-        String[] CC = {From};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "New task created for you");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Description : "+Global.task_description+"\n Duration" + Global.task_end_date);
 
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("Finished sending", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(MainActivity.getInstance(),
-                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
+
 
 
 }

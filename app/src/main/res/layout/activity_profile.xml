@@ -208,10 +208,13 @@
                         android:text="Birthday"
                         android:textColor="@color/textcolor" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/birthday_edt"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:fontFamily="@font/ts"
+                        android:gravity="center_vertical"
+                        android:hint="Click to input birthday"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/textcolor" />
 

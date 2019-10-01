@@ -62,6 +62,7 @@ public class taskAdapter extends ArrayAdapter<task> implements Filterable {
         task_end_date.setText(end_date);
         task_duration.setText("("+duration+"days)");
         task_hired_person.setText(hired_member);
+        task_hired_person.setSelected(true);
 
 //        final Dialog dialog = new Dialog(super.getContext());
 //        dialog.setContentView(R.layout.item_task_full);

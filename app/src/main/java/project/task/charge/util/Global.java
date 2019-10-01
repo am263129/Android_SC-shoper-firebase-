@@ -21,7 +21,9 @@ public class Global {
     public static boolean is_task_area = false;
     public static String current_user_name = "";
     public static String current_user_email = "";
+    public static String current_user_email_pass = "";
     public static String current_user_photo;
+    public static String task_email_body;
     public static int current_user_index;
 
     public static Integer mk_task_progress = 0;

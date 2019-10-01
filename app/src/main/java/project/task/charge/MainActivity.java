@@ -21,9 +21,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -38,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,8 +58,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+
 import project.task.charge.R;
 
+import project.task.charge.email.Mail;
 import project.task.charge.feed.feed_editor;
 import project.task.charge.member.Member;
 import project.task.charge.project.project;
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView facebook, linkedin, twitter, btn_pre_feed, btn_next_feed;
     ProgressDialog progressDialog;
 
+    static Thread thread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -235,12 +244,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String birthday = null;
                             String address = null;
                             String location = null;
-                            String phone = null;
+                            try {
+                                base64photo = userData.get("Photo").toString();
+                            }
+                            catch (Exception E){
+                                Log.e(TAG,E.toString());
+                            }
                             try {
                                 birthday = userData.get("Birthday").toString();
+                            }
+                            catch (Exception E){
+                                Log.e(TAG,E.toString());
+                            }
+                            try {
                                 address = userData.get("Address").toString();
+                            }
+                            catch (Exception E){
+                                Log.e(TAG,E.toString());
+                            }
+                            try {
                                 location = userData.get("Location").toString();
-                                phone = userData.get("Phone").toString();
                             }
                             catch (Exception e)
                             {
@@ -255,7 +278,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 current_user_email.setText(Global.current_user_email);
                                 Global.current_user_index = array_all_members.size();
                                 try {
-                                    base64photo = userData.get("Photo").toString();
                                     Global.current_user_photo = base64photo;
                                     setPhoto(base64photo);
                                 }
@@ -816,7 +838,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (index == -1)
                     index = arrayList_feed.size()-1;
                 else if (index == -2)
-                    index = arrayList_feed.size()-2;
+                    if (arrayList_feed.size()==1)
+                        index = 0;
+                    else index = arrayList_feed.size()-2;
                 startRepeatingTask();
 
                 break;
@@ -833,6 +857,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+    private static void displayMessage(final String message){
+        Thread thread = new Thread(){
+            public void run(){
+                Looper.prepare();//Call looper.prepare()
+
+                Handler mHandler = new Handler() {
+                    public void handleMessage(Message msg) {
+                        Toast.makeText(MainActivity.getInstance(), message, Toast.LENGTH_LONG);Log.e("OK","Emal;");                    }
+
+                };
+
+                Looper.loop();
+            }
+        };
+        thread.start();
+    }
+
 
     private void make_dialog() {
         final Dialog dialog = new Dialog(this);
@@ -879,44 +920,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra(Global.INDEX, tempindex);
                 startActivity(intent);
                 dialog.dismiss();
-
             }
         });
         dialog.show();
 
-
-
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.menu_all_task:
-//                intent = new Intent(this, tasks.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.menu_make_task:
-//                intent = new Intent(this, make_new_task.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.menu_mytask:
-//                intent = new Intent(this, Created_task.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.menu_profile_setting:
-//                intent = new Intent(this, profile.class);
-//                startActivity(intent);
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    public static class SendEmailAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        public Mail m;
+        public SendEmailAsyncTask() {}
+        protected Boolean doInBackground(Void... params) {
+            try {
+                if (m.send()) {
+                    displayMessage("Email sent");
+                } else {
+                    displayMessage("Email failed to send.");
+                }
+
+                return true;
+            } catch (AuthenticationFailedException e) {
+                Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
+                e.printStackTrace();
+                displayMessage("Authentication failed.");
+                return false;
+            } catch (MessagingException e) {
+                Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
+                e.printStackTrace();
+                displayMessage("Email failed to send.");
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                displayMessage("Unexpected error occured.");
+                return false;
+            }
+
+        }
+    }
 
 
     public static MainActivity getInstance(){

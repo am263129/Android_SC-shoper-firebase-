@@ -210,14 +210,14 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
     }
 
     private boolean getStatus(Integer end_day, Integer end_month, Integer end_year) {
-        if (end_year < year){
-            return false;
-        }else if (end_month < month){
-            return false;
-        }else if (end_day < day){
-            return false;
-        }else {
+        if (end_year > year){
             return true;
+        }else if (end_month > month +1){
+            return true;
+        }else if (end_day > day){
+            return true;
+        }else {
+            return false;
         }
     }
 

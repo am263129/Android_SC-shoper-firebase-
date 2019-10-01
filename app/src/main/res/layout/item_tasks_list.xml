@@ -145,6 +145,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ts"
-            android:text="TextView" />
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="TextView"
+            android:singleLine="true" />
     </LinearLayout>
 </LinearLayout>

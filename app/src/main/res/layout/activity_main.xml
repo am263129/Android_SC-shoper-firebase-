@@ -279,7 +279,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingLeft="60dp"
-                        android:paddingTop="50dp"
+                        android:paddingTop="60dp"
                         android:paddingRight="60dp"
                         android:visibility="visible">
 
@@ -343,7 +343,7 @@
                         android:layout_weight="1"
                         android:paddingLeft="60dp"
                         android:paddingRight="60dp"
-                        android:paddingBottom="50dp"
+                        android:paddingBottom="60dp"
                         android:visibility="visible">
 
                         <LinearLayout

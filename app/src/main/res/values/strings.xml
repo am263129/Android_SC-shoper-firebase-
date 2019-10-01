@@ -45,5 +45,6 @@
     <string name="btn_edit">Edit</string>
     <string name="btn_new">New</string>
     <string name="btn_delete">Delete</string>
+    <string name="email_title">New Task has been created</string>
 
 </resources>
