@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".NonRemovableNotification"></activity>
         <activity android:name=".feed.feed_editor" />
         <activity android:name=".project.project_view" />

@@ -191,10 +191,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         day = calendar.get(Calendar.DAY_OF_MONTH);
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
-        String str = sdf.format(currentTime);
-        String sub_id = String.valueOf(currentTime.getHours())+String.valueOf(currentTime.getMinutes());
-//        Global.today = String.valueOf(day+"-"+(month+1)+"-"+year);
         Global.today = currentTime.toString();
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
         FirebaseApp.initializeApp(this);
         try {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -406,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     HashMap<String, Object> dataMap = (HashMap<String, Object>) snapshot.getValue();
 
                     for (String key : dataMap.keySet()) {
-                        boolean this_is_mine = false;
+
                         Object data = dataMap.get(key);
 
                         try {
@@ -425,6 +428,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 HashMap<String, Object> tasks = (HashMap<String, Object>) whole_data.get("Created Tasks");
                                 for (String subkey : tasks.keySet()) {
                                     Object sub_data = tasks.get(subkey);
+                                    boolean this_is_mine = false;
                                     try {
                                         HashMap<String, Object> userData = (HashMap<String, Object>) sub_data;
                                         String task_id = userData.get("A_Id").toString();
@@ -436,6 +440,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         String task_creator = userData.get("E_Creator").toString();
                                         String task_involving_project = userData.get("D_Involving_Project").toString();
                                         String task_status = userData.get("F_Status").toString();
+                                        if (!task_status.equals("completed"))
+                                            task_status = crone(task_involving_project,task_id,task_end_date);
+
                                         ArrayList<hired_member> hired_member = new ArrayList<>();
                                         HashMap<String, Object> Hired = (HashMap<String, Object>) userData.get("Hired_Members");
                                         for (String sub_subkey : Hired.keySet()) {
@@ -466,7 +473,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                     HashMap<String, Object> hired_Data = (HashMap<String, Object>) sub_feedback;
                                                     String hired_name = hired_Data.get("Author").toString();
                                                     String hired_feedback = hired_Data.get("Feedback").toString();
-                                                    item_feedback = new feedback(sub_sub_subkey,hired_name, hired_feedback);
+                                                    String feed_date = "";
+                                                    try {
+                                                        feed_date = hired_Data.get("Created Date").toString();
+                                                    }
+                                                    catch (Exception E){
+                                                        Log.e(TAG,E.toString());
+                                                    }
+                                                    item_feedback = new feedback(sub_sub_subkey,hired_name, hired_feedback, feed_date);
                                                     feedbacks.add(item_feedback);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
@@ -525,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                     }
                                                     else {
                                                         notification_message = "Hi, Your task " + task.getTask_id().toString() + " uncompleted and late. Please hurry up";
-                                                        status = "late";
+                                                        status = "Late";
                                                     }
                                                     notificationDialog(creator, notification_message, status);
 
@@ -678,6 +692,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mHandler = new Handler();
         startRepeatingTask();
+    }
+
+    private String crone(String project,String id,String task_end_date) {
+        Integer end_year = Integer.parseInt(task_end_date.split("/")[2]);
+        Integer end_month = Integer.parseInt(task_end_date.split("/")[1]);
+        Integer end_day = Integer.parseInt(task_end_date.split("/")[0]);
+
+        if (end_year > year){
+            return "On Going";
+        }else{
+            if (end_month > (month +1)){
+                return "On Going";
+            }else
+            {
+                if (end_month < (month +1)) {
+                    update_status(project,id);
+                    return "Late";
+                }
+                else {
+                    if (end_day > day)
+                        return "On Going";
+                    else {
+                        update_status(project,id);
+                        return "Late";
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private void update_status(String project, String id) {
+        FirebaseApp.initializeApp(this);
+        String target = "Project/" + project + "/Created Tasks/" + id +"/F_Status";
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(target);
+        myRef.setValue("Late");
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

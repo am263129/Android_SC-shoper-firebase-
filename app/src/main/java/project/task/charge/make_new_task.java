@@ -113,7 +113,6 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(make_new_task.this,String.valueOf(Global.mk_task_progress),Toast.LENGTH_LONG).show();
         switch (view.getId()){
             case R.id.btn_next:
                 boolean valid = true;
@@ -305,7 +304,13 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
         return make_task;
     }
 
-
+    @Override
+    public void onBackPressed()
+    {
+       Global.mk_task_progress = 0;
+       init();
+       finish();
+    }
 
 
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,11 +43,15 @@ public class taskAdapter extends ArrayAdapter<task> implements Filterable {
         TextView task_end_date = (TextView)v.findViewById(R.id.task_end_date);
         TextView task_duration = (TextView)v.findViewById(R.id.task_duration);
         TextView task_hired_person = (TextView)v.findViewById(R.id.task_hired_person);
-
+        LinearLayout task_area = (LinearLayout)v.findViewById(R.id.item_task);
         String id = array_task.get(position).getTask_id();
         String start_date = array_task.get(position).getTask_start_date();
         String end_date = array_task.get(position).getTask_end_date();
         String duration = array_task.get(position).getTask_duration();
+        if (array_task.get(position).getTask_status().equals("Late"))
+            task_area.setBackgroundResource(R.drawable.red_border);
+        else
+            task_area.setBackgroundResource(R.drawable.border);
         String upper_project = array_task.get(position).getTask_involvoing_project();
         String description = array_task.get(position).getTask_description();
         String created_date = array_task.get(position).getTask_created_date();

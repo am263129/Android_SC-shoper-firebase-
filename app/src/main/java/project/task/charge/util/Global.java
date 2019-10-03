@@ -65,7 +65,7 @@ public class Global {
     public static String TYPE = "type";
     public static String TYPE_EDIT = "edit";
     public static String TYPE_NEW = "new";
-    public static String  TYPE_DELETE = "delete";
+    public static String TYPE_DELETE = "delete";
 
 
     public static String getCountOfDays(String start_date, String end_date) {

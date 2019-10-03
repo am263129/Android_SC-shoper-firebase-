@@ -37,12 +37,14 @@ public class feedback_Adapter extends ArrayAdapter<feedback> implements Filterab
 
         TextView feedback_author = (TextView)v.findViewById(R.id.feedback_author);
         TextView feedback_content = (TextView)v.findViewById(R.id.feedback_content);
-
+        TextView feedback_date = (TextView)v.findViewById(R.id.feed_back_date);
         String author = feedbacks.get(position).getName();
         String content = feedbacks.get(position).getFeedback_content();
+        String date = feedbacks.get(position).getFeedback_date();
 
         feedback_author.setText(author);
         feedback_content.setText(content);
+        feedback_date.setText(date);
         return v;
 
     }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -34,9 +35,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.soundcloud.android.crop.Crop;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -125,10 +128,14 @@ public class profile extends AppCompatActivity {
         userPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+
+                Crop.pickImage(profile.this);
+
+//                Intent intent = new Intent();
+//                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//
+//                startActivityForResult(galleryIntent, 1);
             }
         });
 
@@ -225,9 +232,15 @@ public class profile extends AppCompatActivity {
                 myRef.setValue(userPersonalPhone.getText().toString());
                 myRef = database.getReference(id + "/Birthday");
                 myRef.setValue(userbirthday.getText().toString());
-                bitmap = ((BitmapDrawable) userPhoto.getDrawable()).getBitmap();
-                myRef = database.getReference(id + "/Photo");
-                myRef.setValue(getBase64String(bitmap));
+                try {
+                    bitmap = ((BitmapDrawable) userPhoto.getDrawable()).getBitmap();
+                    myRef = database.getReference(id + "/Photo");
+                    myRef.setValue(getBase64String(bitmap));
+                }catch (Exception e){
+                    Log.e(TAG, e.toString());
+                }
+
+
                 myRef = database.getReference(id+"/Designation");
                 myRef.setValue(userDesignation.getText().toString());
 
@@ -248,7 +261,7 @@ public class profile extends AppCompatActivity {
                 });
             }
         }catch (Exception e){
-                Toast.makeText(MainActivity.getInstance(),e.toString(),Toast.LENGTH_LONG).show();
+                Log.e(TAG,e.toString());
          }
     }
 
@@ -324,16 +337,39 @@ public class profile extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE) {
-            //TODO: action
+        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+            beginCrop(data.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, data);
+        }
+//        if (requestCode == PICK_IMAGE) {
+//            //TODO: action
+//
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+//                userPhoto.setImageBitmap(bitmap);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+    }
 
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                userPhoto.setImageBitmap(bitmap);
-            } catch (Exception e) {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Crop.getOutput(result));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            userPhoto.setImageBitmap(bitmap);
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -157,13 +157,15 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
         end_month = Integer.parseInt(task_array.get(index).getTask_end_date().split("/")[1]);
         end_day = Integer.parseInt(task_array.get(index).getTask_end_date().split("/")[0]);
 
-        if(getStatus(end_day, end_month, end_year)){
+        if(task_array.get(index).getTask_status().equals("On Going")){
             task_status_icon.setImageResource(R.drawable.ico_ongoing);
         }else task_status_icon.setImageResource(R.drawable.ico_late);
 
+        task_status.setText(task_array.get(index).getTask_status().toString());
+
         if(task_array.get(index).getTask_status().equals("completed")) {
             task_status_icon.setImageResource(R.drawable.ico_completed);
-            task_status.setText(MainActivity.getInstance().getString(R.string.status_completed));
+
 
             if(created) {
                 client_uncompleted.setVisibility(View.VISIBLE);
@@ -212,13 +214,22 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
     private boolean getStatus(Integer end_day, Integer end_month, Integer end_year) {
         if (end_year > year){
             return true;
-        }else if (end_month > month +1){
-            return true;
-        }else if (end_day > day){
-            return true;
-        }else {
-            return false;
+        }else{
+            if (end_month > (month +1)){
+                return true;
+            }else
+            {
+                if (end_month < (month +1))
+                    return false;
+                else {
+                    if (end_day > day)
+                        return true;
+                    else
+                        return false;
+                }
+            }
         }
+
     }
 
     @Override
@@ -249,7 +260,8 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
     }
 
     private boolean validate() {
-        if (!user_feedback.getText().equals("") || changed)
+        Toast.makeText(task_view.this,user_feedback.getText().toString(),Toast.LENGTH_LONG).show();
+        if ((!user_feedback.getText().toString().equals("")) || changed)
             return true;
         else
             return false;
@@ -296,6 +308,8 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
             myRef.setValue(user_feedback.getText().toString());
             myRef = database.getReference(path + "/Author");
             myRef.setValue(Global.current_user_name);
+            myRef = database.getReference(path + "/Created Date");
+            myRef.setValue(Global.getToday());
         }
 
         myRef.addValueEventListener(new ValueEventListener() {

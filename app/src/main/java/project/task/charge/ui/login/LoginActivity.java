@@ -6,11 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private ScrollView lock_screen;
     private ProgressBar loading;
     public static Integer INVALIDEMAIL = 1;
     private Integer INVLAIDPASS = 2;
@@ -36,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     private Integer VALID = 0;
     private Button login, register;
     private String TAG = "Login";
+    private Handler mHandler;
+    private Integer mInterval = 5000;
+    private Integer image_index = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
+        lock_screen = (ScrollView)findViewById(R.id.lock_screen);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
         loading = (ProgressBar)findViewById(R.id.loading);
@@ -82,6 +90,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mHandler = new Handler();
+        startRepeatingTask();
+
     }
 
     private void login() {
@@ -103,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                             Global.current_user_email = user.getEmail();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
+                            stopRepeatingTask();
                             finish();
 
                         } else {
@@ -157,5 +169,24 @@ public class LoginActivity extends AppCompatActivity {
         }
         return VALID;
     }
+
+    private void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+    public void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
+    }
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+
+            if (image_index > 6)
+                image_index = 0;
+            lock_screen.setBackgroundResource(R.drawable.lockscreen + image_index);
+            image_index ++;
+
+            mHandler.postDelayed(mStatusChecker, mInterval);
+        }
+    };
 
 }
