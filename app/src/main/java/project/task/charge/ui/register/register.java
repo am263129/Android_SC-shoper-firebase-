@@ -215,10 +215,10 @@ public class register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Log.e(TAG,"Successful");
-                    Toast.makeText(MainActivity.getInstance(),"New user Added Successfully!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.getInstance(),"Member added successfully", Toast.LENGTH_LONG).show();
                     finish();
                 }else{
-                    Toast.makeText(MainActivity.getInstance(),"New user Adding Failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.getInstance(),"Adding Failed!", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }

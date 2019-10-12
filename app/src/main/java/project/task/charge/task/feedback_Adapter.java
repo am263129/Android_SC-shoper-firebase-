@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,10 +39,12 @@ public class feedback_Adapter extends ArrayAdapter<feedback> implements Filterab
         TextView feedback_author = (TextView)v.findViewById(R.id.feedback_author);
         TextView feedback_content = (TextView)v.findViewById(R.id.feedback_content);
         TextView feedback_date = (TextView)v.findViewById(R.id.feed_back_date);
+        LinearLayout feedback_back = (LinearLayout)v.findViewById(R.id.feedback_back);
         String author = feedbacks.get(position).getName();
         String content = feedbacks.get(position).getFeedback_content();
         String date = feedbacks.get(position).getFeedback_date();
-
+        if (feedbacks.get(position).getFeedback_from().equals("True"))
+            feedback_back.setBackgroundResource(R.drawable.back_feedback_creator);
         feedback_author.setText(author);
         feedback_content.setText(content);
         feedback_date.setText(date);

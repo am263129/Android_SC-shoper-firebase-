@@ -187,7 +187,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
     }
 
     private void Sending_Email(){
-    if (!current_user_email_pass.equals("")) {
+
         Integer size = 0;
         if (Global.array_hired_members.size()>0)
             size = Global.array_hired_members.size();
@@ -196,20 +196,15 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
             send_to[i] = array_hired_members.get(i).getEmail().toString();
         }
         MainActivity.SendEmailAsyncTask email = new MainActivity.SendEmailAsyncTask();
-        email.m = new Mail(Global.current_user_email, current_user_email_pass);
+        email.m = new Mail(Global.support_email, Global.support_pass);
         email.m.set_from(Global.current_user_name);
         email.m.setBody(Global.task_email_body);
         email.m.set_to(send_to);
-        email.m.set_subject("New Task has been Created!");
+        email.m.set_subject("Charge Notification");
         email.execute();
         init();
         finish();
-    }
-    else {
-        Toast.makeText(make_new_task.this,"Sending Email is Canceled",Toast.LENGTH_LONG).show();
-        init();
-        finish();
-    }
+
 }
 
     private void uploadNewTask() {
@@ -249,7 +244,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is:" + value);
-                Toast.makeText(make_new_task.this,"Making New Task Finished Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(make_new_task.this,"task created successfully",Toast.LENGTH_LONG).show();
 
             }
 
@@ -257,7 +252,7 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
-                Toast.makeText(make_new_task.this,"Making New Task Failed. the error code is"+databaseError.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(make_new_task.this,"Creating New Task Failed. the error code is"+databaseError.toString(),Toast.LENGTH_LONG).show();
             }
         });
     }

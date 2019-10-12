@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,13 @@ public class tasks extends AppCompatActivity {
     boolean form_project = false;
     Integer pro_index;
     String origin = null;
+    TextView heading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
         ListView task_list = (ListView)findViewById(R.id.task_list);
+        heading = (TextView) findViewById(R.id.heading);
         ArrayList<task> array_all_task = new ArrayList<task>();
         final Intent intent = getIntent();
         try {
@@ -37,9 +40,11 @@ public class tasks extends AppCompatActivity {
         }
 
         if (origin.equals(Global.I_CREATED)){
+            heading.setText("Tasks by Me");
             array_all_task = Global.array_created_task;
         }
         else {
+            heading.setText("All Tasks");
             array_all_task = Global.array_all_task;
         }
         taskAdapter adapter = new taskAdapter(this,R.layout.item_user_list,array_all_task);
@@ -48,12 +53,14 @@ public class tasks extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(origin.equals(Global.I_CREATED)){
+
                     Intent call_intent = new Intent(tasks.this, task_view.class);
                     call_intent.putExtra(Global.ORIGIN,Global.I_CREATED);
                     call_intent.putExtra(Global.INDEX,i);
                     startActivity(call_intent);
                 }
                 else {
+
                     Intent call_intent = new Intent(tasks.this, task_view.class);
                     call_intent.putExtra(Global.ORIGIN, Global.ALLTASK);
                     call_intent.putExtra(Global.INDEX, i);

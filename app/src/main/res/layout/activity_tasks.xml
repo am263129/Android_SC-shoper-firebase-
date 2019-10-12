@@ -12,14 +12,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:fontFamily="@font/ts"
-            android:id="@+id/textView6"
+            android:id="@+id/heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:fontFamily="@font/ts"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="All Tasks"
             android:textSize="24sp" />
 
         <ListView

@@ -143,14 +143,15 @@ public class create_project extends AppCompatActivity {
         myRef.setValue(project_client.getText().toString());
         myRef = database.getReference(id+"/Location");
         myRef.setValue(project_location.getText().toString());
-
+        myRef = database.getReference(id+"/Visible");
+        myRef.setValue("Visible");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is:" + value);
-                Toast.makeText(create_project.this,"Making New Project Finished Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(create_project.this,"Project created successfully",Toast.LENGTH_LONG).show();
                 finish();
             }
 
@@ -158,7 +159,7 @@ public class create_project extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
-                Toast.makeText(create_project.this,"Making New project Failed. the error code is"+databaseError.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(create_project.this,"Creating New project Failed. the error code is"+databaseError.toString(),Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -29,6 +29,7 @@ public class Global {
     public static Integer mk_task_progress = 0;
     public static boolean validate_newtask = true;
     public static boolean is_admin = false;
+    public static boolean is_CEO = false;
 
     public static String task_id = "";
     public static String task_description = "";
@@ -66,6 +67,8 @@ public class Global {
     public static String TYPE_EDIT = "edit";
     public static String TYPE_NEW = "new";
     public static String TYPE_DELETE = "delete";
+    public static String support_email = "cpslcharge@gmail.com";
+    public static String support_pass = "October181992";
 
 
     public static String getCountOfDays(String start_date, String end_date) {
@@ -146,7 +149,7 @@ public class Global {
     public static class FishNameComparator implements Comparator<feedback>
     {
         public int compare(feedback left, feedback right) {
-            return right.getFeedback_id().toString().split(":")[3].compareTo(left.getFeedback_id().toString().split(":")[3]);
+            return right.getFeedback_id().toString().split(":")[0].compareTo(left.getFeedback_id().toString().split(":")[0]);
         }
     }
     public static String getToday(){

@@ -112,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Global.current_user_email = user.getEmail();
+                            if (Global.current_user_email.equals("kazeem.yusuff@cozymprosys.com"))
+                                Global.is_CEO = true;
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             stopRepeatingTask();

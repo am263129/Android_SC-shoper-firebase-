@@ -319,6 +319,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG,"Failed to rad value ", databaseError.toException());
+                Toast.makeText(MainActivity.this, "Failed to read Data", Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
             }
         });
         /*
@@ -423,6 +425,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String project_con_date = whole_data.get("Contractual End Date").toString();
                             String project_tar_date = whole_data.get("Target End Date").toString();
                             String project_created_date = whole_data.get("Created_date").toString();
+                            String project_visibility = whole_data.get("Visible").toString();
+                            if (project_visibility.equals("InVisible"))
+                                continue;
                             ArrayList<task> created_tasks = new ArrayList<task>();
                             try {
                                 HashMap<String, Object> tasks = (HashMap<String, Object>) whole_data.get("Created Tasks");
@@ -474,13 +479,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                     String hired_name = hired_Data.get("Author").toString();
                                                     String hired_feedback = hired_Data.get("Feedback").toString();
                                                     String feed_date = "";
+                                                    String feed_from = "";
                                                     try {
                                                         feed_date = hired_Data.get("Created Date").toString();
+                                                        feed_from = hired_Data.get("From Creator").toString();
                                                     }
                                                     catch (Exception E){
                                                         Log.e(TAG,E.toString());
                                                     }
-                                                    item_feedback = new feedback(sub_sub_subkey,hired_name, hired_feedback, feed_date);
+                                                    item_feedback = new feedback(sub_sub_subkey,hired_name, hired_feedback, feed_date, feed_from);
                                                     feedbacks.add(item_feedback);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
@@ -526,21 +533,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                     break;
                                                 }
                                             }
-                                            if (is_new)
+                                            if (is_new) {
                                                 Global.array_my_task.add(task);
-                                            if (!task.getTask_status().toString().equals("completed")){
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                                     String creator = task.getTask_creator().toLowerCase();
                                                     String notification_message;
                                                     String status = "";
-                                                    if (task.getTask_status().equals("On Going.")) {
-                                                        notification_message = "Hi, Your task " + task.getTask_id().toString() + " is on going";
-                                                        status = "ongoing";
-                                                    }
-                                                    else {
-                                                        notification_message = "Hi, Your task " + task.getTask_id().toString() + " uncompleted and late. Please hurry up";
-                                                        status = "Late";
-                                                    }
+                                                    notification_message = "A new task has been created for you. Please check the charge app for details";
+                                                    notificationDialog(creator, notification_message, status);
+
+                                                }
+
+                                            }
+                                            if (!task.getTask_status().toString().equals("completed") && task.getTask_status().equals("Late")){
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                                    String creator = task.getTask_creator().toLowerCase();
+                                                    String notification_message;
+                                                    String status = "";
+                                                    notification_message = "Hi, Your task " +  task.getTask_id().toString() +" Created by "+task.getTask_creator().toString()+ " uncompleted and late. Please ensure immediate closure or provide updates";
+                                                    status = "Late";
                                                     notificationDialog(creator, notification_message, status);
 
                                                 }
@@ -997,7 +1008,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 displayMessage("Authentication failed.");
                 return false;
             } catch (MessagingException e) {
-                Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
+                Log.e(SendEmailAsyncTask.class.getName(), "Email failed" + e.toString());
                 e.printStackTrace();
                 displayMessage("Email failed to send.");
                 return false;

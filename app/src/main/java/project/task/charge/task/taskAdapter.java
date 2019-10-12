@@ -1,7 +1,9 @@
 package project.task.charge.task;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import project.task.charge.MainActivity;
 import project.task.charge.R;
 import project.task.charge.member.hired_member;
 
@@ -48,10 +51,38 @@ public class taskAdapter extends ArrayAdapter<task> implements Filterable {
         String start_date = array_task.get(position).getTask_start_date();
         String end_date = array_task.get(position).getTask_end_date();
         String duration = array_task.get(position).getTask_duration();
-        if (array_task.get(position).getTask_status().equals("Late"))
+
+        if (array_task.get(position).getTask_status().equals("Late")) {
             task_area.setBackgroundResource(R.drawable.red_border);
-        else
-            task_area.setBackgroundResource(R.drawable.border);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                task_id.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_pomegranate));
+                task_start_date.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_pomegranate));
+                task_end_date.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_pomegranate));
+                task_duration.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_pomegranate));
+                task_hired_person.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_pomegranate));
+            }
+        }
+        if (array_task.get(position).getTask_status().equals("On Going")) {
+            task_area.setBackgroundResource(R.drawable.yellow_border);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                task_id.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
+                task_start_date.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
+                task_end_date.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
+                task_duration.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
+                task_hired_person.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
+            }
+        }
+        if (array_task.get(position).getTask_status().equals("Completed")) {
+            task_area.setBackgroundResource(R.drawable.green_border);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                task_id.setTextColor(MainActivity.getInstance().getColor(R.color.emerald));
+                task_start_date.setTextColor(MainActivity.getInstance().getColor(R.color.emerald));
+                task_end_date.setTextColor(MainActivity.getInstance().getColor(R.color.emerald));
+                task_duration.setTextColor(MainActivity.getInstance().getColor(R.color.emerald));
+                task_hired_person.setTextColor(MainActivity.getInstance().getColor(R.color.emerald));
+            }
+
+        }
         String upper_project = array_task.get(position).getTask_involvoing_project();
         String description = array_task.get(position).getTask_description();
         String created_date = array_task.get(position).getTask_created_date();

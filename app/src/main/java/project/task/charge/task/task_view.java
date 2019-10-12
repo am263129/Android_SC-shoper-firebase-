@@ -128,6 +128,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
             case "I_created":
                 tasklist = Global.array_created_task;
                 created = true;
+                action_for_mytask.setVisibility(View.VISIBLE);
                 action_for_client.setVisibility(View.VISIBLE);
                 action_for_both.setVisibility(View.VISIBLE);
                 show_task(tasklist, index);
@@ -302,16 +303,19 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
 
         if (created)
             myRef.setValue(task_status.getText().toString());
-        if (mytask) {
-            String path = id + "/E_Feedback/" + Global.getToday() + ":" + Global.current_user_name +":"+String.valueOf(random)+":"+String.valueOf(tasklist.get(index).getFeedbacks().size()+1);
-            myRef = database.getReference( path+ "/Feedback");
-            myRef.setValue(user_feedback.getText().toString());
-            myRef = database.getReference(path + "/Author");
-            myRef.setValue(Global.current_user_name);
-            myRef = database.getReference(path + "/Created Date");
-            myRef.setValue(Global.getToday());
-        }
 
+        String path = id + "/E_Feedback/" + String.valueOf(tasklist.get(index).getFeedbacks().size()+1) + ":" + Global.getToday() + ":" + Global.current_user_name +":"+String.valueOf(random);
+        myRef = database.getReference( path+ "/Feedback");
+        myRef.setValue(user_feedback.getText().toString());
+        myRef = database.getReference(path + "/Author");
+        myRef.setValue(Global.current_user_name);
+        myRef = database.getReference(path + "/Created Date");
+        myRef.setValue(Global.getToday());
+        myRef = database.getReference(path + "/From Creator");
+        if (created)
+            myRef.setValue("True");
+        else
+            myRef.setValue("False");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -150,7 +150,7 @@
             android:fadingEdge="horizontal"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            android:text="TextView"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:text="TextView" />
     </LinearLayout>
 </LinearLayout>
