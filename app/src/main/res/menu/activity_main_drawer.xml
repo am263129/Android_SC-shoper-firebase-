@@ -18,7 +18,7 @@
             android:title="My Tasks" />
         <item android:id="@+id/task_I_created"
             android:icon="@drawable/nav_ico_mytask"
-            android:title="My Tasks" />
+            android:title="Task I Created" />
         <item android:id="@+id/menu_profile_setting"
             android:icon="@drawable/ico_profile_setting"
             android:title="Profile" />

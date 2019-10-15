@@ -152,7 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(intent);
                         return true;
                     case R.id.task_I_created:
-                        intent = new Intent(MainActivity.this, Created_task.class);
+                        intent = new Intent(MainActivity.this, tasks.class);
+                        intent.putExtra(Global.ORIGIN,Global.I_CREATED);
                         startActivity(intent);
                         return true;
                     case R.id.menu_profile_setting:
@@ -535,7 +536,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             }
                                             if (is_new) {
                                                 Global.array_my_task.add(task);
-                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !Global.idid) {
                                                     String creator = task.getTask_creator().toLowerCase();
                                                     String notification_message;
                                                     String status = "";
@@ -545,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 }
 
                                             }
-                                            if (!task.getTask_status().toString().equals("completed") && task.getTask_status().equals("Late")){
+                                            if (!task.getTask_status().toString().equals("completed") && task.getTask_status().equals("Late") && !Global.idid){
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                                     String creator = task.getTask_creator().toLowerCase();
                                                     String notification_message;
@@ -575,10 +576,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                                 if (is_new){
                                     Global.array_project.add(project);
+                                    Created_task.reset();
                                 }
                             }
-                            else
+                            else {
                                 Global.array_project.add(project);
+
+                            }
                         } catch (Exception cce) {
                             continue;
                         }

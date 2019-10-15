@@ -50,6 +50,7 @@ public class project_list extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 if(Global.is_CEO) {
+                    Global.idid = true;
                     AlertDialog alertDialog = new AlertDialog.Builder(project_list.this).create();
                     alertDialog.setTitle("Wanning!");
                     alertDialog.setMessage("Do you want delete Project?");

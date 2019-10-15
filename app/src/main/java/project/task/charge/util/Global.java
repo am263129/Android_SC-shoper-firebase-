@@ -69,6 +69,7 @@ public class Global {
     public static String TYPE_DELETE = "delete";
     public static String support_email = "cpslcharge@gmail.com";
     public static String support_pass = "October181992";
+    public static boolean idid = false;
 
 
     public static String getCountOfDays(String start_date, String end_date) {

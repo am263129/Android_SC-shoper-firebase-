@@ -19,12 +19,16 @@ import project.task.charge.task.task;
 
 public class Created_task extends AppCompatActivity {
 
+    static ListView task_list;
+    static ArrayList<task> array_created_task = new ArrayList<task>();
+    public static Created_task self;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activiry_created_task);
-        ListView task_list = (ListView)findViewById(R.id.list_mytask);
-        ArrayList<task> array_created_task = new ArrayList<task>();
+        self = this;
+        task_list = (ListView)findViewById(R.id.list_mytask);
+
         array_created_task = Global.array_created_task;
         task_I_createdAdapter adapter = new task_I_createdAdapter(this,R.layout.item_mytasks_list,array_created_task);
         task_list.setAdapter(adapter);
@@ -38,5 +42,13 @@ public class Created_task extends AppCompatActivity {
 
             }
         });
+    }
+    public static void reset(){
+        array_created_task = Global.array_created_task;
+        task_I_createdAdapter adapter = new task_I_createdAdapter(Created_task.getInstancd(),R.layout.item_mytasks_list,array_created_task);
+        task_list.setAdapter(adapter);
+    }
+    public static Created_task getInstancd(){
+        return self;
     }
 }

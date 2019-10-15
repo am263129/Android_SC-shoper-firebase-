@@ -73,7 +73,10 @@ public class feed_editor extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_feed_edit:
-                update_data(Global.TYPE_EDIT);
+                if (!feed_content.getText().toString().equals(""))
+                    update_data(Global.TYPE_EDIT);
+                else
+                    Toast.makeText(feed_editor.this,"Invalid Input", Toast.LENGTH_LONG).show();
                 finish();
                 break;
             case R.id.btn_feed_new:

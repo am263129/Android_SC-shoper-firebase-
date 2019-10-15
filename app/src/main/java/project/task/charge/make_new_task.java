@@ -175,8 +175,10 @@ public class make_new_task extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.btn_finish:
+                Global.idid = true;
                 uploadNewTask();
-                dialog.show();
+                Sending_Email();
+//                dialog.show();
 
                 break;
 

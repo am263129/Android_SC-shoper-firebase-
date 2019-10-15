@@ -65,14 +65,14 @@ public class taskAdapter extends ArrayAdapter<task> implements Filterable {
         if (array_task.get(position).getTask_status().equals("On Going")) {
             task_area.setBackgroundResource(R.drawable.yellow_border);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                task_id.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
-                task_start_date.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
-                task_end_date.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
-                task_duration.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
-                task_hired_person.setTextColor(MainActivity.getInstance().getColor(R.color.carrot));
+                task_id.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_sun_flower));
+                task_start_date.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_sun_flower));
+                task_end_date.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_sun_flower));
+                task_duration.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_sun_flower));
+                task_hired_person.setTextColor(MainActivity.getInstance().getColor(R.color.flatui_sun_flower));
             }
         }
-        if (array_task.get(position).getTask_status().equals("Completed")) {
+        if (array_task.get(position).getTask_status().equals("completed")) {
             task_area.setBackgroundResource(R.drawable.green_border);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 task_id.setTextColor(MainActivity.getInstance().getColor(R.color.emerald));

@@ -64,8 +64,11 @@ public class create_project extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validate()){
-                    if (!project_duration.getText().equals("invalid"))
+                    if (!project_duration.getText().equals("invalid")) {
+                        Global.idid = true;
                         createProject();
+                    }
+
                     else
                         Toast.makeText(create_project.this,"Duration is invalid",Toast.LENGTH_LONG).show();
                 }

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
+import javax.microedition.khronos.opengles.GL;
+
 import project.task.charge.MainActivity;
 import project.task.charge.R;
 import project.task.charge.feed.feedback;
@@ -207,11 +209,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
             Bitmap bitmap = BitmapFactory.decodeStream(stream);
             creator.setImageBitmap(bitmap);
         }
-
-
-
     }
-
     private boolean getStatus(Integer end_day, Integer end_month, Integer end_year) {
         if (end_year > year){
             return true;
@@ -244,6 +242,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
             case R.id.btn_update_data:
                 if (validate()) {
                     update_data();
+                    changed =false;
                     user_feedback.setText("");
                 }
 
@@ -262,8 +261,10 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
 
     private boolean validate() {
         Toast.makeText(task_view.this,user_feedback.getText().toString(),Toast.LENGTH_LONG).show();
-        if ((!user_feedback.getText().toString().equals("")) || changed)
+        if ((!user_feedback.getText().toString().equals("")) || changed) {
+            changed = false;
             return true;
+        }
         else
             return false;
 
@@ -316,6 +317,7 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
             myRef.setValue("True");
         else
             myRef.setValue("False");
+        Global.idid = true;
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -336,5 +338,6 @@ public class task_view extends AppCompatActivity implements View.OnClickListener
 
     private void refresh() {
         show_task(tasklist, index);
+
     }
 }

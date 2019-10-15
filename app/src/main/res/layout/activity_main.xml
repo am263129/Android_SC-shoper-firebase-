@@ -184,7 +184,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="Lists of Tasks"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
 
                             </LinearLayout>
 
@@ -208,7 +208,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="New Task"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
                             </LinearLayout>
                         </LinearLayout>
                     </TableRow>
@@ -246,7 +246,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="My Task"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -269,7 +269,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="Tasks I Created"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
                             </LinearLayout>
                         </LinearLayout>
                     </TableRow>
@@ -308,7 +308,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="Project"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
 
                             </LinearLayout>
 
@@ -332,7 +332,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="New Project"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
                             </LinearLayout>
                         </LinearLayout>
                     </TableRow>
@@ -358,7 +358,8 @@
                                 android:layout_marginRight="5dp"
                                 android:background="@drawable/main_ico_task"
                                 android:gravity="bottom"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:paddingBottom="10dp">
 
                                 <TextView
                                     android:id="@+id/label_task"
@@ -368,7 +369,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="Task"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
 
                             </LinearLayout>
 
@@ -378,7 +379,6 @@
                                 android:layout_height="120dp"
                                 android:layout_marginLeft="5dp"
                                 android:background="@drawable/main_ico_addmember"
-                                android:clickable="false"
                                 android:gravity="bottom"
                                 android:orientation="vertical"
                                 android:paddingBottom="10dp">
@@ -391,7 +391,7 @@
                                     android:gravity="center_horizontal"
                                     android:text="Create Member"
                                     android:textColor="@color/white"
-                                    android:textSize="11dp" />
+                                    android:textSize="15dp" />
                             </LinearLayout>
 
                         </LinearLayout>
